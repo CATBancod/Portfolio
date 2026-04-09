@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sandi Bancod — UI/UX Designer</title>
+  <title>Sandi — UI/UX Designer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
@@ -100,13 +100,16 @@
       align-items: center;
       gap: 10px;
     }
-    .toggle-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+    .toggle-icon {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
       color: var(--text-muted);
-      user-select: none;
+      transition: color 0.2s;
+      flex-shrink: 0;
     }
+    .toggle-icon:hover { color: var(--text); }
+    .toggle-icon svg { width: 20px; height: 20px; display: block; }
     .toggle {
       width: 32px; height: 18px;
       background: var(--border);
@@ -538,7 +541,7 @@
 <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
 <aside class="sidebar">
   <div class="sidebar-top">
-    <span class="site-name" onclick="showPage('home')">Sandi.</span>
+    <span class="site-name" onclick="showPage('home')">Sandi Bancod.</span>
     <nav class="nav-links">
       <a onclick="showPage('home'); scrollToProjects()" class="nav-link" data-page="work">Work</a>
       <a onclick="showPage('sidequests')" class="nav-link" data-page="sidequests">Side Quests</a>
@@ -546,7 +549,22 @@
     </nav>
   </div>
   <div class="sidebar-bottom">
-    <span class="toggle-label" id="theme-label">Light</span>
+    <span class="toggle-icon" id="theme-icon" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
+      <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2" x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="2" y1="12" x2="4" y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
     <div class="toggle" onclick="toggleTheme()" role="button" aria-label="Toggle theme"></div>
   </div>
 </aside>
@@ -555,6 +573,22 @@
 <header class="mobile-nav">
   <div class="mobile-nav-left">
     <span class="mobile-site-name" onclick="navTo('home')">Sandi Bancod.</span>
+    <span class="toggle-icon" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
+      <svg id="mobile-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2" x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="2" y1="12" x2="4" y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg id="mobile-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
     <div class="mobile-toggle" onclick="toggleTheme()"></div>
   </div>
   <div class="hamburger" id="hamburger" onclick="toggleMenu()">
@@ -586,8 +620,8 @@
             <p class="status-text">UI/UX designer crafting intuitive experiences — where people-first thinking meets purposeful design.</p>
           </div>
           <div class="fade-in delay-2">
-            <p class="status-label">Based in</p>
-            <p class="status-text">Frisco, TX</p>
+            <p class="status-label">Currently</p>
+            <p class="status-text">UX/UI Designer at CEC Entertainment</p>
           </div>
           <!-- Add more blocks here later, e.g. "Open to" or "Currently at" -->
         </div>
@@ -597,10 +631,9 @@
         <h2 class="section-title fade-in">Featured Projects.</h2>
         <div class="projects-list">
 
-          <div class="project-card fade-in">
+          <div class="project-card fade-in" onclick="showPage('climbon')" style="cursor:pointer;">
             <div class="project-img-wrap">
-              <!-- SWAP → <img src="climbOn-cover.jpg" alt="ClimbOn" style="width:100%;aspect-ratio:16/8;object-fit:cover;"> -->
-              <div class="placeholder project-img">[ClimbOn — cover image]</div>
+              <img src="climbon-cover.jpg" alt="ClimbOn" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
             </div>
             <div class="project-info">
               <div class="project-tags">
@@ -615,8 +648,7 @@
 
           <div class="project-card fade-in delay-1">
             <div class="project-img-wrap">
-              <!-- SWAP → <img src="happenings-cover.jpg" alt="Happenings" style="width:100%;aspect-ratio:16/8;object-fit:cover;"> -->
-              <div class="placeholder project-img">[Happenings — cover image]</div>
+              <img src="happenings-cover.jpg" alt="Happenings" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
             </div>
             <div class="project-info">
               <div class="project-tags">
@@ -631,8 +663,7 @@
 
           <div class="project-card fade-in delay-2">
             <div class="project-img-wrap">
-              <!-- SWAP → <img src="cec-cover.jpg" alt="Chuck E. Cheese" style="width:100%;aspect-ratio:16/8;object-fit:cover;"> -->
-              <div class="placeholder project-img">[Chuck E. Cheese — cover image]</div>
+              <img src="chucke-cover.jpg" alt="Chuck E. Cheese" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
             </div>
             <div class="project-info">
               <div class="project-tags">
@@ -654,7 +685,7 @@
         <div class="contact-links">
           <!-- SWAP these href values with your real links -->
           <a href="https://linkedin.com/in/YOUR-HANDLE" target="_blank">LinkedIn</a>
-          <a href="mailto:YOUR@EMAIL.COM">Email</a>
+          <a href="/cdn-cgi/l/email-protection#b8e1f7edeaf8fdf5f9f1f496fbf7f5">Email</a>
           <a href="https://dribbble.com/YOUR-HANDLE" target="_blank">Dribbble</a>
         </div>
       </section>
@@ -734,7 +765,7 @@
       </div>
 
       <footer>
-        <p class="footer-text">Designed & coded with care — Sandi © 2025</p>
+        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
       </footer>
     </div>
   </div>
@@ -750,7 +781,7 @@
 
       <h1 class="about-headline fade-in">
         <span>Hey there,</span>
-        <span class="muted">I'm Sandi.</span>
+        <span class="muted">I'm Sandi Bancod.</span>
       </h1>
 
       <!-- Photo -->
@@ -814,7 +845,7 @@
         <p>Open to new opportunities, collaborations, or just a good conversation over coffee.</p>
         <div class="contact-links">
           <a href="https://linkedin.com/in/YOUR-HANDLE" target="_blank">LinkedIn</a>
-          <a href="mailto:YOUR@EMAIL.COM">Email</a>
+          <a href="/cdn-cgi/l/email-protection#5801170d0a181d15191114761b1715">Email</a>
           <a href="https://dribbble.com/YOUR-HANDLE" target="_blank">Dribbble</a>
         </div>
       </section>
@@ -828,8 +859,576 @@
 </div>
 
 
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: CLIMBON CASE STUDY
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-climbon">
+  <div class="main">
+    <div class="content">
+
+      <!-- Back -->
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <!-- Hero -->
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Mobile App</span>
+          <span class="tag">AR</span>
+          <span class="tag">Case Study</span>
+        </div>
+        <h1 class="cs-title">ClimbOn.</h1>
+        <p class="cs-subtitle">An AR climbing app for outdoor climbers — making route identification faster, safer, and less stressful.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UX Researcher · UI Designer</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Timeline</p>
+            <p class="cs-meta-value">July – August 2023</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Tools</p>
+            <p class="cs-meta-value">Figma · Zoom</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover image placeholder -->
+      <img src="climbon-cover.jpg" alt="ClimbOn" class="cs-cover" style="object-fit:cover;">
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">ClimbOn is a mobile AR climbing app designed to enhance the outdoor climbing experience by making route identification faster and easier. Using augmented reality, climbers can scan rock formations to locate beta in real time — reducing stress, improving safety, and allowing them to stay focused on the climb.</p>
+      </div>
+
+      <!-- Problem -->
+      <div class="cs-section">
+        <div class="cs-section-label">Problem</div>
+        <h2 class="cs-h2">Climbers were guessing their way up the wall.</h2>
+        <p class="cs-body">Through research, we discovered outdoor climbers struggle to identify routes on natural rock walls. This led to unnecessary guesswork, increased mental strain, and reduced safety and enjoyment. Physical guidebooks — the only real resource — were out of print and selling for up to $135.</p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-num">60%</span>
+            <span class="cs-stat-desc">prefer outdoor over indoor climbing</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">85%</span>
+            <span class="cs-stat-desc">interested in an AR climbing app</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">70%</span>
+            <span class="cs-stat-desc">rely on a guidebook to find routes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="cs-divider"></div>
+
+      <!-- Process -->
+      <div class="cs-section">
+        <div class="cs-section-label">Process</div>
+        <div class="cs-phases">
+          <span class="cs-phase active-phase">01 Understand</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">02 Define</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">03 Design</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">04 Reflect</span>
+        </div>
+      </div>
+
+      <!-- 01 Understand -->
+      <div class="cs-section" id="cs-understand">
+        <div class="cs-section-label">01 — Understand</div>
+        <h2 class="cs-h2">Getting to know the climbing world.</h2>
+        <p class="cs-body">We conducted a survey with 41 responses and 5 semi-structured interviews to validate our app concept. As non-climbers, this phase taught us the culture — terms like "beta," "send," and "project" became part of our vocabulary.</p>
+        <p class="cs-body">We also went on a field trip to an outdoor climbing site. Experiencing firsthand how hard it was to identify routes gave us real empathy for our users.</p>
+
+        <blockquote class="cs-quote">
+          "There's so much liberty with climbing… but the hardest part is not having enough time." — Sam N.
+        </blockquote>
+
+        <div class="cs-steps">
+          <div class="cs-step">
+            <p class="cs-step-title">Affinity Diagram</p>
+            <p class="cs-step-desc">Sorted and grouped feedback from surveys and interviews to find patterns.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Feature Prioritization</p>
+            <p class="cs-step-desc">Mapped which features were most valued by climbers based on research.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Competitive Analysis</p>
+            <p class="cs-step-desc">Reviewed Mountain Project, KAYA, and physical guidebooks to find the gap.</p>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="placeholder cs-img-wide">[Research / affinity diagram image]</div>
+      </div>
+
+      <!-- 02 Define -->
+      <div class="cs-section" id="cs-define">
+        <div class="cs-section-label">02 — Define</div>
+        <h2 class="cs-h2">Clarifying who we were designing for.</h2>
+        <p class="cs-body"><strong>Product Users:</strong> Outdoor sport climbers and boulderers, ages 20–40, who regularly climb in unfamiliar areas.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Problem Statement</p>
+            <p class="cs-callout-text">Outdoor climbers have difficulty finding routes on a rock wall and waste their time before enjoying the climb.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Hypothesis</p>
+            <p class="cs-callout-text">If we create an AR tool to help climbers identify routes, they'll have a better and less stressful climbing experience.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Value</p>
+            <p class="cs-callout-text">ClimbOn pairs climbers with appropriate routes — saving time, energy, and reducing risk of injury.</p>
+          </div>
+        </div>
+
+        <p class="cs-body" style="margin-top:32px;"><strong>Key pain points identified:</strong></p>
+        <ul class="cs-list">
+          <li>Climbers spend excessive time planning outdoor routes</li>
+          <li>Identifying routes in person is overwhelming and stressful</li>
+          <li>Anxiety around injury when attempting unfamiliar climbs</li>
+        </ul>
+      </div>
+
+      <!-- 03 Design -->
+      <div class="cs-section" id="cs-design">
+        <div class="cs-section-label">03 — Design & Test</div>
+        <h2 class="cs-h2">From rough sketches to a "groundbreaking" prototype.</h2>
+        <p class="cs-body">We explored four concepts — from a smartwatch integration to AR route scanning — and narrowed down to the most viable solution through user testing at each fidelity level.</p>
+
+        <div class="placeholder cs-img-wide">[Sketches / concept explorations]</div>
+
+        <!-- Iteration callouts -->
+        <div class="cs-iteration">
+          <p class="cs-iteration-label">Homescreen Iteration</p>
+          <p class="cs-body">Screens evolved through lo-fi and mid-fi testing. The final homescreen simplified navigation to two primary actions: Near Me and Scan Rocks.</p>
+        </div>
+        <div class="placeholder cs-img-half">[Homescreen lo-fi → hi-fi progression]</div>
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">Route Card Iteration</p>
+          <p class="cs-body">Early route cards included activity level indicators and hashtags — users found neither helpful since they'd already be at the site. We stripped these and focused on what climbers actually needed: hold types, ratings, and route description.</p>
+        </div>
+        <div class="placeholder cs-img-half">[Route card before → after]</div>
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">A/B Test — Beta Toggle</p>
+          <p class="cs-body">Users were split on seeing route beta (hold labels) in the AR view. Some found it helpful; others considered it "cheating." Our solution: an optional toggle so climbers could choose their own experience.</p>
+        </div>
+        <div class="placeholder cs-img-half">[Beta toggle A/B test screens]</div>
+      </div>
+
+      <!-- Final design -->
+      <div class="cs-section">
+        <div class="cs-section-label">Final Design</div>
+        <h2 class="cs-h2">Four key flows, refined through testing.</h2>
+
+        <div class="cs-flows">
+          <div class="cs-flow">
+            <p class="cs-flow-num">01</p>
+            <p class="cs-flow-name">Onboarding</p>
+            <p class="cs-flow-desc">Sign in, grant permissions, learn the core features.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">02</p>
+            <p class="cs-flow-name">Near Me</p>
+            <p class="cs-flow-desc">Search nearby rock formations, explore areas, decide where to go.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">03</p>
+            <p class="cs-flow-name">Scan Rocks</p>
+            <p class="cs-flow-desc">Use AR to locate routes, view beta, and read climber comments.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">04</p>
+            <p class="cs-flow-name">ClimbList</p>
+            <p class="cs-flow-desc">Save routes as projects, log sends, and track attempts.</p>
+          </div>
+        </div>
+
+        <div class="placeholder cs-cover" style="margin-top:32px;">[Hi-fi prototype screens]</div>
+      </div>
+
+      <!-- Impact -->
+      <div class="cs-section">
+        <div class="cs-section-label">Impact</div>
+        <h2 class="cs-h2">A digital guidebook in their hands.</h2>
+        <p class="cs-body">We delivered an AR-powered experience that allows climbers to quickly scan rock formations, access real-time beta, and approach each ascent with greater safety, clarity, and confidence.</p>
+
+        <div class="cs-quotes">
+          <blockquote class="cs-quote">"This is a huge improvement over the book." — Ethan V.</blockquote>
+          <blockquote class="cs-quote">"It's like a digital guidebook in my hand." — Parker B.</blockquote>
+          <blockquote class="cs-quote">"This is groundbreaking!" — Sam N.</blockquote>
+        </div>
+      </div>
+
+      <!-- Reflect -->
+      <div class="cs-section" id="cs-reflect">
+        <div class="cs-section-label">04 — Reflect</div>
+        <h2 class="cs-h2">What we learned.</h2>
+
+        <ul class="cs-list">
+          <li>Initial interviews are invaluable when designing for a culture you're unfamiliar with.</li>
+          <li>Usability testing at every fidelity level consistently surfaced features worth refining or cutting.</li>
+          <li>Field testing gave us empathy we couldn't have gained from a screen alone.</li>
+        </ul>
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">Next Steps</p>
+          <ul class="cs-list">
+            <li>A social component and mentorship feature for the climbing community</li>
+            <li>Integration with the Mountain Project API for real route data</li>
+            <li>Revisiting the smartwatch concept explored early in ideation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Nav between case studies -->
+      <div class="cs-nav-row">
+        <div></div>
+        <a class="cs-next" onclick="showPage('happenings')">Next: Happenings →</a>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<style>
+  /* ── CASE STUDY STYLES ─────────────────────────────────── */
+  .cs-back {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: 48px;
+    transition: color 0.2s;
+  }
+  .cs-back:hover { color: var(--text); }
+
+  .cs-hero { margin-bottom: 48px; }
+  .cs-title {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    margin-bottom: 16px;
+  }
+  .cs-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .cs-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cs-meta-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .cs-meta-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .cs-cover {
+    width: 100%;
+    aspect-ratio: 16/8;
+    border-radius: var(--card-radius);
+    margin-bottom: 72px;
+  }
+  .cs-img-wide {
+    width: 100%;
+    aspect-ratio: 16/7;
+    border-radius: var(--card-radius);
+    margin-top: 32px;
+  }
+  .cs-img-half {
+    width: 100%;
+    aspect-ratio: 16/7;
+    border-radius: var(--card-radius);
+    margin-top: 16px;
+  }
+
+  .cs-section {
+    margin-bottom: 72px;
+  }
+  .cs-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .cs-h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .cs-body {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    max-width: 620px;
+    margin-bottom: 16px;
+  }
+  .cs-body strong { color: var(--text); font-weight: 700; }
+
+  .cs-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0 72px;
+  }
+
+  /* Stats */
+  .cs-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+  }
+  .cs-stat {
+    flex: 1;
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cs-stat:last-child { border-right: none; }
+  .cs-stat-num {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .cs-stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Process phases */
+  .cs-phases {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .cs-phase {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+  .active-phase { color: var(--text); }
+  .cs-phase-sep { color: var(--border); font-size: 0.9rem; }
+
+  /* Quote */
+  .cs-quote {
+    border-left: 2px solid var(--text);
+    padding-left: 20px;
+    margin: 28px 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+  .cs-quotes { display: flex; flex-direction: column; gap: 0; margin-top: 28px; }
+
+  /* Steps */
+  .cs-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .cs-step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 20px;
+  }
+  .cs-step-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-step-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Callouts */
+  .cs-callout-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cs-callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 22px;
+  }
+  .cs-callout-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .cs-callout-text {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* List */
+  .cs-list {
+    list-style: none;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+  }
+  .cs-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+  }
+  .cs-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  /* Iteration */
+  .cs-iteration {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .cs-iteration-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  /* Flows */
+  .cs-flows {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cs-flow {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 20px;
+  }
+  .cs-flow-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .cs-flow-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-flow-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Case study nav */
+  .cs-nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .cs-next {
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+  .cs-next:hover { opacity: 0.5; }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .cs-steps { grid-template-columns: 1fr; }
+    .cs-callout-row { grid-template-columns: 1fr; }
+    .cs-flows { grid-template-columns: repeat(2, 1fr); }
+    .cs-stats { flex-direction: column; }
+    .cs-stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .cs-stat:last-child { border-bottom: none; }
+    .cs-meta { gap: 24px; }
+  }
+</style>
+
 <!-- ─── JS ──────────────────────────────────────────────────── -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
@@ -860,12 +1459,22 @@
     document.body.style.overflow = open ? 'hidden' : '';
   }
 
+  function setIcons(isDark) {
+    const sun = document.getElementById('icon-sun');
+    const moon = document.getElementById('icon-moon');
+    const msun = document.getElementById('mobile-icon-sun');
+    const mmoon = document.getElementById('mobile-icon-moon');
+    if (sun) sun.style.display = isDark ? 'none' : 'block';
+    if (moon) moon.style.display = isDark ? 'block' : 'none';
+    if (msun) msun.style.display = isDark ? 'none' : 'block';
+    if (mmoon) mmoon.style.display = isDark ? 'block' : 'none';
+  }
+
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
     html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    const label = document.getElementById('theme-label');
-    if (label) label.textContent = isDark ? 'Light' : 'Dark';
+    setIcons(!isDark);
     localStorage.setItem('theme', isDark ? 'light' : 'dark');
   }
 
@@ -873,10 +1482,13 @@
     const saved = localStorage.getItem('theme');
     if (saved === 'dark') {
       document.documentElement.setAttribute('data-theme', 'dark');
-      const label = document.getElementById('theme-label');
-      if (label) label.textContent = 'Dark';
     }
   })();
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const saved = localStorage.getItem('theme');
+    setIcons(saved === 'dark');
+  });
 </script>
 </body>
 </html>
