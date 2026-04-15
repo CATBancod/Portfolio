@@ -646,7 +646,7 @@
             </div>
           </div>
 
-          <div class="project-card fade-in delay-1">
+          <div class="project-card fade-in delay-1" onclick="showPage('happenings')" style="cursor:pointer;">
             <div class="project-img-wrap">
               <img src="happenings-cover.jpg" alt="Happenings" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
             </div>
@@ -1117,7 +1117,210 @@
 </div>
 
 
-<style>
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: HAPPENINGS CASE STUDY
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-happenings">
+  <div class="main">
+    <div class="content">
+
+      <!-- Back -->
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <!-- Hero -->
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Mobile App</span>
+          <span class="tag">Social</span>
+          <span class="tag">Case Study</span>
+        </div>
+        <h1 class="cs-title">Happenings.</h1>
+        <p class="cs-subtitle">A community-focused event planning app designed to make gathering with the people you love feel effortless again.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UX Researcher · UI Designer</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Timeline</p>
+            <p class="cs-meta-value">March – April 2023</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Tools</p>
+            <p class="cs-meta-value">Figma</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <img src="happenings-cover.jpg" alt="Happenings" class="cs-cover" style="object-fit:cover;">
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">Happenings is a community-focused app designed to simplify the process of planning and organizing gatherings. In a post-pandemic world where meaningful connections are more important than ever, Happenings streamlines the planning process — fostering a sense of belonging, connection, and community.</p>
+      </div>
+
+      <!-- Problem -->
+      <div class="cs-section">
+        <div class="cs-section-label">Problem</div>
+        <h2 class="cs-h2">After the pandemic, gathering felt harder than it should.</h2>
+        <p class="cs-body">One of the biggest challenges people faced post-pandemic was relearning how to connect. Relationships are a basic human necessity — and a lack of meaningful connection directly correlates to a lower quality of life. Yet planning a gathering remained overwhelming, fragmented, and stressful.</p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-num">80%</span>
+            <span class="cs-stat-desc">of respondents have hosted a small gathering</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">64%</span>
+            <span class="cs-stat-desc">interested in food, mood & music pairings</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">97</span>
+            <span class="cs-stat-desc">adults surveyed across 10 questions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- Process -->
+      <div class="cs-section">
+        <div class="cs-section-label">Process</div>
+        <div class="cs-phases">
+          <span class="cs-phase active-phase">01 Discover</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">02 Define</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">03 Ideate</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">04 Design</span>
+        </div>
+      </div>
+
+      <!-- 01 Discover -->
+      <div class="cs-section" id="hap-discover">
+        <div class="cs-section-label">01 — Discover</div>
+        <h2 class="cs-h2">We started with a wrong assumption.</h2>
+        <p class="cs-body">Initially, we assumed a need for a drink-mixing app. But after surveying 97 adults and conducting 8 semi-structured interviews, a different unfulfilled need emerged — people didn't want better cocktails. They wanted better gatherings.</p>
+
+        <blockquote class="cs-quote">
+          "There is less interest in mixing drinks at a party, and more interest in creating an environment where guests feel comfortable and happy."
+        </blockquote>
+
+        <div class="cs-steps">
+          <div class="cs-step">
+            <p class="cs-step-title">Survey</p>
+            <p class="cs-step-desc">97 adults (ages 21+), 10 questions on gatherings, community, and social habits.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Interviews</p>
+            <p class="cs-step-desc">8 semi-structured interviews (ages 21–36) to drill down on specific feelings and viewpoints.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Competitor Analysis</p>
+            <p class="cs-step-desc">Reviewed Partiful, Evite, Pinterest, Big Night, and Make Me a Cocktail to identify key gaps.</p>
+          </div>
+        </div>
+
+        <!-- Image placeholder — swap when ready -->
+        <div class="placeholder cs-img-wide" style="margin-top:32px;">[Research / affinity diagram image]</div>
+      </div>
+
+      <!-- 02 Define -->
+      <div class="cs-section" id="hap-define">
+        <div class="cs-section-label">02 — Define</div>
+        <h2 class="cs-h2">What people actually needed.</h2>
+        <p class="cs-body"><strong>Our user:</strong> The Hostess — a 27-year-old marketing manager in Austin who loves bringing friends together but struggles to make every gathering feel cohesive and fun for everyone.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Pain Points</p>
+            <p class="cs-callout-text">Planning is difficult. Hosts want all guests to have a great time. Poor communication around attendance affects planning. Guests feel anxious about not connecting.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Hypothesis</p>
+            <p class="cs-callout-text">If we make the planning aspect easy and enjoyable, people will feel more fulfilled and connected to those around them.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Necessities</p>
+            <p class="cs-callout-text">Good ambiance (music, energy, atmosphere). Food and drinks for all guests. Themes that bring people together. Easy, frictionless planning.</p>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="placeholder cs-img-wide" style="margin-top:32px;">[User persona / affinity diagram]</div>
+      </div>
+
+      <!-- 03 Ideate -->
+      <div class="cs-section" id="hap-ideate">
+        <div class="cs-section-label">03 — Ideate</div>
+        <h2 class="cs-h2">Two flows, one big insight.</h2>
+        <p class="cs-body">We explored two approaches to the core planning experience and tested them head-to-head:</p>
+
+        <div class="cs-callout-row" style="margin-top:20px;">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Wizard Flow</p>
+            <p class="cs-callout-text">Step-by-step guided planning — structured, predictable, easy to follow. Users set size, theme, date, location, and invites in sequence.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Random Flow</p>
+            <p class="cs-callout-text">AI-generated theme suggestions users swipe through — more playful and exploratory, but less control for the host.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Testing Results</p>
+            <p class="cs-callout-text">6 out of 9 users preferred the Wizard Flow for its clarity — but loved the visual energy of the Random Flow's theme cards.</p>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <div class="placeholder cs-img-wide" style="margin-top:32px;">[Sketches / lo-fi wireframes]</div>
+      </div>
+
+      <!-- 04 Design -->
+      <div class="cs-section" id="hap-design">
+        <div class="cs-section-label">04 — Design</div>
+        <h2 class="cs-h2">The final experience.</h2>
+        <p class="cs-body">The final design combines the structure of the Wizard Flow with the visual delight of the Random Flow's theme cards — giving hosts both clarity and creativity. The app walks users through size, theme selection, date, location, and invites in a seamless sequence.</p>
+
+        <!-- Image placeholders — swap when ready -->
+        <div class="placeholder cs-img-wide" style="margin-top:32px;">[Final screens — coming soon]</div>
+      </div>
+
+      <!-- Impact -->
+      <div class="cs-section">
+        <div class="cs-section-label">Impact</div>
+        <h2 class="cs-h2">Making it happen.</h2>
+        <p class="cs-body">Happenings removes the barriers to social interaction — encouraging people to engage more actively in their social lives, cultivating belonging and community in the post-pandemic era.</p>
+      </div>
+
+      <!-- Reflect -->
+      <div class="cs-section">
+        <div class="cs-section-label">Reflect</div>
+        <h2 class="cs-h2">What's next.</h2>
+        <p class="cs-body">Our research pointed to one clear next step — building the guest experience. The current app is host-focused, but guests need their own flow too.</p>
+        <ul class="cs-list">
+          <li>Build a "Hybrid" workflow combining the structure of Wizard with the visuals of Random</li>
+          <li>Develop a full collaborative guest experience feature</li>
+          <li>Explore AI-assisted theme and activity suggestions based on group size and preferences</li>
+        </ul>
+      </div>
+
+      <!-- Nav -->
+      <div class="cs-nav-row">
+        <a class="cs-next" onclick="showPage('climbon')" style="border-bottom:2px solid var(--text-muted);color:var(--text-muted);">← ClimbOn</a>
+        <a class="cs-next" onclick="showPage('chucke')">Next: Chuck E. Cheese →</a>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
   /* ── CASE STUDY STYLES ─────────────────────────────────── */
   .cs-back {
     display: inline-block;
