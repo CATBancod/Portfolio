@@ -970,7 +970,7 @@
         </div>
 
         <!-- Image placeholder -->
-        <img src="climbon-research.jpg" alt="Affinity diagram, feature prioritization, storyboard" class="cs-img-wide" style="object-fit:cover;border-radius:var(--card-radius);">
+        <img src="climbon-research.jpg" alt="Affinity diagram, feature prioritization, storyboard" class="cs-img-wide">
       </div>
 
       <!-- 02 Define -->
@@ -1008,26 +1008,26 @@
         <h2 class="cs-h2">From rough sketches to a "groundbreaking" prototype.</h2>
         <p class="cs-body">We explored four concepts — from a smartwatch integration to AR route scanning — and narrowed down to the most viable solution through user testing at each fidelity level.</p>
 
-        <img src="climbon-sketches.jpg" alt="Concept sketches" class="cs-img-wide" style="object-fit:cover;border-radius:var(--card-radius);">
+        <img src="climbon-sketches.jpg" alt="Concept sketches" class="cs-img-wide">
 
         <!-- Iteration callouts -->
         <div class="cs-iteration">
           <p class="cs-iteration-label">Homescreen Iteration</p>
           <p class="cs-body">Screens evolved through lo-fi and mid-fi testing. The final homescreen simplified navigation to two primary actions: Near Me and Scan Rocks.</p>
         </div>
-        <img src="climbon-homescreen.jpg" alt="Homescreen iterations" class="cs-img-half" style="object-fit:cover;border-radius:var(--card-radius);">
+        <img src="climbon-homescreen.jpg" alt="Homescreen iterations" class="cs-img-half">
 
         <div class="cs-iteration" style="margin-top:40px;">
           <p class="cs-iteration-label">Route Card Iteration</p>
           <p class="cs-body">Early route cards included activity level indicators and hashtags — users found neither helpful since they'd already be at the site. We stripped these and focused on what climbers actually needed: hold types, ratings, and route description.</p>
         </div>
-        <img src="climbon-routecard.jpg" alt="Route card iterations" class="cs-img-half" style="object-fit:cover;border-radius:var(--card-radius);">
+        <img src="climbon-routecard.jpg" alt="Route card iterations" class="cs-img-half">
 
         <div class="cs-iteration" style="margin-top:40px;">
           <p class="cs-iteration-label">A/B Test — Beta Toggle</p>
           <p class="cs-body">Users were split on seeing route beta (hold labels) in the AR view. Some found it helpful; others considered it "cheating." Our solution: an optional toggle so climbers could choose their own experience.</p>
         </div>
-        <img src="climbon-toggle.jpg" alt="Beta toggle A/B test" class="cs-img-half" style="object-fit:cover;border-radius:var(--card-radius);">
+        <img src="climbon-toggle.jpg" alt="Beta toggle A/B test" class="cs-img-half">
       </div>
 
       <!-- Final design -->
@@ -1059,13 +1059,13 @@
         </div>
 
         <p class="cs-img-label">01 — Onboarding</p>
-        <img src="climbon-final-onboarding.jpg" alt="Onboarding flow" class="cs-img-wide" style="object-fit:cover;border-radius:var(--card-radius);margin-top:8px;">
+        <img src="climbon-final-onboarding.jpg" alt="Onboarding flow" class="cs-img-wide" style="margin-top:8px;">
         <p class="cs-img-label" style="margin-top:32px;">02 — Near Me & Routes</p>
-        <img src="climbon-final-routes.jpg" alt="Routes flow" style="width:100%;height:auto;border-radius:var(--card-radius);margin-top:8px;display:block;">
+        <img src="climbon-final-routes.jpg" alt="Routes flow" class="cs-img-wide" style="margin-top:8px;">
         <p class="cs-img-label" style="margin-top:32px;">03 — Scan Rocks</p>
-        <img src="climbon-final-scan.jpg" alt="Scan Rocks flow" style="width:100%;height:auto;border-radius:var(--card-radius);margin-top:8px;display:block;">
+        <img src="climbon-final-scan.jpg" alt="Scan Rocks flow" class="cs-img-wide" style="margin-top:8px;">
         <p class="cs-img-label" style="margin-top:32px;">04 — ClimbList</p>
-        <img src="climbon-final-climblist.jpg" alt="ClimbList flow" class="cs-img-wide" style="object-fit:cover;border-radius:var(--card-radius);margin-top:8px;">
+        <img src="climbon-final-climblist.jpg" alt="ClimbList flow" class="cs-img-wide" style="margin-top:8px;">
       </div>
 
       <!-- Impact -->
@@ -1181,14 +1181,17 @@
     color: var(--text-muted);
     margin-top: 32px;
   }
+  .cs-img-wide {
     width: 100%;
-    aspect-ratio: 16/7;
+    height: auto;
+    display: block;
     border-radius: var(--card-radius);
     margin-top: 32px;
   }
   .cs-img-half {
     width: 100%;
-    aspect-ratio: 16/7;
+    height: auto;
+    display: block;
     border-radius: var(--card-radius);
     margin-top: 16px;
   }
