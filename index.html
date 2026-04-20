@@ -1515,19 +1515,24 @@
   .cs-img-label + .placeholder {
     margin-top: 0 !important;
   }
+  /* Images not preceded by a label get their own top spacing */
+  .cs-section > img.cs-img-wide,
+  .cs-section > img.cs-img-half {
+    margin-top: 32px;
+  }
   .cs-img-wide {
     width: 100%;
     height: auto;
     display: block;
     border-radius: var(--card-radius);
-    margin-top: 32px;
+    margin-top: 0;
   }
   .cs-img-half {
     width: 100%;
     height: auto;
     display: block;
     border-radius: var(--card-radius);
-    margin-top: 16px;
+    margin-top: 0;
   }
 
   .cs-section {
