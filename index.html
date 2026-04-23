@@ -353,10 +353,10 @@
     .about-headline span { display: block; }
     .about-headline .muted { color: var(--text-muted); }
 
-  .about-photo-light { display: block; }
-  .about-photo-dark  { display: none; }
-  [data-theme="dark"] .about-photo-light { display: none; }
-  [data-theme="dark"] .about-photo-dark  { display: block; }
+  .about-photo .about-photo-dark  { display: none; }
+  .about-photo .about-photo-light { display: block; }
+  [data-theme="dark"] .about-photo .about-photo-light { display: none; }
+  [data-theme="dark"] .about-photo .about-photo-dark  { display: block; }
       width: 100%;
       max-width: 480px;
       height: auto;
@@ -801,7 +801,7 @@
       <!-- Photo -->
       <div class="about-photo">
         <img src="about-photo-light.jpg" alt="Sandi" class="about-photo-light" style="width:100%;height:auto;display:block;">
-        <img src="about-photo-dark.jpg" alt="Sandi" class="about-photo-dark" style="width:100%;height:auto;display:none;">
+        <img src="about-photo-dark.jpg" alt="Sandi" class="about-photo-dark" style="width:100%;height:auto;display:block;">
       </div>
 
       <!-- Bio -->
