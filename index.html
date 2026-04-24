@@ -6,15 +6,44 @@
   <script>
     (function() {
       var saved = localStorage.getItem('theme');
+      // Always light unless user explicitly chose dark via the toggle
       document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+      // Block system dark mode from ever applying
+      document.documentElement.style.colorScheme = saved === 'dark' ? 'dark' : 'light';
     })();
   </script>
   <title>Sandi — UI/UX Designer</title>
+  <meta name="color-scheme" content="light dark">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 
   <style>
+    /* Force light mode as default — ignore system dark mode preference */
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme="dark"]) {
+        --bg:        #F5F5F3;
+        --bg-card:   #EBEBEA;
+        --text:      #111110;
+        --text-muted:#888886;
+        --border:    rgba(17,17,16,0.10);
+        --nav-bg:    #F5F5F3;
+        --ph-bg:     #DDDDD9;
+        --ph-text:   #AAAAAA;
+      }
+      html:not([data-theme="dark"]) body {
+        background-color: #F5F5F3 !important;
+        color: #111110 !important;
+      }
+      html:not([data-theme="dark"]) .sidebar,
+      html:not([data-theme="dark"]) .mobile-nav,
+      html:not([data-theme="dark"]) .main,
+      html:not([data-theme="dark"]) .page {
+        background-color: #F5F5F3 !important;
+        color: #111110 !important;
+      }
+    }
+
     /* ─── TOKENS ───────────────────────────────────────────── */
     :root {
       --bg:          #F5F5F3;
@@ -165,12 +194,13 @@
     /* ═══════════════════════════════════════════════════════
        HOME
     ═══════════════════════════════════════════════════════ */
-    .hero { margin-bottom: 140px; }
+    .hero { margin-bottom: 140px; overflow: visible; }
     .hero-headline {
-      font-size: clamp(3.2rem, 6vw, 5.6rem);
+      font-size: clamp(1.8rem, 12vw, 5.6rem);
       font-weight: 900;
       line-height: 1.0;
       letter-spacing: -0.04em;
+      white-space: nowrap;
     }
     .hero-headline span { display: block; }
     .hero-headline .muted { color: var(--text-muted); }
@@ -537,7 +567,7 @@
       .sidebar { display: none; }
       .mobile-nav { display: flex; }
       .main { margin-left: 0; }
-      .content { padding: 72px 20px 80px; }
+      .content { padding: 140px 20px 80px; }
       .sq-grid { grid-template-columns: 1fr; }
     }
     @media (min-width: 801px) {
@@ -1795,9 +1825,11 @@
   function toggleTheme() {
     const html = document.documentElement;
     const isDark = html.getAttribute('data-theme') === 'dark';
-    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    const next = isDark ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    html.style.colorScheme = next;
     setIcons(!isDark);
-    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('theme', next);
   }
 
   (function () {
