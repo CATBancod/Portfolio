@@ -113,7 +113,7 @@
       color: var(--text);
       transition: opacity 0.2s;
     }
-    .site-name:hover { opacity: 0.5; }
+    .site-name:hover { color: #FF93DB; }
     .nav-links {
       display: flex;
       flex-direction: column;
@@ -204,6 +204,8 @@
     }
     .hero-headline span { display: block; }
     .hero-headline .muted { color: var(--text-muted); }
+    .hero-headline span:first-child { transition: color 0.2s; }
+    .hero-headline span:first-child:hover { color: #FF93DB; }
 
     .status-block {
       margin-top: 48px;
@@ -523,7 +525,7 @@
       transition: background 0.25s;
     }
     .mobile-nav-left { display: flex; align-items: center; gap: 12px; }
-    .mobile-site-name { font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .mobile-site-name:hover { color: #FF93DB; }
     .mobile-toggle {
       width: 28px; height: 16px;
       background: var(--border);
