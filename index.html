@@ -305,53 +305,30 @@
     }
     .contact-cards { display: flex; gap: 12px; flex-wrap: wrap; }
     .contact-card {
-      flex: 1;
-      min-width: 180px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
       border: 1.5px solid var(--border);
-      border-radius: 10px;
+      border-radius: 999px;
       text-decoration: none;
       color: var(--text);
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s;
       cursor: pointer;
     }
-    .contact-card:hover {
-      border-color: var(--text);
-      transform: translateY(-2px);
-    }
+    .contact-card:hover { border-color: var(--text); }
     .contact-card-icon {
-      width: 26px; height: 26px;
-      background: var(--bg-card);
-      border-radius: 6px;
+      width: 22px; height: 22px;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
     }
-    .contact-card-icon svg { width: 12px; height: 12px; }
-    .contact-card-body { flex: 1; }
-    .contact-card-label {
-      font-size: 0.58rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1px;
-    }
+    .contact-card-icon svg { width: 14px; height: 14px; }
     .contact-card-value {
-      font-size: 0.75rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: var(--text);
-    }
-    .contact-card-arrow {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      transition: transform 0.2s, color 0.2s;
-    }
-    .contact-card:hover .contact-card-arrow {
-      transform: translateX(3px);
-      color: var(--text);
+      letter-spacing: -0.01em;
     }
 
     /* Footer */
@@ -612,6 +589,23 @@
     .delay-3 { animation-delay: 0.24s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
+    /* ── Scroll reveal ────────────────────────────────────── */
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .projects-list .will-reveal:nth-child(2) { transition-delay: 0.1s; }
+    .projects-list .will-reveal:nth-child(3) { transition-delay: 0.2s; }
+    .projects-list .will-reveal:nth-child(4) { transition-delay: 0.3s; }
+    .sq-grid .will-reveal:nth-child(2) { transition-delay: 0.08s; }
+    .sq-grid .will-reveal:nth-child(3) { transition-delay: 0.16s; }
+    .sq-grid .will-reveal:nth-child(4) { transition-delay: 0.24s; }
+
     /* ═══════════════════════════════════════════════════════
        RESPONSIVE
     ═══════════════════════════════════════════════════════ */
@@ -786,28 +780,20 @@
       </section>
 
       <section class="contact-section">
-        <h2>I'd love to hear from you.</h2>
+        <h2>I'd love to hear from you!</h2>
         <p>Open to new opportunities and collaborations.</p>
         <div class="contact-cards">
           <a class="contact-card" href="mailto:sandibanc@gmail.com">
             <div class="contact-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
             </div>
-            <div class="contact-card-body">
-              <p class="contact-card-label">Email</p>
-              <p class="contact-card-value">sandibanc@gmail.com</p>
-            </div>
-            <span class="contact-card-arrow">→</span>
+            <span class="contact-card-value">Email</span>
           </a>
           <a class="contact-card" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">
             <div class="contact-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </div>
-            <div class="contact-card-body">
-              <p class="contact-card-label">LinkedIn</p>
-              <p class="contact-card-value">linkedin.com/in/catherine-alessandra-bancod</p>
-            </div>
-            <span class="contact-card-arrow">→</span>
+            <span class="contact-card-value">LinkedIn</span>
           </a>
         </div>
       </section>
@@ -931,28 +917,20 @@
 
       <!-- Contact -->
       <section class="contact-section">
-        <h2>I'd love to hear from you.</h2>
+        <h2>I'd love to hear from you!</h2>
         <p>Open to new opportunities and collaborations.</p>
         <div class="contact-cards">
           <a class="contact-card" href="mailto:sandibanc@gmail.com">
             <div class="contact-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
             </div>
-            <div class="contact-card-body">
-              <p class="contact-card-label">Email</p>
-              <p class="contact-card-value">sandibanc@gmail.com</p>
-            </div>
-            <span class="contact-card-arrow">→</span>
+            <span class="contact-card-value">Email</span>
           </a>
           <a class="contact-card" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">
             <div class="contact-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
             </div>
-            <div class="contact-card-body">
-              <p class="contact-card-label">LinkedIn</p>
-              <p class="contact-card-value">linkedin.com/in/catherine-alessandra-bancod</p>
-            </div>
-            <span class="contact-card-arrow">→</span>
+            <span class="contact-card-value">LinkedIn</span>
           </a>
         </div>
       </section>
@@ -2038,6 +2016,35 @@
   document.addEventListener('DOMContentLoaded', function() {
     const saved = localStorage.getItem('theme');
     setIcons(saved === 'dark');
+
+    // ── Scroll reveal ──────────────────────────────────────
+    const revealEls = document.querySelectorAll(
+      '.project-card, .cs-section, .sq-card, .cs-hero, .cs-stats, .cs-callout-row, .cs-flows, .cs-steps, .about-photo, .interests-section, .about-section, .contact-section, .page-intro'
+    );
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => {
+      el.classList.add('will-reveal');
+      revealObserver.observe(el);
+    });
+
+    // ── Hero parallax ──────────────────────────────────────
+    const heroHeadline = document.querySelector('.hero-headline');
+    const statusBlock  = document.querySelector('.status-block');
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroHeadline) heroHeadline.style.transform = `translateY(${y * 0.18}px)`;
+      if (statusBlock)  statusBlock.style.transform  = `translateY(${y * 0.08}px)`;
+    }, { passive: true });
   });
 </script>
 </body>
