@@ -299,19 +299,60 @@
     .contact-section p {
       font-size: 0.93rem;
       color: var(--text-muted);
-      margin-bottom: 24px;
+      margin-bottom: 28px;
       max-width: 440px;
       line-height: 1.7;
     }
-    .contact-links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .contact-links a {
+    .contact-cards { display: flex; gap: 16px; flex-wrap: wrap; }
+    .contact-card {
+      flex: 1;
+      min-width: 220px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .contact-card:hover {
+      border-color: var(--text);
+      transform: translateY(-2px);
+    }
+    .contact-card-icon {
+      width: 40px; height: 40px;
+      background: var(--bg-card);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card-icon svg { width: 18px; height: 18px; }
+    .contact-card-body { flex: 1; }
+    .contact-card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .contact-card-value {
       font-size: 0.88rem;
       font-weight: 700;
-      border-bottom: 2px solid var(--text);
-      padding-bottom: 1px;
-      transition: opacity 0.2s;
+      color: var(--text);
     }
-    .contact-links a:hover { opacity: 0.45; }
+    .contact-card-arrow {
+      font-size: 1rem;
+      color: var(--text-muted);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .contact-card:hover .contact-card-arrow {
+      transform: translateX(3px);
+      color: var(--text);
+    }
 
     /* Footer */
     footer {
@@ -319,6 +360,17 @@
       padding: 24px 0 0;
     }
     .footer-text { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-heart {
+      display: inline-block;
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.25); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.18); }
+      56%       { transform: scale(1); }
+    }
 
     /* ═══════════════════════════════════════════════════════
        SIDE QUESTS
@@ -736,15 +788,32 @@
       <section class="contact-section">
         <h2>Let's Connect.</h2>
         <p>Open to new opportunities and collaborations.</p>
-        <div class="contact-links">
-          <!-- SWAP these href values with your real links -->
-          <a href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">LinkedIn</a>
-          <a href="mailto:sandibanc@gmail.com">Email</a>
+        <div class="contact-cards">
+          <a class="contact-card" href="mailto:sandibanc@gmail.com">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            </div>
+            <div class="contact-card-body">
+              <p class="contact-card-label">Email</p>
+              <p class="contact-card-value">sandibanc@gmail.com</p>
+            </div>
+            <span class="contact-card-arrow">→</span>
+          </a>
+          <a class="contact-card" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div class="contact-card-body">
+              <p class="contact-card-label">LinkedIn</p>
+              <p class="contact-card-value">linkedin.com/in/catherine-alessandra-bancod</p>
+            </div>
+            <span class="contact-card-arrow">→</span>
+          </a>
         </div>
       </section>
 
       <footer>
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
@@ -805,7 +874,7 @@
       </div>
 
       <footer>
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
     </div>
   </div>
@@ -864,14 +933,32 @@
       <section class="contact-section">
         <h2>Let's Connect.</h2>
         <p>Open to new opportunities and collaborations.</p>
-        <div class="contact-links">
-          <a href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">LinkedIn</a>
-          <a href="mailto:sandibanc@gmail.com">Email</a>
+        <div class="contact-cards">
+          <a class="contact-card" href="mailto:sandibanc@gmail.com">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            </div>
+            <div class="contact-card-body">
+              <p class="contact-card-label">Email</p>
+              <p class="contact-card-value">sandibanc@gmail.com</p>
+            </div>
+            <span class="contact-card-arrow">→</span>
+          </a>
+          <a class="contact-card" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <div class="contact-card-body">
+              <p class="contact-card-label">LinkedIn</p>
+              <p class="contact-card-value">linkedin.com/in/catherine-alessandra-bancod</p>
+            </div>
+            <span class="contact-card-arrow">→</span>
+          </a>
         </div>
       </section>
 
       <footer>
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
@@ -1129,7 +1216,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
@@ -1339,7 +1426,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
@@ -1457,7 +1544,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
@@ -1542,7 +1629,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care — Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
       </footer>
 
     </div>
