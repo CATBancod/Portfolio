@@ -2189,7 +2189,30 @@
       const pct      = total > 0 ? (scrolled / total) * 100 : 0;
       if (progressBar) progressBar.style.width = pct + '%';
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
-    }, { passive: true });    // ── Stagger interest tags ──────────────────────────────
+    }, { passive: true });    // ── Mobile touch fixes ─────────────────────────────────
+    // Vinyl records — spin on touch
+    document.querySelectorAll('.vinyl-record').forEach(record => {
+      record.addEventListener('touchstart', () => {
+        record.style.animationPlayState = 'running';
+      }, { passive: true });
+      record.addEventListener('touchend', () => {
+        setTimeout(() => record.style.animationPlayState = 'paused', 1500);
+      }, { passive: true });
+    });
+
+    // Interest tags — highlight on touch
+    document.querySelectorAll('.anim-tag').forEach(tag => {
+      tag.addEventListener('touchstart', () => {
+        tag.style.borderColor = '#96A810';
+        tag.style.color = '#96A810';
+      }, { passive: true });
+      tag.addEventListener('touchend', () => {
+        setTimeout(() => {
+          tag.style.borderColor = '';
+          tag.style.color = '';
+        }, 600);
+      }, { passive: true });
+    });
     const tagSection = document.querySelector('.animated-tags');
     if (tagSection) {
       const tags = tagSection.querySelectorAll('.anim-tag');
