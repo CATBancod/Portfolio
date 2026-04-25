@@ -844,7 +844,7 @@
 
       <section class="hero">
         <h1 class="hero-headline fade-in">
-          <span>Sandi Bancod</span>
+          <span>Sandi Bancod.</span>
           <span class="muted">UI/UX Designer.</span>
         </h1>
         <div class="status-block">
@@ -1944,17 +1944,6 @@
     line-height: 1.5;
   }
 
-  /* Process phases */
-  .cs-phases { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-  .cs-phase {
-    font-size: 0.78rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
-  .active-phase { color: var(--text); }
-  .cs-phase-sep { color: var(--border); font-size: 0.9rem; }
-
   /* Quote */
   .cs-quote {
     border-left: 2px solid var(--text);
@@ -2195,9 +2184,7 @@
       const pct      = total > 0 ? (scrolled / total) * 100 : 0;
       if (progressBar) progressBar.style.width = pct + '%';
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
-    }, { passive: true });
-
-    // ── Stagger interest tags ──────────────────────────────
+    }, { passive: true });    // ── Stagger interest tags ──────────────────────────────
     const tagSection = document.querySelector('.animated-tags');
     if (tagSection) {
       const tags = tagSection.querySelectorAll('.anim-tag');
