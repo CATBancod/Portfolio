@@ -105,15 +105,15 @@
     .sidebar-top { margin-bottom: auto; }
     .site-name {
       font-size: 1.1rem;
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: -0.02em;
       cursor: pointer;
       display: block;
       margin-bottom: 40px;
       color: var(--text);
-      transition: opacity 0.2s;
+      transition: color 0.2s;
     }
-    .site-name:hover { color: #FF93DB; }
+    .site-name:hover { color: #96A810; }
     .nav-links {
       display: flex;
       flex-direction: column;
@@ -205,7 +205,7 @@
     .hero-headline span { display: block; }
     .hero-headline .muted { color: var(--text-muted); }
     .hero-headline span:first-child { transition: color 0.2s; }
-    .hero-headline span:first-child:hover { color: #FF93DB; }
+    .hero-headline span:first-child:hover { color: #96A810; }
 
     .status-block {
       margin-top: 48px;
@@ -525,7 +525,8 @@
       transition: background 0.25s;
     }
     .mobile-nav-left { display: flex; align-items: center; gap: 12px; }
-    .mobile-site-name:hover { color: #FF93DB; }
+    .mobile-site-name { font-size: 1rem; font-weight: 900; cursor: pointer; transition: color 0.2s; }
+    .mobile-site-name:hover { color: #96A810; }
     .mobile-toggle {
       width: 28px; height: 16px;
       background: var(--border);
@@ -591,7 +592,140 @@
     .delay-3 { animation-delay: 0.24s; }
     @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* ── Scroll reveal ────────────────────────────────────── */
+    /* ── Animated interest tags ───────────────────────────── */
+  .animated-tags { gap: 10px; }
+  .anim-tag {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.2s, color 0.2s;
+  }
+  .anim-tag.tag-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .anim-tag:hover {
+    border-color: #96A810;
+    color: #96A810;
+  }
+
+  /* ── Vinyl records ────────────────────────────────────── */
+  .vinyl-shelf {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    padding-top: 8px;
+  }
+  .vinyl-item { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .vinyl-record {
+    width: 100%; aspect-ratio: 1;
+    max-width: 112px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: vinylSpin 4s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: box-shadow 0.3s;
+  }
+  .vinyl-record:hover {
+    animation-play-state: running;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  @keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .vinyl-grooves {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at center,
+      #1a1a1a 0px,
+      #1a1a1a 3px,
+      #2e2e2e 3px,
+      #2e2e2e 4px
+    );
+  }
+  [data-theme="dark"] .vinyl-grooves {
+    background: repeating-radial-gradient(
+      circle at center,
+      #2a2a2a 0px,
+      #2a2a2a 3px,
+      #444 3px,
+      #444 4px
+    );
+  }
+  [data-theme="dark"] .vinyl-record {
+    background: #2a2a2a;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  }
+  .vinyl-label {
+    position: absolute;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: #96A810;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 2;
+    padding: 6px;
+  }
+  .vinyl-label-2 { background: #6b7a0d; }
+  .vinyl-label-3 { background: #4a560a; }
+  .vinyl-title {
+    font-size: 0.44rem;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .vinyl-artist {
+    font-size: 0.38rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .vinyl-hole { display: none; }
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: #96A810;
+      z-index: 9999;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ── Back to top ──────────────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 44px; height: 44px;
+      background: #96A810;
+      border: 1.5px solid #96A810;
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      z-index: 500;
+      color: #fff;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top:hover { background: #7a8a0d; border-color: #7a8a0d; }
+    .back-to-top svg { width: 16px; height: 16px; }
     .will-reveal {
       opacity: 0;
       transform: translateY(28px);
@@ -625,10 +759,20 @@
 </head>
 <body>
 
+<!-- Progress bar -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
 <!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
 <aside class="sidebar">
   <div class="sidebar-top">
-    <span class="site-name" onclick="showPage('home')">Sandi Bancod.</span>
+    <span class="site-name" onclick="showPage('home')">Sandi Bancod</span>
     <nav class="nav-links">
       <a onclick="showPage('home'); scrollToProjects()" class="nav-link" data-page="work">Work</a>
       <a onclick="showPage('sidequests')" class="nav-link" data-page="sidequests">Side Quests</a>
@@ -660,7 +804,7 @@
 <!-- ══ MOBILE NAV ═══════════════════════════════════════════ -->
 <header class="mobile-nav">
   <div class="mobile-nav-left">
-    <span class="mobile-site-name" onclick="navTo('home')">Sandi Bancod.</span>
+    <span class="mobile-site-name" onclick="navTo('home')">Sandi Bancod</span>
     <span class="toggle-icon" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
       <svg id="mobile-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="4"/>
@@ -700,17 +844,17 @@
 
       <section class="hero">
         <h1 class="hero-headline fade-in">
-          <span>Sandi Bancod.</span>
+          <span>Sandi Bancod</span>
           <span class="muted">UI/UX Designer.</span>
         </h1>
         <div class="status-block">
           <div class="fade-in delay-1">
             <p class="status-label">What I do</p>
-            <p class="status-text">UI/UX designer crafting intuitive experiences, where people-first thinking meets purposeful design.</p>
+            <p class="status-text">Crafting intuitive experiences, where people-first thinking meets purposeful design.</p>
           </div>
           <div class="fade-in delay-2">
             <p class="status-label">Currently</p>
-            <p class="status-text">UI/UX Designer at CEC Entertainment designing experiences across digital touchpoints: web, seasonal campaigns, and in-store ordering experiences.</p>
+            <p class="status-text">UI/UX Designer at CEC Entertainment — designing digital experiences from web to in-store ordering.</p>
           </div>
           <!-- Add more blocks here later, e.g. "Open to" or "Currently at" -->
         </div>
@@ -801,7 +945,7 @@
       </section>
 
       <footer>
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -862,7 +1006,7 @@
       </div>
 
       <footer>
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
     </div>
   </div>
@@ -899,20 +1043,48 @@
         <h2>Outside of design.</h2>
         <div class="interest-row">
           <p class="interest-row-label">You'll find me at</p>
-          <div class="interest-tags">
-            <span class="interest-tag">Live music</span>
-            <span class="interest-tag">Coffee shops</span>
-            <span class="interest-tag">Barre classes</span>
-            <span class="interest-tag">Traveling</span>
-            <span class="interest-tag">Time with friends</span>
+          <div class="interest-tags animated-tags">
+            <span class="interest-tag anim-tag">🎵 Live music</span>
+            <span class="interest-tag anim-tag">☕ Coffee shops</span>
+            <span class="interest-tag anim-tag">🩰 Barre classes</span>
+            <span class="interest-tag anim-tag">✈️ Traveling</span>
+            <span class="interest-tag anim-tag">🤍 Time with friends</span>
           </div>
         </div>
         <div class="interest-row">
           <p class="interest-row-label">What I'm listening to</p>
-          <div class="interest-tags">
-            <span class="interest-tag">Thrill — Sydney Ross Mitchell</span>
-            <span class="interest-tag">Breathe — Malcolm Todd</span>
-            <span class="interest-tag">Justin Bieber</span>
+          <div class="vinyl-shelf">
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label">
+                  <p class="vinyl-title">Thrill</p>
+                  <p class="vinyl-artist">Sydney Ross Mitchell</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label vinyl-label-2">
+                  <p class="vinyl-title">Breathe</p>
+                  <p class="vinyl-artist">Malcolm Todd</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label vinyl-label-3">
+                  <p class="vinyl-title">Justin</p>
+                  <p class="vinyl-artist">Bieber</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -938,7 +1110,7 @@
       </section>
 
       <footer>
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -1196,7 +1368,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -1406,7 +1578,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -1524,7 +1696,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -1609,7 +1781,7 @@
       </div>
 
       <footer style="margin-top:80px;">
-        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2025</p>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
       </footer>
 
     </div>
@@ -1773,13 +1945,7 @@
   }
 
   /* Process phases */
-  .cs-phases {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 4px;
-  }
+  .cs-phases { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
   .cs-phase {
     font-size: 0.78rem;
     font-weight: 700;
@@ -2019,7 +2185,33 @@
     const saved = localStorage.getItem('theme');
     setIcons(saved === 'dark');
 
-    // ── Scroll reveal ──────────────────────────────────────
+
+    const progressBar = document.getElementById('scroll-progress');
+    const backToTop   = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total    = document.documentElement.scrollHeight - window.innerHeight;
+      const pct      = total > 0 ? (scrolled / total) * 100 : 0;
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
+    }, { passive: true });
+
+    // ── Stagger interest tags ──────────────────────────────
+    const tagSection = document.querySelector('.animated-tags');
+    if (tagSection) {
+      const tags = tagSection.querySelectorAll('.anim-tag');
+      const tagObs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          tags.forEach((tag, i) => {
+            setTimeout(() => tag.classList.add('tag-visible'), i * 100);
+          });
+          tagObs.unobserve(entry.target);
+        }
+      }, { threshold: 0.2 });
+      tagObs.observe(tagSection);
+    }
+
     const revealEls = document.querySelectorAll(
       '.project-card, .cs-section, .sq-card, .cs-hero, .cs-stats, .cs-callout-row, .cs-flows, .cs-steps, .about-photo, .interests-section, .about-section, .contact-section, .page-intro'
     );
