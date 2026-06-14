@@ -155,7 +155,7 @@
       color: var(--text);
       transition: color 0.2s;
     }
-    .site-name:hover { color: #96A810; }
+    .site-name:hover { color: #F5BAD5; }
     .top-nav-right {
       display: flex; align-items: center; gap: 28px;
     }
@@ -171,8 +171,8 @@
       cursor: pointer;
       transition: color 0.2s;
     }
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--text); }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); border-bottom: 2px solid #F7E594; padding-bottom: 2px; }
     .toggle-icon {
       width: 20px; height: 20px;
       cursor: pointer;
@@ -230,10 +230,97 @@
     }
 
     /* ═══════════════════════════════════════════════════════
+       HERO COLLAGE
+    ═══════════════════════════════════════════════════════ */
+    .hero {
+      margin-bottom: 100px;
+      overflow: visible;
+      min-height: 420px;
+      position: relative;
+    }
+    .hero-collage {
+      position: relative;
+      width: 100%;
+      min-height: 400px;
+    }
+
+    /* Cards */
+    .hero-card {
+      position: absolute;
+      border-radius: 12px;
+      padding: 28px 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .hero-card:hover {
+      transform: rotate(0deg) translateY(-4px) !important;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+      z-index: 10;
+    }
+
+    /* Card 1 — Merlot */
+    .hero-card-1 {
+      background: #570301;
+      color: #fff;
+      top: 0; left: 0;
+      width: clamp(260px, 48%, 420px);
+      transform: rotate(-2deg);
+      z-index: 3;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    /* Card 2 — Cloudy Sky */
+    .hero-card-2 {
+      background: #BAD6FD;
+      color: #111110;
+      top: 60px;
+      left: clamp(220px, 36%, 360px);
+      width: clamp(220px, 40%, 360px);
+      transform: rotate(1.5deg);
+      z-index: 2;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+    .hero-card-body {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    /* Coffee doodle */
+    .hero-doodle {
+      position: absolute;
+      opacity: 0.9;
+    }
+    .hero-doodle-coffee {
+      width: 52px;
+      top: 16px;
+      right: clamp(80px, 14%, 140px);
+      transform: rotate(8deg);
+    }
+    .hero-doodle-vinyl {
+      width: 64px;
+      top: 80px;
+      right: clamp(20px, 5%, 60px);
+      transform: rotate(-6deg);
+      animation: vinylSpin 6s linear infinite;
+      animation-play-state: paused;
+    }
+    .hero-doodle-vinyl:hover { animation-play-state: running; }
+    .hero-doodle svg { width: 100%; height: auto; }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .hero { min-height: 380px; }
+      .hero-collage { min-height: 340px; }
+      .hero-card-1 { width: 78%; left: 0; top: 0; }
+      .hero-card-2 { width: 74%; left: auto; right: 0; top: 80px; }
+    }
+    /* ═══════════════════════════════════════════════════════
        HOME
     ═══════════════════════════════════════════════════════ */
-    .hero { margin-bottom: 140px; overflow: visible; }
-    .hero-headline {
       font-size: clamp(1.8rem, 12vw, 5.6rem);
       font-weight: 900;
       line-height: 1.0;
@@ -243,7 +330,7 @@
     .hero-headline span { display: block; }
     .hero-headline .muted { color: var(--text-muted); }
     .hero-headline span:first-child { transition: color 0.2s; }
-    .hero-headline span:first-child:hover { color: #96A810; }
+    .hero-headline span:first-child:hover { color: #F5BAD5; }
 
     .status-block {
       margin-top: 48px;
@@ -357,7 +444,7 @@
       transition: border-color 0.2s;
       cursor: pointer;
     }
-    .contact-card:hover { border-color: var(--text); }
+    .contact-card:hover { border-color: #F7E594; box-shadow: 0 0 0 1px #F7E594; }
     .contact-card-icon {
       width: 22px; height: 22px;
       display: flex; align-items: center; justify-content: center;
@@ -564,7 +651,7 @@
     }
     .mobile-nav-left { display: flex; align-items: center; gap: 12px; }
     .mobile-site-name { font-size: 1rem; font-weight: 900; cursor: pointer; transition: color 0.2s; }
-    .mobile-site-name:hover { color: #96A810; }
+    .mobile-site-name:hover { color: #F5BAD5; }
     .mobile-toggle {
       width: 28px; height: 16px;
       background: var(--border);
@@ -642,8 +729,8 @@
     transform: translateY(0);
   }
   .anim-tag:hover {
-    border-color: #96A810;
-    color: #96A810;
+    border-color: #BAD6FD;
+    color: #570301;
   }
 
   /* ── Vinyl records ────────────────────────────────────── */
@@ -704,14 +791,18 @@
     position: absolute;
     width: 52px; height: 52px;
     border-radius: 50%;
-    background: #96A810;
+    background: #570301;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center;
     z-index: 2;
     padding: 6px;
   }
-  .vinyl-label-2 { background: #6b7a0d; }
-  .vinyl-label-3 { background: #4a560a; }
+  .vinyl-label-2 { background: #BAD6FD; }
+  .vinyl-label-2 .vinyl-title,
+  .vinyl-label-2 .vinyl-artist { color: #570301; }
+  .vinyl-label-3 { background: #F5BAD5; }
+  .vinyl-label-3 .vinyl-title,
+  .vinyl-label-3 .vinyl-artist { color: #570301; }
   .vinyl-title {
     font-size: 0.44rem;
     font-weight: 900;
@@ -735,7 +826,7 @@
       top: 0; left: 0;
       width: 0%;
       height: 3px;
-      background: #96A810;
+      background: #570301;
       z-index: 9999;
       transition: width 0.1s linear;
       border-radius: 0 2px 2px 0;
@@ -750,8 +841,8 @@
       bottom: 32px;
       right: 32px;
       width: 48px; height: 48px;
-      background: #96A810;
-      border: 1.5px solid #96A810;
+      background: #570301;
+      border: 1.5px solid #570301;
       border-radius: 999px;
       display: flex; align-items: center; justify-content: center;
       cursor: pointer;
@@ -765,7 +856,7 @@
       opacity: 1;
       transform: translateY(0);
     }
-    .back-to-top:hover { background: #7a8a0d; border-color: #7a8a0d; }
+    .back-to-top:hover { background: #3a0100; border-color: #3a0100; }
     .back-to-top svg { width: 16px; height: 16px; }
     .will-reveal {
       opacity: 0;
@@ -877,20 +968,18 @@
     <div class="content">
 
       <section class="hero">
-        <h1 class="hero-headline fade-in">
-          <span>Sandi Bancod.</span>
-          <span class="muted">UI/UX Designer.</span>
-        </h1>
-        <div class="status-block">
-          <div class="fade-in delay-1">
-            <p class="status-label">What I do</p>
-            <p class="status-text">Crafting intuitive experiences, where people-first thinking meets purposeful design.</p>
+        <div class="hero-collage">
+
+          <!-- Card 1 — Merlot -->
+          <div class="hero-card hero-card-1">
+            <p class="hero-card-body">Sandi Bancod is a product and UI/UX designer focused on the intersection of function, clarity, and visual craft.</p>
           </div>
-          <div class="fade-in delay-2">
-            <p class="status-label">Currently</p>
-            <p class="status-text">UI/UX Designer at CEC Entertainment — designing digital experiences from web to in-store ordering.</p>
+
+          <!-- Card 2 — Cloudy Sky -->
+          <div class="hero-card hero-card-2">
+            <p class="hero-card-body">She is currently designing digital experiences from web to in-store ordering.</p>
           </div>
-          <!-- Add more blocks here later, e.g. "Open to" or "Currently at" -->
+
         </div>
       </section>
 
@@ -2221,7 +2310,6 @@
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
     }, { passive: true });    // ── Intro splash animation ─────────────────────────────
   (function() {
-    // Don't show on repeat visits in same session
     if (sessionStorage.getItem('introSeen')) {
       document.getElementById('intro-splash').style.display = 'none';
       return;
@@ -2233,42 +2321,47 @@
     const panelB = document.getElementById('intro-sb');
     const panelN = document.getElementById('intro-name');
 
-    function fadeIn(el, duration) {
+    // Preload all panels as hidden
+    [panelS, panelB, panelN].forEach(p => {
+      p.style.transition = 'opacity 0.35s cubic-bezier(0.4,0,0.2,1)';
+      p.style.opacity = '0';
+    });
+
+    function show(el) {
       return new Promise(res => {
-        el.style.transition = `opacity ${duration}ms ease`;
         el.style.opacity = '1';
-        setTimeout(res, duration);
+        setTimeout(res, 350);
       });
     }
-    function fadeOut(el, duration) {
+    function hide(el) {
       return new Promise(res => {
-        el.style.transition = `opacity ${duration}ms ease`;
         el.style.opacity = '0';
-        setTimeout(res, duration);
+        setTimeout(res, 350);
       });
+    }
+    function hold(ms) {
+      return new Promise(res => setTimeout(res, ms));
     }
 
     async function runIntro() {
       document.body.style.overflow = 'hidden';
 
-      // S — Merlot
-      await fadeIn(panelS, 150);
-      await new Promise(r => setTimeout(r, 380));
-      await fadeOut(panelS, 150);
+      // S
+      await show(panelS);
+      await hold(300);
+      // crossfade S → SB
+      panelB.style.opacity = '1';
+      await hide(panelS);
+      await hold(300);
+      // crossfade SB → name
+      panelN.style.opacity = '1';
+      await hide(panelB);
+      await hold(500);
 
-      // B — Cloudy Sky
-      await fadeIn(panelB, 150);
-      await new Promise(r => setTimeout(r, 380));
-      await fadeOut(panelB, 150);
-
-      // Sandi Bancod. — Rose Mist
-      await fadeIn(panelN, 200);
-      await new Promise(r => setTimeout(r, 600));
-
-      // Fade whole splash out
-      splash.style.transition = 'opacity 400ms ease';
+      // Fade whole splash out smoothly
+      splash.style.transition = 'opacity 0.5s cubic-bezier(0.4,0,0.2,1)';
       splash.style.opacity = '0';
-      await new Promise(r => setTimeout(r, 400));
+      await hold(500);
 
       splash.style.display = 'none';
       document.body.style.overflow = '';
@@ -2291,8 +2384,8 @@
     // Interest tags — highlight on touch
     document.querySelectorAll('.anim-tag').forEach(tag => {
       tag.addEventListener('touchstart', () => {
-        tag.style.borderColor = '#96A810';
-        tag.style.color = '#96A810';
+        tag.style.borderColor = '#BAD6FD';
+        tag.style.color = '#570301';
       }, { passive: true });
       tag.addEventListener('touchend', () => {
         setTimeout(() => {
