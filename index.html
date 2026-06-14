@@ -45,6 +45,44 @@
       }
     }
 
+    /* ── Intro splash ─────────────────────────────────────── */
+    #intro-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .intro-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+    #intro-s    { background: #570301; }
+    #intro-sb   { background: #BAD6FD; }
+    #intro-name { background: #F5BAD5; }
+
+    .intro-letter {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(10rem, 40vw, 32rem);
+      color: #fff;
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    #intro-sb .intro-letter { color: #570301; }
+
+    .intro-full {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 8vw, 7rem);
+      color: #570301;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
     /* ─── TOKENS ───────────────────────────────────────────── */
     :root {
       --bg:          #F5F5F3;
@@ -52,7 +90,7 @@
       --text:        #111110;
       --text-muted:  #888886;
       --border:      rgba(17,17,16,0.10);
-      --nav-width:   240px;
+      --nav-width:   0px;
       --nav-bg:      #F5F5F3;
       --ph-bg:       #DDDDD9;
       --ph-text:     #AAAAAA;
@@ -88,57 +126,55 @@
     .page.active { display: block; }
 
     /* ═══════════════════════════════════════════════════════
-       SIDEBAR NAV
+       TOP NAV
     ═══════════════════════════════════════════════════════ */
     .sidebar {
-      width: var(--nav-width);
-      flex-shrink: 0;
-      position: fixed;
-      top: 0; left: 0; bottom: 0;
-      background: var(--nav-bg);
-      border-right: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      padding: 40px 32px;
-      z-index: 100;
-      transition: background 0.25s, border-color 0.25s;
+      display: none; /* hidden — replaced by top nav on all sizes */
     }
-    .sidebar-top { margin-bottom: auto; }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      transition: background 0.25s;
+    }
+    .top-nav-left {
+      display: flex; align-items: center; gap: 14px;
+    }
     .site-name {
-      font-size: 1.1rem;
+      font-size: 1rem;
       font-weight: 900;
       letter-spacing: -0.02em;
       cursor: pointer;
-      display: block;
-      margin-bottom: 40px;
       color: var(--text);
       transition: color 0.2s;
     }
     .site-name:hover { color: #96A810; }
+    .top-nav-right {
+      display: flex; align-items: center; gap: 28px;
+    }
     .nav-links {
       display: flex;
-      flex-direction: column;
-      gap: 4px;
+      flex-direction: row;
+      gap: 28px;
     }
     .nav-links a {
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 500;
       color: var(--text-muted);
       cursor: pointer;
-      padding: 5px 0;
       transition: color 0.2s;
-      display: block;
     }
     .nav-links a:hover,
     .nav-links a.active { color: var(--text); }
-    .sidebar-bottom {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
     .toggle-icon {
-      width: 20px;
-      height: 20px;
+      width: 20px; height: 20px;
       cursor: pointer;
       color: var(--text-muted);
       transition: color 0.2s;
@@ -170,12 +206,13 @@
        MAIN CONTENT
     ═══════════════════════════════════════════════════════ */
     .main {
-      margin-left: var(--nav-width);
+      margin-left: 0;
       min-height: 100vh;
     }
     .content {
-      max-width: 860px;
-      padding: 180px 64px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 120px 40px 100px;
     }
 
     /* ─── PLACEHOLDER ──────────────────────────────────────── */
@@ -237,11 +274,11 @@
       margin-bottom: 32px;
     }
 
-    /* Project cards */
+    /* Project cards — two column grid */
     .projects-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
       margin-bottom: 80px;
     }
     .project-card {
@@ -751,13 +788,17 @@
     ═══════════════════════════════════════════════════════ */
     @media (max-width: 800px) {
       .sidebar { display: none; }
-      .mobile-nav { display: flex; }
+      .top-nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex !important; }
       .main { margin-left: 0; }
-      .content { padding: 140px 20px 80px; }
+      .content { padding: 80px 20px 80px; }
       .sq-grid { grid-template-columns: 1fr; }
+      .projects-list { grid-template-columns: 1fr; }
     }
     @media (min-width: 801px) {
       .mobile-nav { display: none; }
+      .hamburger { display: none !important; }
     }
   </style>
 </head>
@@ -773,18 +814,31 @@
   </svg>
 </button>
 
-<!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
-<aside class="sidebar">
-  <div class="sidebar-top">
+<!-- ── INTRO SPLASH ───────────────────────────────────────── -->
+<div id="intro-splash">
+  <div class="intro-panel" id="intro-s">
+    <span class="intro-letter">S</span>
+  </div>
+  <div class="intro-panel" id="intro-sb">
+    <span class="intro-letter">SB</span>
+  </div>
+  <div class="intro-panel" id="intro-name">
+    <span class="intro-full">Sandi Bancod.</span>
+  </div>
+</div>
+
+<!-- ══ TOP NAV ════════════════════════════════════════════════ -->
+<header class="top-nav">
+  <div class="top-nav-left">
     <span class="site-name" onclick="showPage('home')">Sandi Bancod</span>
+  </div>
+  <div class="top-nav-right">
     <nav class="nav-links">
       <a onclick="showPage('home'); scrollToProjects()" class="nav-link" data-page="work">Work</a>
       <a onclick="showPage('sidequests')" class="nav-link" data-page="sidequests">Side Quests</a>
       <a onclick="showPage('about')" class="nav-link" data-page="about">About</a>
       <a href="Sandi_Bancod_Resume_2026.pdf" target="_blank">Resume</a>
     </nav>
-  </div>
-  <div class="sidebar-bottom">
     <span class="toggle-icon" id="theme-icon" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
       <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="4"/>
@@ -801,34 +855,10 @@
         <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
       </svg>
     </span>
-    <div class="toggle" onclick="toggleTheme()" role="button" aria-label="Toggle theme"></div>
-  </div>
-</aside>
-
-<!-- ══ MOBILE NAV ═══════════════════════════════════════════ -->
-<header class="mobile-nav">
-  <div class="mobile-nav-left">
-    <span class="mobile-site-name" onclick="navTo('home')">Sandi Bancod</span>
-    <span class="toggle-icon" onclick="toggleTheme()" role="button" aria-label="Toggle theme">
-      <svg id="mobile-icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4"/>
-        <line x1="12" y1="2" x2="12" y2="4"/>
-        <line x1="12" y1="20" x2="12" y2="22"/>
-        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-        <line x1="2" y1="12" x2="4" y2="12"/>
-        <line x1="20" y1="12" x2="22" y2="12"/>
-        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-      </svg>
-      <svg id="mobile-icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-      </svg>
-    </span>
-    <div class="mobile-toggle" onclick="toggleTheme()"></div>
-  </div>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+    <!-- Hamburger for mobile -->
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" style="display:none;">
+      <span></span><span></span><span></span>
+    </div>
   </div>
 </header>
 <div class="mobile-menu" id="mobile-menu">
@@ -2150,8 +2180,8 @@
   function setIcons(isDark) {
     const sun = document.getElementById('icon-sun');
     const moon = document.getElementById('icon-moon');
-    const msun = document.getElementById('mobile-icon-sun');
-    const mmoon = document.getElementById('mobile-icon-moon');
+    const msun = null;
+    const mmoon = null;
     if (sun) sun.style.display = isDark ? 'none' : 'block';
     if (moon) moon.style.display = isDark ? 'block' : 'none';
     if (msun) msun.style.display = isDark ? 'none' : 'block';
@@ -2189,7 +2219,65 @@
       const pct      = total > 0 ? (scrolled / total) * 100 : 0;
       if (progressBar) progressBar.style.width = pct + '%';
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
-    }, { passive: true });    // ── Mobile touch fixes ─────────────────────────────────
+    }, { passive: true });    // ── Intro splash animation ─────────────────────────────
+  (function() {
+    // Don't show on repeat visits in same session
+    if (sessionStorage.getItem('introSeen')) {
+      document.getElementById('intro-splash').style.display = 'none';
+      return;
+    }
+    sessionStorage.setItem('introSeen', '1');
+
+    const splash = document.getElementById('intro-splash');
+    const panelS = document.getElementById('intro-s');
+    const panelB = document.getElementById('intro-sb');
+    const panelN = document.getElementById('intro-name');
+
+    function fadeIn(el, duration) {
+      return new Promise(res => {
+        el.style.transition = `opacity ${duration}ms ease`;
+        el.style.opacity = '1';
+        setTimeout(res, duration);
+      });
+    }
+    function fadeOut(el, duration) {
+      return new Promise(res => {
+        el.style.transition = `opacity ${duration}ms ease`;
+        el.style.opacity = '0';
+        setTimeout(res, duration);
+      });
+    }
+
+    async function runIntro() {
+      document.body.style.overflow = 'hidden';
+
+      // S — Merlot
+      await fadeIn(panelS, 150);
+      await new Promise(r => setTimeout(r, 380));
+      await fadeOut(panelS, 150);
+
+      // B — Cloudy Sky
+      await fadeIn(panelB, 150);
+      await new Promise(r => setTimeout(r, 380));
+      await fadeOut(panelB, 150);
+
+      // Sandi Bancod. — Rose Mist
+      await fadeIn(panelN, 200);
+      await new Promise(r => setTimeout(r, 600));
+
+      // Fade whole splash out
+      splash.style.transition = 'opacity 400ms ease';
+      splash.style.opacity = '0';
+      await new Promise(r => setTimeout(r, 400));
+
+      splash.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    runIntro();
+  })();
+
+  // ── Mobile touch fixes ─────────────────────────────────
     // Vinyl records — spin on touch
     document.querySelectorAll('.vinyl-record').forEach(record => {
       record.addEventListener('touchstart', () => {
