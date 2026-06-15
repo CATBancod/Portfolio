@@ -230,93 +230,99 @@
     }
 
     /* ═══════════════════════════════════════════════════════
-       HERO COLLAGE
+       HERO — Editorial split
     ═══════════════════════════════════════════════════════ */
-    .hero {
-      margin-bottom: 100px;
-      overflow: visible;
-      min-height: 420px;
-      position: relative;
+    .hero { margin-bottom: 80px; overflow: hidden; }
+
+    /* Pill tag */
+    .hero-pill-tag {
+      display: inline-block;
+      background: #F5BAD5;
+      color: #570301;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 999px;
+      margin-bottom: 8px;
     }
-    .hero-collage {
-      position: relative;
+
+    /* Name row */
+    .hero-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       width: 100%;
-      min-height: 400px;
+    }
+    .hero-name-left,
+    .hero-name-right {
+      font-family: 'Inter', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.8rem, 8.5vw, 9rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    /* Cards */
-    .hero-card {
-      position: absolute;
+    /* Portrait */
+    .hero-portrait-wrap {
+      flex: 0 0 auto;
+      width: clamp(80px, 12vw, 180px);
+      height: clamp(80px, 12vw, 180px);
       border-radius: 12px;
-      padding: 28px 32px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.12);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+      margin: 0 clamp(6px, 1.5vw, 24px);
+      flex-shrink: 0;
     }
-    .hero-card:hover {
-      transform: rotate(0deg) translateY(-4px) !important;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
-      z-index: 10;
-    }
-
-    /* Card 1 — Merlot */
-    .hero-card-1 {
-      background: #570301;
-      color: #fff;
-      top: 0; left: 0;
-      width: clamp(260px, 48%, 420px);
-      transform: rotate(-2deg);
-      z-index: 3;
-      font-size: 1.05rem;
-      line-height: 1.6;
+    .hero-portrait {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
     }
 
-    /* Card 2 — Cloudy Sky */
-    .hero-card-2 {
-      background: #BAD6FD;
-      color: #111110;
-      top: 60px;
-      left: clamp(220px, 36%, 360px);
-      width: clamp(220px, 40%, 360px);
-      transform: rotate(1.5deg);
-      z-index: 2;
-      font-size: 1.05rem;
-      line-height: 1.6;
+    /* Blurb row */
+    .hero-blurb-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin-top: 16px;
     }
-    .hero-card-body {
-      font-size: 0.88rem;
-      line-height: 1.65;
+    .hero-blurb {
+      font-size: clamp(0.72rem, 1.1vw, 0.85rem);
+      line-height: 1.55;
       font-weight: 500;
-      margin: 0;
+      padding: 8px 14px;
+      border-radius: 8px;
+      max-width: 300px;
     }
-
-    /* Coffee doodle */
-    .hero-doodle {
-      position: absolute;
-      opacity: 0.9;
+    .hero-blurb-left {
+      background: #F7E594;
+      color: #570301;
     }
-    .hero-doodle-coffee {
-      width: 52px;
-      top: 16px;
-      right: clamp(80px, 14%, 140px);
-      transform: rotate(8deg);
+    .hero-blurb-right {
+      background: #BAD6FD;
+      color: #570301;
+      text-align: right;
     }
-    .hero-doodle-vinyl {
-      width: 64px;
-      top: 80px;
-      right: clamp(20px, 5%, 60px);
-      transform: rotate(-6deg);
-      animation: vinylSpin 6s linear infinite;
-      animation-play-state: paused;
-    }
-    .hero-doodle-vinyl:hover { animation-play-state: running; }
-    .hero-doodle svg { width: 100%; height: auto; }
 
     /* Mobile */
     @media (max-width: 600px) {
-      .hero { min-height: 380px; }
-      .hero-collage { min-height: 340px; }
-      .hero-card-1 { width: 78%; left: 0; top: 0; }
-      .hero-card-2 { width: 74%; left: auto; right: 0; top: 80px; }
+      .hero-name-left,
+      .hero-name-right { font-size: clamp(2rem, 11vw, 3.2rem); }
+      .hero-portrait-wrap {
+        width: clamp(56px, 14vw, 80px);
+        height: clamp(56px, 14vw, 80px);
+        margin: 0 6px;
+        border-radius: 8px;
+      }
+      .hero-blurb-row { flex-direction: column; gap: 10px; }
+      .hero-blurb { max-width: 100%; text-align: left !important; }
+      .hero-blurb { font-size: 0.78rem; }
     }
     /* ═══════════════════════════════════════════════════════
        HOME
@@ -968,19 +974,29 @@
     <div class="content">
 
       <section class="hero">
-        <div class="hero-collage">
 
-          <!-- Card 1 — Merlot -->
-          <div class="hero-card hero-card-1">
-            <p class="hero-card-body">Sandi Bancod is a product and UI/UX designer focused on the intersection of function, clarity, and visual craft.</p>
+        <!-- Pill tag -->
+        <div class="hero-pill-tag">UI/UX Designer</div>
+
+        <!-- Name row -->
+        <div class="hero-name-row">
+          <span class="hero-name-left">SANDI</span>
+          <div class="hero-portrait-wrap">
+            <img src="hero-portrait.jpg" alt="Sandi Bancod" class="hero-portrait">
           </div>
-
-          <!-- Card 2 — Cloudy Sky -->
-          <div class="hero-card hero-card-2">
-            <p class="hero-card-body">She is currently designing digital experiences from web to in-store ordering.</p>
-          </div>
-
+          <span class="hero-name-right">BANCOD</span>
         </div>
+
+        <!-- Blurb row -->
+        <div class="hero-blurb-row">
+          <div class="hero-blurb hero-blurb-left">
+            is a product and UI/UX designer focused on the intersection of function, clarity, and visual craft.
+          </div>
+          <div class="hero-blurb hero-blurb-right">
+            She is currently designing digital experiences from web to in-store ordering at Chuck E. Cheese.
+          </div>
+        </div>
+
       </section>
 
       <section id="featured-projects">
@@ -2310,55 +2326,80 @@
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
     }, { passive: true });    // ── Intro splash animation ─────────────────────────────
   (function() {
-    if (sessionStorage.getItem('introSeen')) {
-      document.getElementById('intro-splash').style.display = 'none';
-      return;
-    }
-    sessionStorage.setItem('introSeen', '1');
-
     const splash = document.getElementById('intro-splash');
     const panelS = document.getElementById('intro-s');
     const panelB = document.getElementById('intro-sb');
     const panelN = document.getElementById('intro-name');
 
-    // Preload all panels as hidden
-    [panelS, panelB, panelN].forEach(p => {
-      p.style.transition = 'opacity 0.35s cubic-bezier(0.4,0,0.2,1)';
-      p.style.opacity = '0';
+    const letterS  = panelS  ? panelS.querySelector('.intro-letter')  : null;
+    const letterSB = panelB  ? panelB.querySelector('.intro-letter')  : null;
+    const letterN  = panelN  ? panelN.querySelector('.intro-full')    : null;
+
+    // Set up letter starting states
+    [letterS, letterSB, letterN].forEach(l => {
+      if (l) {
+        l.style.display = 'inline-block';
+        l.style.opacity = '0';
+        l.style.transform = 'translateY(40px) scale(0.85)';
+        l.style.transition = 'opacity 0.4s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+      }
     });
 
-    function show(el) {
+    [panelS, panelB, panelN].forEach(p => {
+      if (p) {
+        p.style.opacity = '0';
+        p.style.transition = 'opacity 0.3s ease';
+      }
+    });
+
+    function showPanel(panel, letter) {
       return new Promise(res => {
-        el.style.opacity = '1';
-        setTimeout(res, 350);
+        panel.style.opacity = '1';
+        setTimeout(() => {
+          letter.style.opacity = '1';
+          letter.style.transform = 'translateY(0) scale(1)';
+          setTimeout(res, 500);
+        }, 80);
       });
     }
-    function hide(el) {
+
+    function hidePanel(panel, letter) {
       return new Promise(res => {
-        el.style.opacity = '0';
-        setTimeout(res, 350);
+        letter.style.opacity = '0';
+        letter.style.transform = 'translateY(-30px) scale(1.1)';
+        setTimeout(() => {
+          panel.style.opacity = '0';
+          setTimeout(res, 300);
+        }, 200);
       });
     }
-    function hold(ms) {
-      return new Promise(res => setTimeout(res, ms));
-    }
+
+    function hold(ms) { return new Promise(r => setTimeout(r, ms)); }
 
     async function runIntro() {
       document.body.style.overflow = 'hidden';
 
       // S
-      await show(panelS);
-      await hold(300);
-      // crossfade S → SB
-      panelB.style.opacity = '1';
-      await hide(panelS);
-      await hold(300);
-      // crossfade SB → name
-      panelN.style.opacity = '1';
-      await hide(panelB);
-      await hold(500);
+      await showPanel(panelS, letterS);
+      await hold(350);
+      await hidePanel(panelS, letterS);
+      await hold(80);
 
-      // Fade whole splash out smoothly
+      // SB
+      letterSB.style.transform = 'translateY(40px) scale(0.85)';
+      letterSB.style.opacity = '0';
+      await showPanel(panelB, letterSB);
+      await hold(350);
+      await hidePanel(panelB, letterSB);
+      await hold(80);
+
+      // Sandi Bancod.
+      letterN.style.transform = 'translateY(40px) scale(0.85)';
+      letterN.style.opacity = '0';
+      await showPanel(panelN, letterN);
+      await hold(600);
+
+      // Fade out whole splash
       splash.style.transition = 'opacity 0.5s cubic-bezier(0.4,0,0.2,1)';
       splash.style.opacity = '0';
       await hold(500);
