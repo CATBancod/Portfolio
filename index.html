@@ -214,6 +214,7 @@
       max-width: 1100px;
       margin: 0 auto;
       padding: 120px 40px 100px;
+      overflow-x: hidden;
     }
 
     /* ─── PLACEHOLDER ──────────────────────────────────────── */
@@ -250,37 +251,34 @@
       margin-bottom: 6px;
     }
 
-    /* Name row — full width, photo inline */
+    /* Name row — full width, photo centered */
     .hero-name-row {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
       width: 100%;
       gap: 0;
-      overflow: hidden;
     }
     .hero-name-left {
       font-family: 'Inter', sans-serif;
       font-weight: 900;
-      font-size: clamp(2.4rem, 8vw, 8.5rem);
+      font-size: clamp(2.4rem, 7.5vw, 8rem);
       letter-spacing: -0.04em;
       line-height: 1;
       color: var(--text);
       white-space: nowrap;
-      justify-self: start;
-      overflow: hidden;
+      flex-shrink: 1;
       min-width: 0;
     }
     .hero-name-right {
       font-family: 'Inter', sans-serif;
       font-weight: 900;
-      font-size: clamp(2.4rem, 8vw, 8.5rem);
+      font-size: clamp(2.4rem, 7.5vw, 8rem);
       letter-spacing: -0.04em;
       line-height: 1;
       color: var(--text);
       white-space: nowrap;
-      justify-self: end;
-      overflow: hidden;
+      flex-shrink: 1;
       min-width: 0;
     }
 
