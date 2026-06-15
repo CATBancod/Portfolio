@@ -213,7 +213,7 @@
     .content {
       max-width: 1100px;
       margin: 0 auto;
-      padding: 120px 40px 100px;
+      padding: 80px 40px 100px;
       overflow-x: hidden;
     }
 
@@ -234,7 +234,7 @@
     /* ═══════════════════════════════════════════════════════
        HERO — Editorial split
     ═══════════════════════════════════════════════════════ */
-    .hero { margin-bottom: 80px; padding-top: 48px; overflow: hidden; }
+    .hero { margin-bottom: 120px; padding-top: 0; overflow: hidden; }
 
     /* Pill tag */
     .hero-pill-tag {
@@ -248,7 +248,7 @@
       text-transform: uppercase;
       padding: 7px 20px;
       border-radius: 999px;
-      margin-bottom: 4px;
+      margin-bottom: 0px;
     }
 
     /* Name row — full width, photo centered */
@@ -307,7 +307,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-      margin-top: 4px;
+      margin-top: 2px;
     }
     .hero-blurb-stack {
       display: flex;
@@ -400,7 +400,6 @@
 
     /* Section title */
     .section-title {
-      padding-top: 40px;
       font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 900;
       letter-spacing: -0.03em;
@@ -2386,7 +2385,7 @@
         l.style.display = 'inline-block';
         l.style.opacity = '0';
         l.style.transform = 'translateY(40px) scale(0.85)';
-        l.style.transition = 'opacity 0.4s cubic-bezier(0.34,1.56,0.64,1), transform 0.5s cubic-bezier(0.34,1.56,0.64,1)';
+        l.style.transition = 'opacity 0.25s cubic-bezier(0.34,1.56,0.64,1), transform 0.3s cubic-bezier(0.34,1.56,0.64,1)';
       }
     });
 
@@ -2426,7 +2425,7 @@
 
       // S
       await showPanel(panelS, letterS);
-      await hold(350);
+      await hold(220);
       await hidePanel(panelS, letterS);
       await hold(80);
 
@@ -2434,7 +2433,7 @@
       letterSB.style.transform = 'translateY(40px) scale(0.85)';
       letterSB.style.opacity = '0';
       await showPanel(panelB, letterSB);
-      await hold(350);
+      await hold(220);
       await hidePanel(panelB, letterSB);
       await hold(80);
 
@@ -2442,10 +2441,10 @@
       letterN.style.transform = 'translateY(40px) scale(0.85)';
       letterN.style.opacity = '0';
       await showPanel(panelN, letterN);
-      await hold(600);
+      await hold(350);
 
       // Fade out whole splash
-      splash.style.transition = 'opacity 0.5s cubic-bezier(0.4,0,0.2,1)';
+      splash.style.transition = 'opacity 0.3s cubic-bezier(0.4,0,0.2,1)';
       splash.style.opacity = '0';
       await hold(500);
 
