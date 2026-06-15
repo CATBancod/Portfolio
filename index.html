@@ -251,7 +251,7 @@
       margin-bottom: 4px;
     }
 
-    /* Name row — full width, photo centered */
+    /* Name row — scales as one unit to fill full width */
     .hero-name-row {
       display: flex;
       align-items: center;
@@ -263,29 +263,28 @@
     .hero-name-left {
       font-family: 'Inter', sans-serif;
       font-weight: 900;
-      font-size: clamp(2.4rem, 10vw, 11rem);
+      font-size: clamp(2.4rem, 8.5vw, 10rem);
       letter-spacing: -0.04em;
       line-height: 1;
       color: var(--text);
       white-space: nowrap;
-      flex: 1;
+      flex-shrink: 0;
     }
     .hero-name-right {
       font-family: 'Inter', sans-serif;
       font-weight: 900;
-      font-size: clamp(2.4rem, 10vw, 11rem);
+      font-size: clamp(2.4rem, 8.5vw, 10rem);
       letter-spacing: -0.04em;
       line-height: 1;
       color: var(--text);
       white-space: nowrap;
-      flex: 1;
-      text-align: right;
+      flex-shrink: 0;
     }
 
-    /* Portrait — sits between names, no gap */
+    /* Portrait — fixed size, sits between names */
     .hero-portrait-wrap {
-      width: clamp(80px, 9vw, 150px);
-      height: clamp(100px, 11vw, 190px);
+      width: clamp(80px, 8vw, 130px);
+      height: clamp(100px, 10vw, 165px);
       border-radius: 10px;
       overflow: hidden;
       margin: 0;
