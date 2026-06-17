@@ -254,7 +254,9 @@
     /* ═══════════════════════════════════════════════════════
        HERO — Editorial split
     ═══════════════════════════════════════════════════════ */
-    .hero { margin-bottom: 280px; padding-top: 140px; overflow: visible; }
+    .hero { margin-bottom: 280px; padding-top: 140px; overflow: visible; display: flex; justify-content: center; }
+
+    .hero > * { width: 100%; }
 
     /* Pill tag */
     .hero-pill-tag {
@@ -271,20 +273,20 @@
       margin-bottom: 4px;
     }
 
-    /* Hero inner — constrains pill + name + blurbs as one centered unit */
+    /* Hero inner — everything left-aligned as one unit */
     .hero-inner {
-      display: flex;
+      display: inline-flex;
       flex-direction: column;
-      align-items: center;
-      width: 100%;
+      align-items: flex-start;
+      max-width: 100%;
     }
 
-    /* Name row — centered unit, names stay glued to photo */
+    /* Name row — fills hero-inner, names pushed to edges */
     .hero-name-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      width: fit-content;
+      justify-content: space-between;
+      width: 100%;
       gap: 0;
       overflow: visible;
     }
@@ -2559,25 +2561,6 @@
 
     runIntro();
   })();
-
-  // ── Sync hero blurb width to name row ──────────────────
-  function syncHeroWidth() {
-    const nameRow  = document.querySelector('.hero-name-row');
-    const blurbRow = document.querySelector('.hero-blurb-row');
-    const pillTag  = document.querySelector('.hero-pill-tag');
-    if (!nameRow || !blurbRow) return;
-    const w         = nameRow.offsetWidth;
-    const nameLeft  = nameRow.getBoundingClientRect().left;
-    const innerLeft = nameRow.parentElement.getBoundingClientRect().left;
-    const offset    = nameLeft - innerLeft;
-    blurbRow.style.width     = w + 'px';
-    blurbRow.style.marginLeft = offset + 'px';
-    if (pillTag) {
-      pillTag.style.marginLeft = offset + 'px';
-    }
-  }
-  syncHeroWidth();
-  window.addEventListener('resize', syncHeroWidth);
 
   // ── Mobile touch fixes ─────────────────────────────────
     // Vinyl records — spin on touch
