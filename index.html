@@ -341,16 +341,16 @@
     .hero-pill.yellow { background: #F7E594; color: #570301; }
     .hero-pill.blue   { background: #BAD6FD; color: #123741; }
 
-    /* Mobile — stacked layout */
-    @media (min-width: 641px) and (max-width: 1100px) {
+    /* Tablet / mid-size — 641px to 1384px */
+    @media (min-width: 641px) and (max-width: 1384px) {
       .hero { padding-top: 80px; margin-bottom: 140px; }
       .hero-name-left,
       .hero-name-right {
-        font-size: clamp(2.4rem, 9vw, 7rem);
+        font-size: clamp(2.4rem, 12vw, 10rem);
       }
       .hero-portrait-wrap {
-        width: clamp(70px, 9vw, 110px);
-        height: clamp(90px, 11vw, 140px);
+        width: clamp(70px, 9vw, 120px);
+        height: clamp(90px, 11vw, 155px);
       }
     }
 
