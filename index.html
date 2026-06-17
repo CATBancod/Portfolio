@@ -271,6 +271,14 @@
       margin-bottom: 4px;
     }
 
+    /* Hero inner — constrains pill + name + blurbs as one centered unit */
+    .hero-inner {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
     /* Name row — centered unit, names stay glued to photo */
     .hero-name-row {
       display: flex;
@@ -327,6 +335,7 @@
       grid-template-columns: 1fr 1fr;
       gap: 8px;
       margin-top: 4px;
+      width: 100%;
     }
     .hero-blurb-stack {
       display: flex;
@@ -1052,6 +1061,9 @@
 
       <section class="hero">
 
+        <!-- Hero inner — everything aligns together -->
+        <div class="hero-inner">
+
         <!-- Pill tag -->
         <div class="hero-pill-tag">UI/UX Designer</div>
 
@@ -1077,6 +1089,8 @@
             <span class="hero-pill blue">ordering at Chuck E. Cheese.</span>
           </div>
         </div>
+
+        </div><!-- end hero-inner -->
 
       </section>
 
