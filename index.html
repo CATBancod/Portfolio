@@ -311,7 +311,9 @@
       flex-shrink: 0;
     }
 
-    /* Portrait — fixed size, sits between names */
+    @media (min-width: 1385px) {
+      .hero-name-row { justify-content: center; }
+    }
     .hero-portrait-wrap {
       width: clamp(80px, 8vw, 130px);
       height: clamp(100px, 10vw, 165px);
