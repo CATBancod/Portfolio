@@ -273,12 +273,12 @@
       margin-bottom: 4px;
     }
 
-    /* Hero inner — everything left-aligned as one unit */
+    /* Hero inner — full width, JS positions pill + blurbs to match name */
     .hero-inner {
-      display: inline-flex;
+      display: flex;
       flex-direction: column;
       align-items: flex-start;
-      max-width: 100%;
+      width: 100%;
     }
 
     /* Name row — fills hero-inner, names pushed to edges */
@@ -2563,6 +2563,24 @@
 
     runIntro();
   })();
+
+  // ── Sync hero elements to name row ─────────────────────
+  function syncHeroLayout() {
+    const nameRow  = document.querySelector('.hero-name-row');
+    const blurbRow = document.querySelector('.hero-blurb-row');
+    const pillTag  = document.querySelector('.hero-pill-tag');
+    if (!nameRow || !blurbRow || !pillTag) return;
+    const nameRect  = nameRow.getBoundingClientRect();
+    const heroRect  = nameRow.closest('.hero-inner').getBoundingClientRect();
+    const leftOffset = nameRect.left - heroRect.left;
+    const w          = nameRect.width;
+    blurbRow.style.width      = w + 'px';
+    blurbRow.style.marginLeft = leftOffset + 'px';
+    pillTag.style.marginLeft  = leftOffset + 'px';
+  }
+  // Run after fonts/layout settle
+  requestAnimationFrame(() => requestAnimationFrame(syncHeroLayout));
+  window.addEventListener('resize', syncHeroLayout);
 
   // ── Mobile touch fixes ─────────────────────────────────
     // Vinyl records — spin on touch
