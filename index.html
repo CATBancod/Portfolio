@@ -81,6 +81,19 @@
       color: #570301;
       letter-spacing: -0.04em;
       line-height: 1;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0 0.02em;
+    }
+    .intro-full .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(60px) rotate(8deg) scale(0.7);
+    }
+    .intro-full .space {
+      display: inline-block;
+      width: 0.3em;
     }
 
     /* ─── TOKENS ───────────────────────────────────────────── */
@@ -329,6 +342,18 @@
     .hero-pill.blue   { background: #BAD6FD; color: #123741; }
 
     /* Mobile — stacked layout */
+    @media (min-width: 641px) and (max-width: 1100px) {
+      .hero { padding-top: 80px; margin-bottom: 140px; }
+      .hero-name-left,
+      .hero-name-right {
+        font-size: clamp(2.4rem, 9vw, 7rem);
+      }
+      .hero-portrait-wrap {
+        width: clamp(70px, 9vw, 110px);
+        height: clamp(90px, 11vw, 140px);
+      }
+    }
+
     @media (max-width: 640px) {
       .hero-name-row {
         display: flex;
@@ -956,10 +981,12 @@
     <span class="intro-letter">S</span>
   </div>
   <div class="intro-panel" id="intro-sb">
-    <span class="intro-letter">SB</span>
+    <span class="intro-letter">B</span>
   </div>
   <div class="intro-panel" id="intro-name">
-    <span class="intro-full">Sandi Bancod.</span>
+    <span class="intro-full">
+      <span class="char">S</span><span class="char">a</span><span class="char">n</span><span class="char">d</span><span class="char">i</span><span class="space"> </span><span class="char">B</span><span class="char">a</span><span class="char">n</span><span class="char">c</span><span class="char">o</span><span class="char">d</span><span class="char">.</span>
+    </span>
   </div>
 </div>
 
@@ -1182,6 +1209,15 @@
             <p class="sq-label">AI Product Design · Concept</p>
             <h3 class="sq-name">CEC × Adidas Gazelle</h3>
             <p class="sq-desc">A product design concept exploring what a Chuck E. Cheese x Adidas collaboration could look like, created using AI design tools and prompt engineering.</p>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <img src="WaySocial_cards.png" alt="Way Social business card mockup" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">Brand Design · Way Social</p>
+            <h3 class="sq-name">Way Social Business Cards</h3>
+            <p class="sq-desc">Business card design and mockup for Way Social, a social media marketing agency. Built around a bold typographic pattern system with a clean, modern identity.</p>
           </div>
         </div>
 
@@ -2374,79 +2410,92 @@
     const panelB = document.getElementById('intro-sb');
     const panelN = document.getElementById('intro-name');
 
-    const letterS  = panelS  ? panelS.querySelector('.intro-letter')  : null;
-    const letterSB = panelB  ? panelB.querySelector('.intro-letter')  : null;
-    const letterN  = panelN  ? panelN.querySelector('.intro-full')    : null;
+    const letterS  = panelS ? panelS.querySelector('.intro-letter') : null;
+    const letterB  = panelB ? panelB.querySelector('.intro-letter') : null;
+    const chars    = panelN ? panelN.querySelectorAll('.char') : [];
 
-    // Set up letter starting states
-    [letterS, letterSB, letterN].forEach(l => {
-      if (l) {
-        l.style.display = 'inline-block';
-        l.style.opacity = '0';
-        l.style.transform = 'translateY(40px) scale(0.85)';
-        l.style.transition = 'opacity 0.25s cubic-bezier(0.34,1.56,0.64,1), transform 0.3s cubic-bezier(0.34,1.56,0.64,1)';
-      }
-    });
+    // S starts from below
+    if (letterS) {
+      letterS.style.display = 'inline-block';
+      letterS.style.opacity = '0';
+      letterS.style.transform = 'translateY(120px) scale(0.7)';
+      letterS.style.transition = 'opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+    }
+
+    // B starts from above
+    if (letterB) {
+      letterB.style.display = 'inline-block';
+      letterB.style.opacity = '0';
+      letterB.style.transform = 'translateY(-120px) scale(0.7)';
+      letterB.style.transition = 'opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+    }
 
     [panelS, panelB, panelN].forEach(p => {
-      if (p) {
-        p.style.opacity = '0';
-        p.style.transition = 'opacity 0.3s ease';
-      }
+      if (p) { p.style.opacity = '0'; p.style.transition = 'opacity 0.25s ease'; }
     });
 
-    function showPanel(panel, letter) {
+    function hold(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    function showLetter(panel, letter, fromY) {
       return new Promise(res => {
         panel.style.opacity = '1';
         setTimeout(() => {
           letter.style.opacity = '1';
           letter.style.transform = 'translateY(0) scale(1)';
-          setTimeout(res, 500);
-        }, 80);
+          setTimeout(res, 480);
+        }, 60);
       });
     }
 
-    function hidePanel(panel, letter) {
+    function hideLetter(panel, letter, exitY) {
       return new Promise(res => {
+        letter.style.transform = `translateY(${exitY}) scale(1.1)`;
         letter.style.opacity = '0';
-        letter.style.transform = 'translateY(-30px) scale(1.1)';
         setTimeout(() => {
           panel.style.opacity = '0';
-          setTimeout(res, 300);
-        }, 200);
+          setTimeout(res, 250);
+        }, 180);
       });
     }
 
-    function hold(ms) { return new Promise(r => setTimeout(r, ms)); }
+    function bounceInChars() {
+      return new Promise(res => {
+        panelN.style.opacity = '1';
+        chars.forEach((char, i) => {
+          const delay = i * 55;
+          setTimeout(() => {
+            char.style.transition = `opacity 0.4s cubic-bezier(0.34,1.8,0.64,1) ${delay}ms, transform 0.5s cubic-bezier(0.34,1.8,0.64,1) ${delay}ms`;
+            char.style.opacity = '1';
+            char.style.transform = 'translateY(0) rotate(0deg) scale(1)';
+          }, delay);
+        });
+        setTimeout(res, chars.length * 55 + 500);
+      });
+    }
 
     async function runIntro() {
       document.body.style.overflow = 'hidden';
 
-      // S
-      await showPanel(panelS, letterS);
-      await hold(220);
-      await hidePanel(panelS, letterS);
-      await hold(80);
+      // S flies up from bottom
+      await showLetter(panelS, letterS, '120px');
+      await hold(180);
+      await hideLetter(panelS, letterS, '-80px');
+      await hold(60);
 
-      // SB
-      letterSB.style.transform = 'translateY(40px) scale(0.85)';
-      letterSB.style.opacity = '0';
-      await showPanel(panelB, letterSB);
-      await hold(220);
-      await hidePanel(panelB, letterSB);
-      await hold(80);
+      // B drops from top
+      await showLetter(panelB, letterB, '-120px');
+      await hold(180);
+      await hideLetter(panelB, letterB, '80px');
+      await hold(60);
 
-      // Sandi Bancod.
-      letterN.style.transform = 'translateY(40px) scale(0.85)';
-      letterN.style.opacity = '0';
-      await showPanel(panelN, letterN);
-      await hold(350);
+      // Sandi Bancod. — each letter bounces in
+      await bounceInChars();
+      await hold(300);
 
-      // Fade out whole splash
-      splash.style.transition = 'opacity 0.3s cubic-bezier(0.4,0,0.2,1)';
+      // Fade out
+      splash.style.transition = 'opacity 0.35s cubic-bezier(0.4,0,0.2,1)';
       splash.style.opacity = '0';
-      await hold(500);
-
+      await hold(450);
       splash.style.display = 'none';
       document.body.style.overflow = '';
     }
