@@ -17,7 +17,7 @@
   <meta name="color-scheme" content="light dark">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Roboto+Mono:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Roboto+Mono:wght@300;400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <style>
     /* Force light mode as default — ignore system dark mode preference */
@@ -255,11 +255,11 @@
       background: #F5BAD5;
       color: #570301;
       font-family: 'Roboto Mono', monospace;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      padding: 10px 24px;
+      padding: 7px 18px;
       border-radius: 999px;
       margin-bottom: 4px;
     }
@@ -981,7 +981,7 @@
     <span class="intro-letter">S</span>
   </div>
   <div class="intro-panel" id="intro-sb">
-    <span class="intro-letter">B</span>
+    <span class="intro-letter" id="intro-letter-s2">S</span><span class="intro-letter" id="intro-letter-b">B</span>
   </div>
   <div class="intro-panel" id="intro-name">
     <span class="intro-full">
@@ -2405,54 +2405,90 @@
       if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
     }, { passive: true });    // ── Intro splash animation ─────────────────────────────
   (function() {
-    const splash = document.getElementById('intro-splash');
-    const panelS = document.getElementById('intro-s');
-    const panelB = document.getElementById('intro-sb');
-    const panelN = document.getElementById('intro-name');
+    const splash  = document.getElementById('intro-splash');
+    const panelS  = document.getElementById('intro-s');
+    const panelSB = document.getElementById('intro-sb');
+    const panelN  = document.getElementById('intro-name');
 
-    const letterS  = panelS ? panelS.querySelector('.intro-letter') : null;
-    const letterB  = panelB ? panelB.querySelector('.intro-letter') : null;
-    const chars    = panelN ? panelN.querySelectorAll('.char') : [];
+    const letterS   = panelS  ? panelS.querySelector('.intro-letter')    : null;
+    const letterS2  = document.getElementById('intro-letter-s2');
+    const letterB   = document.getElementById('intro-letter-b');
+    const chars     = panelN  ? panelN.querySelectorAll('.char')          : [];
 
-    // S starts from below
+    const spring = 'cubic-bezier(0.34,1.56,0.64,1)';
+
+    // S panel — slides from bottom
     if (letterS) {
       letterS.style.display = 'inline-block';
       letterS.style.opacity = '0';
       letterS.style.transform = 'translateY(120px) scale(0.7)';
-      letterS.style.transition = 'opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+      letterS.style.transition = `opacity 0.35s ${spring}, transform 0.45s ${spring}`;
     }
 
-    // B starts from above
+    // SB panel — S from top, B from bottom
+    if (letterS2) {
+      letterS2.style.display = 'inline-block';
+      letterS2.style.opacity = '0';
+      letterS2.style.transform = 'translateY(-120px) scale(0.7)';
+      letterS2.style.transition = `opacity 0.35s ${spring}, transform 0.45s ${spring}`;
+    }
     if (letterB) {
       letterB.style.display = 'inline-block';
       letterB.style.opacity = '0';
-      letterB.style.transform = 'translateY(-120px) scale(0.7)';
-      letterB.style.transition = 'opacity 0.35s cubic-bezier(0.34,1.56,0.64,1), transform 0.45s cubic-bezier(0.34,1.56,0.64,1)';
+      letterB.style.transform = 'translateY(120px) scale(0.7)';
+      letterB.style.transition = `opacity 0.35s ${spring}, transform 0.45s ${spring}`;
     }
 
-    [panelS, panelB, panelN].forEach(p => {
+    [panelS, panelSB, panelN].forEach(p => {
       if (p) { p.style.opacity = '0'; p.style.transition = 'opacity 0.25s ease'; }
     });
 
     function hold(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    function showLetter(panel, letter, fromY) {
+    function showS() {
       return new Promise(res => {
-        panel.style.opacity = '1';
+        panelS.style.opacity = '1';
         setTimeout(() => {
-          letter.style.opacity = '1';
-          letter.style.transform = 'translateY(0) scale(1)';
+          letterS.style.opacity = '1';
+          letterS.style.transform = 'translateY(0) scale(1)';
           setTimeout(res, 480);
         }, 60);
       });
     }
 
-    function hideLetter(panel, letter, exitY) {
+    function hideS() {
       return new Promise(res => {
-        letter.style.transform = `translateY(${exitY}) scale(1.1)`;
-        letter.style.opacity = '0';
+        letterS.style.opacity = '0';
+        letterS.style.transform = 'translateY(-80px) scale(1.1)';
         setTimeout(() => {
-          panel.style.opacity = '0';
+          panelS.style.opacity = '0';
+          setTimeout(res, 250);
+        }, 180);
+      });
+    }
+
+    function showSB() {
+      return new Promise(res => {
+        panelSB.style.opacity = '1';
+        setTimeout(() => {
+          // S slides in from top, B from bottom — simultaneously
+          letterS2.style.opacity = '1';
+          letterS2.style.transform = 'translateY(0) scale(1)';
+          letterB.style.opacity = '1';
+          letterB.style.transform = 'translateY(0) scale(1)';
+          setTimeout(res, 500);
+        }, 60);
+      });
+    }
+
+    function hideSB() {
+      return new Promise(res => {
+        letterS2.style.opacity = '0';
+        letterS2.style.transform = 'translateY(80px) scale(1.1)';
+        letterB.style.opacity = '0';
+        letterB.style.transform = 'translateY(-80px) scale(1.1)';
+        setTimeout(() => {
+          panelSB.style.opacity = '0';
           setTimeout(res, 250);
         }, 180);
       });
@@ -2476,23 +2512,19 @@
     async function runIntro() {
       document.body.style.overflow = 'hidden';
 
-      // S flies up from bottom
-      await showLetter(panelS, letterS, '120px');
+      await showS();
       await hold(180);
-      await hideLetter(panelS, letterS, '-80px');
+      await hideS();
       await hold(60);
 
-      // B drops from top
-      await showLetter(panelB, letterB, '-120px');
-      await hold(180);
-      await hideLetter(panelB, letterB, '80px');
+      await showSB();
+      await hold(220);
+      await hideSB();
       await hold(60);
 
-      // Sandi Bancod. — each letter bounces in
       await bounceInChars();
       await hold(300);
 
-      // Fade out
       splash.style.transition = 'opacity 0.35s cubic-bezier(0.4,0,0.2,1)';
       splash.style.opacity = '0';
       await hold(450);
