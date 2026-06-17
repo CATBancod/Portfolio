@@ -343,14 +343,18 @@
 
     /* Tablet / mid-size — 641px to 1384px */
     @media (min-width: 641px) and (max-width: 1384px) {
-      .hero { padding-top: 80px; margin-bottom: 140px; }
+      .hero { padding-top: 80px; margin-bottom: 140px; overflow: hidden; }
+      .hero-name-row { overflow: visible; }
       .hero-name-left,
       .hero-name-right {
-        font-size: clamp(2.4rem, 12vw, 10rem);
+        font-size: clamp(2.4rem, 11vw, 9rem);
+        flex-shrink: 1;
+        min-width: 0;
       }
       .hero-portrait-wrap {
-        width: clamp(70px, 9vw, 120px);
-        height: clamp(90px, 11vw, 155px);
+        width: clamp(60px, 8vw, 110px);
+        height: clamp(78px, 10vw, 140px);
+        flex-shrink: 0;
       }
     }
 
