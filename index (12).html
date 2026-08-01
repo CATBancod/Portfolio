@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sandi — UI/UX Designer</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="color-scheme" content="light">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600;700;900&family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+
+    /* ─── TOKENS ───────────────────────────────────────────── */
+    :root {
+      --bg:          #F5F5F3;
+      --bg-card:     #EBEBEA;
+      --text:        #111110;
+      --text-muted:  #888886;
+      --border:      rgba(17,17,16,0.10);
+      --nav-width:   0px;
+      --nav-bg:      #F5F5F3;
+      --ph-bg:       #DDDDD9;
+      --ph-text:     #AAAAAA;
+      --card-radius: 10px;
+      --font-serif:  'Instrument Serif', serif;
+      --accent-pink: #D569B4;
+      --accent-pink-soft: #F5BAD5;
+      --ink-black:   #0D0D0C;
+      --ink-card:    #171715;
+      --ink-muted:   #8C8C89;
+      --ink-border:  rgba(245,245,243,0.10);
+    }
+
+    /* ─── RESET ────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter Tight', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+      transition: background 0.25s, color 0.25s;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    /* ─── PAGES ────────────────────────────────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ═══════════════════════════════════════════════════════
+       TOP NAV
+    ═══════════════════════════════════════════════════════ */
+    .sidebar {
+      display: none; /* hidden — replaced by top nav on all sizes */
+    }
+    .top-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      transition: background 0.25s;
+    }
+    .top-nav-left {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .site-name {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      color: var(--accent-pink);
+      transition: color 0.2s;
+    }
+    .site-name:hover { color: var(--text); }
+    .top-nav-right {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .nav-links {
+      display: flex;
+      flex-direction: row;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      font-family: 'Roboto Mono', monospace;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); border-bottom: 2px solid #F7E594; padding-bottom: 2px; }
+
+    /* ═══════════════════════════════════════════════════════
+       MAIN CONTENT
+    ═══════════════════════════════════════════════════════ */
+    .main {
+      margin-left: 0;
+      min-height: 100vh;
+    }
+    .content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 40px 100px;
+      overflow-x: hidden;
+    }
+
+    /* ─── PLACEHOLDER ──────────────────────────────────────── */
+    .placeholder {
+      background: var(--ph-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ph-text);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: background 0.25s;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       HERO — Editorial split
+    ═══════════════════════════════════════════════════════ */
+    .hero { margin-bottom: 280px; padding-top: 140px; overflow: visible; }
+
+    .hero > * { width: 100%; }
+
+    /* Editorial hero (serif headline + sub) */
+    .hero-editorial {
+      margin-bottom: 0;
+      padding: 40px 0 60px;
+      text-align: center;
+    }
+    .hero-serif-headline {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      max-width: 900px;
+      margin: 0 auto 28px;
+    }
+    .hero-sun { color: var(--text); }
+    .hero-serif-sub {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: clamp(0.9rem, 1.1vw, 1.05rem);
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .accent-pink { color: var(--accent-pink); font-weight: 600; }
+    @media (max-width: 640px) {
+      .hero-editorial { padding: 20px 0 40px; }
+    }
+
+    /* Pill tag */
+    .hero-pill-tag {
+      display: inline-block;
+      background: #F5BAD5;
+      color: #570301;
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 7px 18px;
+      border-radius: 999px;
+      margin-bottom: 4px;
+    }
+
+    /* Hero inner — full width, JS positions pill + blurbs to match name */
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    /* Name row — fills hero-inner, names pushed to edges */
+    .hero-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 0;
+      overflow: visible;
+    }
+    .hero-name-left {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 8.5vw, 10rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .hero-name-right {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.4rem, 8.5vw, 10rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 1385px) {
+      .hero-name-left,
+      .hero-name-right { font-size: clamp(2.4rem, 8.5vw, 10rem); }
+    }
+    .hero-portrait-wrap {
+      width: clamp(80px, 8vw, 130px);
+      height: clamp(100px, 10vw, 165px);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0;
+      flex-shrink: 0;
+      transform: rotate(3deg);
+      box-shadow: 2px 6px 20px rgba(0,0,0,0.18);
+      z-index: 1;
+      position: relative;
+    }
+    .hero-portrait {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+
+    /* Blurb row — per-line pills, tight spacing */
+    .hero-blurb-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 4px;
+      width: 100%;
+    }
+    .hero-blurb-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .hero-blurb-right { align-items: flex-end; }
+    .hero-pill {
+      display: inline-block;
+      font-family: 'Roboto Mono', monospace;
+      font-size: clamp(0.68rem, 0.9vw, 0.8rem);
+      font-weight: 400;
+      line-height: 1;
+      padding: 5px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+      width: fit-content;
+    }
+    .hero-pill.yellow { background: #F7E594; color: #570301; }
+    .hero-pill.blue   { background: #BAD6FD; color: #123741; }
+
+    /* Tablet / mid-size — 641px to 1384px */
+    @media (min-width: 641px) and (max-width: 1384px) {
+      .hero { padding-top: 80px; margin-bottom: 140px; overflow: visible; }
+      .hero-name-row { overflow: visible; }
+      .hero-name-left,
+      .hero-name-right {
+        font-size: clamp(2.4rem, 9.5vw, 8rem);
+        flex-shrink: 1;
+        min-width: 0;
+      }
+      .hero-portrait-wrap {
+        width: clamp(60px, 8vw, 110px);
+        height: clamp(78px, 10vw, 140px);
+        flex-shrink: 0;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero-name-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0;
+      }
+      .hero-name-left {
+        font-size: clamp(2.4rem, 13vw, 4rem);
+        justify-self: unset;
+        width: auto;
+        flex-shrink: 0;
+      }
+      .hero-portrait-wrap {
+        width: clamp(50px, 14vw, 70px);
+        height: clamp(65px, 18vw, 90px);
+        margin: 0 8px;
+        order: 2;
+      }
+      .hero-name-right {
+        font-size: clamp(2.4rem, 13vw, 4rem);
+        justify-self: unset;
+        width: 100%;
+        order: 3;
+        display: block;
+      }
+      .hero-blurb-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .hero-blurb-right { align-items: flex-start; }
+      .hero-pill { white-space: normal; }
+    }
+    /* ═══════════════════════════════════════════════════════
+       HOME
+    ═══════════════════════════════════════════════════════ */
+      font-size: clamp(1.8rem, 12vw, 5.6rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      white-space: nowrap;
+    }
+    .hero-headline span { display: block; }
+    .hero-headline .muted { color: var(--text-muted); }
+    .hero-headline span:first-child { transition: color 0.2s; }
+    .hero-headline span:first-child:hover { color: #F5BAD5; }
+
+    .status-block {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .status-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 3px;
+    }
+    .status-text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    /* Section title */
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.0;
+      margin-bottom: 32px;
+    }
+
+    /* Project cards — two column grid */
+    .projects-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+    .project-card {
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: var(--bg-card);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .project-img-wrap { width: 100%; overflow: hidden; }
+    .project-img {
+      width: 100%;
+      aspect-ratio: 16/8;
+      transition: transform 0.5s ease;
+    }
+    .project-card:hover .project-img { transform: scale(1.02); }
+    .project-info { padding: 28px 32px 32px; }
+    .project-tags {
+      display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .tag {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+    .project-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    /* ── Full-bleed dark section ─────────────────────────── */
+    .dark-bleed {
+      background: var(--ink-black);
+      color: #F0F0EE;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 80px 40px;
+      margin-bottom: 0 !important;
+    }
+    .dark-bleed .projects-list,
+    .dark-bleed .focus-grid,
+    .dark-bleed > * { max-width: 1100px; margin-left: auto; margin-right: auto; }
+
+    .section-title-serif {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-style: italic;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      letter-spacing: -0.01em;
+      color: #F0F0EE;
+      margin-bottom: 36px;
+    }
+
+    /* Pink pill tags on dark cards */
+    .dark-bleed .tag {
+      font-family: 'Roboto Mono', monospace;
+      background: var(--accent-pink);
+      color: #fff;
+      border: none;
+      font-size: 0.62rem;
+      padding: 5px 12px;
+    }
+
+    /* Dark project cards */
+    .dark-bleed .project-card {
+      background: var(--ink-card);
+      border: 1px solid var(--ink-border);
+    }
+    .dark-bleed .project-name {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      color: #F0F0EE;
+    }
+    .dark-bleed .project-desc { color: var(--ink-muted); }
+
+    /* What I Focus On */
+    .focus-heading {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      text-align: center;
+      margin: 20px 0 24px;
+    }
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .focus-card {
+      background: var(--ink-card);
+      border: 1px solid var(--ink-border);
+      border-radius: var(--card-radius);
+      padding: 26px 22px;
+      text-align: center;
+    }
+    .focus-card h4 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: #F0F0EE;
+      margin-bottom: 10px;
+    }
+    .focus-card p {
+      font-size: 0.82rem;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+    @media (max-width: 700px) {
+      .focus-grid { grid-template-columns: 1fr; }
+      .dark-bleed { padding: 56px 24px; }
+    }
+
+    /* Contact */
+    .contact-section { margin-bottom: 80px; text-align: center; }
+    .contact-section h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .contact-heading-serif {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+    .contact-email-serif {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      color: #F0F0EE;
+      margin: 8px 0 28px;
+      transition: color 0.2s;
+    }
+    .contact-email-serif:hover { color: var(--accent-pink); }
+    .contact-btn-pink {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 26px;
+      border-radius: 999px;
+      background: var(--accent-pink);
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .contact-btn-pink:hover { opacity: 0.85; }
+    .contact-icon-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--ink-border);
+      color: #F0F0EE;
+    }
+    .contact-icon-btn svg { width: 18px; height: 18px; }
+    .contact-section.dark-bleed p { color: var(--ink-muted); max-width: 440px; margin-left: auto; margin-right: auto; }
+    .contact-cards { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .contact-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border: 1.5px solid var(--border);
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s;
+      cursor: pointer;
+    }
+    .contact-card:hover { border-color: #F7E594; box-shadow: 0 0 0 1px #F7E594; }
+    .contact-card-icon {
+      width: 22px; height: 22px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .contact-card-icon svg { width: 14px; height: 14px; }
+    .contact-card-value {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0 0;
+    }
+    .footer-text { font-size: 0.78rem; color: var(--text-muted); }
+    .footer-heart {
+      display: inline-block;
+      animation: heartbeat 1.2s ease-in-out infinite;
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%       { transform: scale(1.25); }
+      28%       { transform: scale(1); }
+      42%       { transform: scale(1.18); }
+      56%       { transform: scale(1); }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       SIDE QUESTS
+    ═══════════════════════════════════════════════════════ */
+    .page-intro {
+      margin-bottom: 40px;
+    }
+    .page-intro p {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      max-width: 500px;
+      line-height: 1.75;
+      margin-top: 14px;
+    }
+    .sq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-bottom: 80px;
+    }
+    .sq-card {
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .sq-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+    }
+    .sq-img { width: 100%; aspect-ratio: 4/3; }
+    .sq-info { padding: 20px 24px 24px; }
+    .sq-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .sq-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+    }
+    .sq-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ═══════════════════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════════════════ */
+    .about-headline {
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.0;
+      margin-bottom: 48px;
+    }
+    .about-headline span { display: block; }
+    .about-headline .muted { color: var(--text-muted); }
+
+  .about-photo {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      border-radius: var(--card-radius);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+    .about-photo .placeholder { width: 100%; height: 100%; }
+
+    .about-body-text {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.85;
+      max-width: 580px;
+      margin-bottom: 20px;
+    }
+    .resume-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-bottom: 2px solid var(--text);
+      padding-bottom: 1px;
+      margin-bottom: 64px;
+      transition: opacity 0.2s;
+    }
+    .resume-link:hover { opacity: 0.45; }
+
+    .about-section { margin-bottom: 56px; }
+    .about-section h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 4px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-row {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about-row h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 3px;
+    }
+    .about-row-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .about-row-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 540px;
+    }
+
+    .interests-section { margin-bottom: 56px; }
+    .interests-section h2 {
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+    .interest-row {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .interest-row-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+    .interest-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .interest-tag {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       MOBILE NAV
+    ═══════════════════════════════════════════════════════ */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 56px;
+      background: var(--nav-bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 200;
+      padding: 0 20px;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.25s;
+    }
+    .mobile-nav-left { display: flex; align-items: center; gap: 12px; }
+    .mobile-site-name { font-size: 1rem; font-weight: 900; cursor: pointer; transition: color 0.2s; }
+    .mobile-site-name:hover { color: #F5BAD5; }
+    .hamburger {
+      display: flex; flex-direction: column; gap: 4px;
+      cursor: pointer; padding: 4px;
+    }
+    .hamburger span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--text);
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 199;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 0 32px;
+      gap: 28px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      cursor: pointer;
+      color: var(--text);
+      transition: opacity 0.2s;
+    }
+    .mobile-menu a:hover { opacity: 0.45; }
+
+    /* ═══════════════════════════════════════════════════════
+       FADE IN
+    ═══════════════════════════════════════════════════════ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.55s ease forwards;
+    }
+    .delay-1 { animation-delay: 0.08s; }
+    .delay-2 { animation-delay: 0.16s; }
+    .delay-3 { animation-delay: 0.24s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* ── Animated interest tags ───────────────────────────── */
+  .animated-tags { gap: 10px; }
+  .anim-tag {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.2s, color 0.2s;
+  }
+  .anim-tag.tag-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .anim-tag:hover {
+    border-color: #BAD6FD;
+    color: #570301;
+  }
+
+  /* ── Vinyl records ────────────────────────────────────── */
+  .vinyl-shelf {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    padding-top: 8px;
+  }
+  .vinyl-item { display: flex; flex-direction: column; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+  .vinyl-record {
+    width: 100%; aspect-ratio: 1;
+    max-width: 112px;
+    border-radius: 50%;
+    background: #1a1a1a;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    animation: vinylSpin 4s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: box-shadow 0.3s;
+  }
+  .vinyl-record:hover {
+    animation-play-state: running;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  @keyframes vinylSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  .vinyl-grooves {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle at center,
+      #1a1a1a 0px,
+      #1a1a1a 3px,
+      #2e2e2e 3px,
+      #2e2e2e 4px
+    );
+  }
+  .vinyl-label {
+    position: absolute;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: #570301;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 2;
+    padding: 6px;
+  }
+  .vinyl-label-2 { background: #BAD6FD; }
+  .vinyl-label-2 .vinyl-title,
+  .vinyl-label-2 .vinyl-artist { color: #570301; }
+  .vinyl-label-3 { background: #F5BAD5; }
+  .vinyl-label-3 .vinyl-title,
+  .vinyl-label-3 .vinyl-artist { color: #570301; }
+  .vinyl-title {
+    font-size: 0.44rem;
+    font-weight: 900;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+    margin: 0;
+  }
+  .vinyl-artist {
+    font-size: 0.38rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+    line-height: 1.2;
+    margin: 0;
+  }
+  .vinyl-hole { display: none; }
+    .scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0%;
+      height: 3px;
+      background: #570301;
+      z-index: 9999;
+      transition: width 0.1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+    @media (max-width: 800px) {
+      .scroll-progress { height: 5px; }
+    }
+
+    /* ── Back to top ──────────────────────────────────────── */
+    .back-to-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 48px; height: 48px;
+      background: #570301;
+      border: 1.5px solid #570301;
+      border-radius: 999px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.3s, transform 0.3s, background 0.2s;
+      z-index: 500;
+      color: #fff;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top:hover { background: #3a0100; border-color: #3a0100; }
+    .back-to-top svg { width: 16px; height: 16px; }
+    .will-reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .will-reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .projects-list .will-reveal:nth-child(2) { transition-delay: 0.1s; }
+    .projects-list .will-reveal:nth-child(3) { transition-delay: 0.2s; }
+    .projects-list .will-reveal:nth-child(4) { transition-delay: 0.3s; }
+    .sq-grid .will-reveal:nth-child(2) { transition-delay: 0.08s; }
+    .sq-grid .will-reveal:nth-child(3) { transition-delay: 0.16s; }
+    .sq-grid .will-reveal:nth-child(4) { transition-delay: 0.24s; }
+
+    /* ═══════════════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════════════ */
+    @media (max-width: 800px) {
+      .sidebar { display: none; }
+      .top-nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex !important; }
+      .main { margin-left: 0; }
+      .content { padding: 80px 20px 80px; }
+      .sq-grid { grid-template-columns: 1fr; }
+      .projects-list { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 801px) {
+      .mobile-nav { display: none; }
+      .hamburger { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="scroll-progress" id="scroll-progress"></div>
+
+<!-- Back to top -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
+
+<!-- ══ TOP NAV ════════════════════════════════════════════════ -->
+<header class="top-nav">
+  <div class="top-nav-left">
+    <span class="site-name" onclick="showPage('home')">sandi.bancod</span>
+  </div>
+  <div class="top-nav-right">
+    <nav class="nav-links">
+      <a onclick="showPage('home'); scrollToProjects()" class="nav-link" data-page="work">Work</a>
+      <a onclick="showPage('sidequests')" class="nav-link" data-page="sidequests">Side Quests</a>
+      <a onclick="showPage('about')" class="nav-link" data-page="about">About</a>
+      <a href="Sandi_Bancod_Resume_2026.pdf" target="_blank">Resume</a>
+    </nav>
+    <!-- Hamburger for mobile -->
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" style="display:none;">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</header>
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="navTo('home'); scrollToProjects()">Work</a>
+  <a onclick="navTo('sidequests')">Side Quests</a>
+  <a onclick="navTo('about')">About</a>
+  <a href="Sandi_Bancod_Resume_2026.pdf" target="_blank" onclick="toggleMenu(false)">Resume</a>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     HOME
+══════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-home">
+  <div class="main">
+    <div class="content">
+
+      <section class="hero hero-editorial">
+        <h1 class="hero-serif-headline">
+          Hi, I'm Sandi <span class="hero-sun">☀</span> I design with function first - and craft, always.
+        </h1>
+        <p class="hero-serif-sub">
+          Currently, a <strong class="accent-pink">UI/UX designer</strong> at CEC Entertainment, designing experiences across digital touchpoints: web, seasonal campaigns, and in-store ordering experiences.
+        </p>
+      </section>
+
+      <section id="featured-projects" class="dark-bleed">
+        <h2 class="section-title-serif fade-in">Featured Projects</h2>
+        <div class="projects-list">
+
+          <div class="project-card fade-in" onclick="showPage('climbon')" style="cursor:pointer;">
+            <div class="project-img-wrap">
+              <img src="climbon-cover.jpg" alt="ClimbOn" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Mobile App</span>
+                <span class="tag">AR</span>
+                <span class="tag">Case Study</span>
+              </div>
+              <h3 class="project-name">ClimbOn</h3>
+              <p class="project-desc">An augmented reality climbing app designed to help climbers of all levels identify routes, track progress, and connect with the climbing community.</p>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-1" onclick="showPage('happenings')" style="cursor:pointer;">
+            <div class="project-img-wrap">
+              <img src="happenings-cover.jpg" alt="Happenings" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Mobile App</span>
+                <span class="tag">Social</span>
+                <span class="tag">Case Study</span>
+              </div>
+              <h3 class="project-name">Happenings</h3>
+              <p class="project-desc">A collaborative event planning app that makes it easy to coordinate with friends, from idea to RSVP, all in one place.</p>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-2" onclick="showPage('chucke')" style="cursor:pointer;">
+            <div class="project-img-wrap">
+              <img src="chucke-cover.jpg" alt="Chuck E. Cheese" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Web Design</span>
+                <span class="tag">Campaign</span>
+              </div>
+              <h3 class="project-name">Chuck E. Cheese Web</h3>
+              <p class="project-desc">Seasonal campaign comps for Chuck E. Cheese, designed to drive coupon redemption and family engagement across desktop and mobile.</p>
+            </div>
+          </div>
+
+          <div class="project-card fade-in delay-3" onclick="showPage('kidcheck')" style="cursor:pointer;">
+            <div class="project-img-wrap">
+              <img src="kidcheck-cover.jpg" alt="Kid Check" style="width:100%;aspect-ratio:16/8;object-fit:cover;">
+            </div>
+            <div class="project-info">
+              <div class="project-tags">
+                <span class="tag">Web Design</span>
+                <span class="tag">Digital Experience</span>
+              </div>
+              <h3 class="project-name">Kid Check Landing Page</h3>
+              <p class="project-desc">A landing page for Chuck E. Cheese's child safety program, designed to communicate safety, trust, and reliability to parents.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <h3 class="focus-heading">What I Focus On</h3>
+        <div class="focus-grid">
+          <div class="focus-card">
+            <h4>Behavioral UX</h4>
+            <p>Designing for how people actually behave, not how they say they will.</p>
+          </div>
+          <div class="focus-card">
+            <h4>Growth design</h4>
+            <p>Turning first-time users into long-term ones, one friction point at a time.</p>
+          </div>
+          <div class="focus-card">
+            <h4>Mobile experiences</h4>
+            <p>Crafting flows that feel effortless on the screen people reach for first.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-section dark-bleed">
+        <h2 class="contact-heading-serif">I'd love to hear from you!</h2>
+        <p>Open to new opportunities and collaborations.</p>
+        <a class="contact-email-serif" href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
+        <div class="contact-cards">
+          <a class="contact-btn-pink" href="mailto:sandibanc@gmail.com">Get in touch</a>
+          <a class="contact-icon-btn" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     SIDE QUESTS
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-sidequests">
+  <div class="main">
+    <div class="content">
+
+      <div class="page-intro">
+        <h1 class="section-title">Side Quests.</h1>
+        <p>Passion projects, creative experiments, and work that lives outside the usual brief. A lot of this explores AI as a tool for creativity and quick execution, where learned prompt generation skill makes all the difference.</p>
+      </div>
+
+      <div class="sq-grid">
+
+        <div class="sq-card">
+          <img src="sq-spacechuck.jpg" alt="Space Chuck E." style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">AI Character Design · CEC</p>
+            <h3 class="sq-name">Space Chuck E.</h3>
+            <p class="sq-desc">Chuck E. reimagined as an astronaut for Adventure World, developed using AI prompt generation while staying true to CEC brand guidelines.</p>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <img src="sq-spacehelen.jpg" alt="Space Helen" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">AI Character Design · CEC</p>
+            <h3 class="sq-name">Space Helen</h3>
+            <p class="sq-desc">Helen Henny in a space suit, part of the Adventure World character lineup, created with precision AI prompting to match CEC's visual identity.</p>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <img src="sq-bella.jpg" alt="Bella the Bunny" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">AI Character Design · CEC</p>
+            <h3 class="sq-name">Racecar Bella</h3>
+            <p class="sq-desc">Bella is an existing Chuck E. Cheese character reimagined as a racecar driver for the first Adventure World location, brought to life using AI prompt generation aligned with CEC brand guidelines.</p>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <img src="sq-adidas.jpg" alt="CEC x Adidas concept" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">AI Product Design · Concept</p>
+            <h3 class="sq-name">CEC × Adidas Gazelle</h3>
+            <p class="sq-desc">A product design concept exploring what a Chuck E. Cheese x Adidas collaboration could look like, created using AI design tools and prompt engineering.</p>
+          </div>
+        </div>
+
+        <div class="sq-card">
+          <img src="WaySocial_cards.png" alt="Way Social business card mockup" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
+          <div class="sq-info">
+            <p class="sq-label">Brand Design · Way Social</p>
+            <h3 class="sq-name">Way Social Business Cards</h3>
+            <p class="sq-desc">Business card design and mockup for Way Social, a social media marketing agency. Built around a bold typographic pattern system with a clean, modern identity.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <footer>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-about">
+  <div class="main">
+    <div class="content">
+
+      <h1 class="about-headline fade-in">
+        <span>Hey there,</span>
+        <span class="muted">I'm Sandi.</span>
+      </h1>
+
+      <!-- Photo -->
+      <div class="about-photo">
+        <img src="about-photo-light.jpg" alt="Sandi" style="width:100%;height:auto;">
+      </div>
+
+      <!-- Bio -->
+      <p class="about-body-text">Before my journey into UX/UI design, I studied leadership and biblical studies with a focus on music in ministry. Creativity has always been a core part of my life. Whether through music, art, or storytelling — my overarching mission to serve others has remained constant.</p>
+      <p class="about-body-text">I bring this same "people-first" mindset with what I do today by designing intuitive, innovative, and accessible experiences that help people feel understood and supported.</p>
+
+      <!-- Resume -->
+      <a class="resume-link" href="Sandi_Bancod_Resume_2026.pdf" target="_blank">Resume ↗</a>
+
+      <!-- Outside of design -->
+      <div class="interests-section">
+        <h2>Outside of design.</h2>
+        <div class="interest-row">
+          <p class="interest-row-label">You'll find me at</p>
+          <div class="interest-tags animated-tags">
+            <span class="interest-tag anim-tag">🎵 Live music</span>
+            <span class="interest-tag anim-tag">☕ Coffee shops</span>
+            <span class="interest-tag anim-tag">🩰 Barre classes</span>
+            <span class="interest-tag anim-tag">✈️ Traveling</span>
+            <span class="interest-tag anim-tag">🤍 Time with friends</span>
+          </div>
+        </div>
+        <div class="interest-row">
+          <p class="interest-row-label">What I'm listening to</p>
+          <div class="vinyl-shelf">
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label">
+                  <p class="vinyl-title">Thrill</p>
+                  <p class="vinyl-artist">Sydney Ross Mitchell</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label vinyl-label-2">
+                  <p class="vinyl-title">Breathe</p>
+                  <p class="vinyl-artist">Malcolm Todd</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="vinyl-item">
+              <div class="vinyl-record">
+                <div class="vinyl-grooves"></div>
+                <div class="vinyl-label vinyl-label-3">
+                  <p class="vinyl-title">Justin</p>
+                  <p class="vinyl-artist">Bieber</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <section class="contact-section">
+        <h2>I'd love to hear from you!</h2>
+        <p>Open to new opportunities and collaborations.</p>
+        <div class="contact-cards">
+          <a class="contact-card" href="mailto:sandibanc@gmail.com">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+            </div>
+            <span class="contact-card-value">Email</span>
+          </a>
+          <a class="contact-card" href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank">
+            <div class="contact-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </div>
+            <span class="contact-card-value">LinkedIn</span>
+          </a>
+        </div>
+      </section>
+
+      <footer>
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: CLIMBON CASE STUDY
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-climbon">
+  <div class="main">
+    <div class="content">
+
+      <!-- Back -->
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <!-- Hero -->
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Mobile App</span>
+          <span class="tag">AR</span>
+          <span class="tag">Case Study</span>
+        </div>
+        <h1 class="cs-title">ClimbOn.</h1>
+        <p class="cs-subtitle">An AR climbing app for outdoor climbers — making route identification faster, safer, and less stressful.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UX Researcher · UI Designer · Project Manager</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Timeline</p>
+            <p class="cs-meta-value">July – August 2023</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Tools</p>
+            <p class="cs-meta-value">Figma · Zoom</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover image placeholder -->
+      <img src="climbon-cover.jpg" alt="ClimbOn" class="cs-cover" style="object-fit:cover;">
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">ClimbOn is a mobile AR climbing app designed to enhance the outdoor climbing experience by making route identification faster and easier. Using augmented reality, climbers can scan rock formations to locate beta in real time — reducing stress, improving safety, and allowing them to stay focused on the climb.</p>
+      </div>
+
+      <!-- Problem -->
+      <div class="cs-section">
+        <div class="cs-section-label">Problem</div>
+        <h2 class="cs-h2">Climbers were guessing their way up the wall.</h2>
+        <p class="cs-body">Through research, we discovered outdoor climbers struggle to identify routes on natural rock walls. This led to unnecessary guesswork, increased mental strain, and reduced safety and enjoyment. Physical guidebooks — the only real resource — were out of print and selling for up to $135.</p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-num">60%</span>
+            <span class="cs-stat-desc">prefer outdoor over indoor climbing</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">85%</span>
+            <span class="cs-stat-desc">interested in an AR climbing app</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">70%</span>
+            <span class="cs-stat-desc">rely on a guidebook to find routes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="cs-divider"></div>
+
+      <!-- Process -->
+      <div class="cs-section">
+        <div class="cs-section-label">Process</div>
+        <div class="cs-phases">
+          <span class="cs-phase active-phase">01 Understand</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">02 Define</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">03 Design</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">04 Reflect</span>
+        </div>
+      </div>
+
+      <!-- 01 Understand -->
+      <div class="cs-section" id="cs-understand">
+        <div class="cs-section-label">01 — Understand</div>
+        <h2 class="cs-h2">Getting to know the climbing world.</h2>
+        <p class="cs-body">We conducted a survey with 41 responses and 5 semi-structured interviews to validate our app concept. As non-climbers, this phase taught us the culture — terms like "beta," "send," and "project" became part of our vocabulary.</p>
+        <p class="cs-body">We also went on a field trip to an outdoor climbing site. Experiencing firsthand how hard it was to identify routes gave us real empathy for our users.</p>
+
+        <blockquote class="cs-quote">
+          "There's so much liberty with climbing… but the hardest part is not having enough time." — Sam N.
+        </blockquote>
+
+        <div class="cs-steps">
+          <div class="cs-step">
+            <p class="cs-step-title">Affinity Diagram</p>
+            <p class="cs-step-desc">Sorted and grouped feedback from surveys and interviews to find patterns.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Feature Prioritization</p>
+            <p class="cs-step-desc">Mapped which features were most valued by climbers based on research.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Competitive Analysis</p>
+            <p class="cs-step-desc">Reviewed Mountain Project, KAYA, and physical guidebooks to find the gap.</p>
+          </div>
+        </div>
+
+        <!-- Image placeholder -->
+        <img src="climbon-research.jpg" alt="Affinity diagram, feature prioritization, storyboard" class="cs-img-wide">
+      </div>
+
+      <!-- 02 Define -->
+      <div class="cs-section" id="cs-define">
+        <div class="cs-section-label">02 — Define</div>
+        <h2 class="cs-h2">Clarifying who we were designing for.</h2>
+        <p class="cs-body"><strong>Product Users:</strong> Outdoor sport climbers and boulderers, ages 20–40, who regularly climb in unfamiliar areas.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Problem Statement</p>
+            <p class="cs-callout-text">Outdoor climbers have difficulty finding routes on a rock wall and waste their time before enjoying the climb.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Hypothesis</p>
+            <p class="cs-callout-text">If we create an AR tool to help climbers identify routes, they'll have a better and less stressful climbing experience.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Value</p>
+            <p class="cs-callout-text">ClimbOn pairs climbers with appropriate routes — saving time, energy, and reducing risk of injury.</p>
+          </div>
+        </div>
+
+        <p class="cs-body" style="margin-top:32px;"><strong>Key pain points identified:</strong></p>
+        <ul class="cs-list">
+          <li>Climbers spend excessive time planning outdoor routes</li>
+          <li>Identifying routes in person is overwhelming and stressful</li>
+          <li>Anxiety around injury when attempting unfamiliar climbs</li>
+        </ul>
+      </div>
+
+      <!-- 03 Design -->
+      <div class="cs-section" id="cs-design">
+        <div class="cs-section-label">03 — Design & Test</div>
+        <h2 class="cs-h2">From rough sketches to a "groundbreaking" prototype.</h2>
+        <p class="cs-body">We explored four concepts — from a smartwatch integration to AR route scanning — and narrowed down to the most viable solution through user testing at each fidelity level.</p>
+
+        <img src="climbon-sketches.jpg" alt="Concept sketches" class="cs-img-wide">
+
+        <!-- Iteration callouts -->
+        <div class="cs-iteration">
+          <p class="cs-iteration-label">Homescreen Iteration</p>
+          <p class="cs-body">Screens evolved through lo-fi and mid-fi testing. The final homescreen simplified navigation to two primary actions: Near Me and Scan Rocks.</p>
+        </div>
+        <img src="climbon-homescreen.jpg" alt="Homescreen iterations" class="cs-img-half">
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">Route Card Iteration</p>
+          <p class="cs-body">Early route cards included activity level indicators and hashtags — users found neither helpful since they'd already be at the site. We stripped these and focused on what climbers actually needed: hold types, ratings, and route description.</p>
+        </div>
+        <img src="climbon-routecard.jpg" alt="Route card iterations" class="cs-img-half">
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">A/B Test — Beta Toggle</p>
+          <p class="cs-body">Users were split on seeing route beta (hold labels) in the AR view. Some found it helpful; others considered it "cheating." Our solution: an optional toggle so climbers could choose their own experience.</p>
+        </div>
+        <img src="climbon-toggle.jpg" alt="Beta toggle A/B test" class="cs-img-half">
+      </div>
+
+      <!-- Final design -->
+      <div class="cs-section">
+        <div class="cs-section-label">Final Design</div>
+        <h2 class="cs-h2">Four key flows, refined through testing.</h2>
+
+        <div class="cs-flows">
+          <div class="cs-flow">
+            <p class="cs-flow-num">01</p>
+            <p class="cs-flow-name">Onboarding</p>
+            <p class="cs-flow-desc">Sign in, grant permissions, learn the core features.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">02</p>
+            <p class="cs-flow-name">Near Me</p>
+            <p class="cs-flow-desc">Search nearby rock formations, explore areas, decide where to go.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">03</p>
+            <p class="cs-flow-name">Scan Rocks</p>
+            <p class="cs-flow-desc">Use AR to locate routes, view beta, and read climber comments.</p>
+          </div>
+          <div class="cs-flow">
+            <p class="cs-flow-num">04</p>
+            <p class="cs-flow-name">ClimbList</p>
+            <p class="cs-flow-desc">Save routes as projects, log sends, and track attempts.</p>
+          </div>
+        </div>
+
+        <p class="cs-img-label">01 — Onboarding</p>
+        <img src="climbon-final-onboarding.jpg" alt="Onboarding flow" class="cs-img-wide" style="margin-top:8px;">
+        <p class="cs-img-label">02 — Near Me & Routes</p>
+        <img src="climbon-final-routes.jpg" alt="Routes flow" class="cs-img-wide" style="margin-top:8px;">
+        <p class="cs-img-label">03 — Scan Rocks</p>
+        <img src="climbon-final-scan.jpg" alt="Scan Rocks flow" class="cs-img-wide" style="margin-top:8px;">
+        <p class="cs-img-label">04 — ClimbList</p>
+        <img src="climbon-final-climblist.jpg" alt="ClimbList flow" class="cs-img-wide" style="margin-top:8px;">
+      </div>
+
+      <!-- Impact -->
+      <div class="cs-section">
+        <div class="cs-section-label">Impact</div>
+        <h2 class="cs-h2">A digital guidebook in their hands.</h2>
+        <p class="cs-body">We delivered an AR-powered experience that allows climbers to quickly scan rock formations, access real-time beta, and approach each ascent with greater safety, clarity, and confidence.</p>
+
+        <div class="cs-quotes">
+          <blockquote class="cs-quote">"This is a huge improvement over the book." — Ethan V.</blockquote>
+          <blockquote class="cs-quote">"It's like a digital guidebook in my hand." — Parker B.</blockquote>
+          <blockquote class="cs-quote">"This is groundbreaking!" — Sam N.</blockquote>
+        </div>
+      </div>
+
+      <!-- Reflect -->
+      <div class="cs-section" id="cs-reflect">
+        <div class="cs-section-label">04 — Reflect</div>
+        <h2 class="cs-h2">What we learned.</h2>
+
+        <ul class="cs-list">
+          <li>Initial interviews are invaluable when designing for a culture you're unfamiliar with.</li>
+          <li>Usability testing at every fidelity level consistently surfaced features worth refining or cutting.</li>
+          <li>Field testing gave us empathy we couldn't have gained from a screen alone.</li>
+        </ul>
+
+        <div class="cs-iteration" style="margin-top:40px;">
+          <p class="cs-iteration-label">Next Steps</p>
+          <ul class="cs-list">
+            <li>A social component and mentorship feature for the climbing community</li>
+            <li>Integration with the Mountain Project API for real route data</li>
+            <li>Revisiting the smartwatch concept explored early in ideation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Nav between case studies -->
+      <div class="cs-nav-row">
+        <div></div>
+        <a class="cs-next" onclick="showPage('happenings')">Next: Happenings →</a>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: HAPPENINGS CASE STUDY
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-happenings">
+  <div class="main">
+    <div class="content">
+
+      <!-- Back -->
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <!-- Hero -->
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Mobile App</span>
+          <span class="tag">Social</span>
+          <span class="tag">Case Study</span>
+        </div>
+        <h1 class="cs-title">Happenings.</h1>
+        <p class="cs-subtitle">A community-focused event planning app designed to make gathering with the people you love feel effortless again.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UX Researcher · UI Designer</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Timeline</p>
+            <p class="cs-meta-value">March – April 2023</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Tools</p>
+            <p class="cs-meta-value">Figma</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <img src="happenings-cover.jpg" alt="Happenings" class="cs-cover" style="object-fit:cover;">
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">Happenings is a community-focused app designed to simplify the process of planning and organizing gatherings. In a post-pandemic world where meaningful connections are more important than ever, Happenings streamlines the planning process — fostering a sense of belonging, connection, and community.</p>
+      </div>
+
+      <!-- Problem -->
+      <div class="cs-section">
+        <div class="cs-section-label">Problem</div>
+        <h2 class="cs-h2">After the pandemic, gathering felt harder than it should.</h2>
+        <p class="cs-body">One of the biggest challenges people faced post-pandemic was relearning how to connect. Relationships are a basic human necessity — and a lack of meaningful connection directly correlates to a lower quality of life. Yet planning a gathering remained overwhelming, fragmented, and stressful.</p>
+
+        <div class="cs-stats">
+          <div class="cs-stat">
+            <span class="cs-stat-num">80%</span>
+            <span class="cs-stat-desc">of respondents have hosted a small gathering</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">64%</span>
+            <span class="cs-stat-desc">interested in food, mood & music pairings</span>
+          </div>
+          <div class="cs-stat">
+            <span class="cs-stat-num">97</span>
+            <span class="cs-stat-desc">adults surveyed across 10 questions</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cs-divider"></div>
+
+      <!-- Process -->
+      <div class="cs-section">
+        <div class="cs-section-label">Process</div>
+        <div class="cs-phases">
+          <span class="cs-phase active-phase">01 Discover</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">02 Define</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">03 Ideate</span>
+          <span class="cs-phase-sep">→</span>
+          <span class="cs-phase">04 Design</span>
+        </div>
+      </div>
+
+      <!-- 01 Discover -->
+      <div class="cs-section" id="hap-discover">
+        <div class="cs-section-label">01 — Discover</div>
+        <h2 class="cs-h2">We started with a wrong assumption.</h2>
+        <p class="cs-body">Initially, we assumed a need for a drink-mixing app. But after surveying 97 adults and conducting 8 semi-structured interviews, a different unfulfilled need emerged — people didn't want better cocktails. They wanted better gatherings.</p>
+
+        <blockquote class="cs-quote">
+          "There is less interest in mixing drinks at a party, and more interest in creating an environment where guests feel comfortable and happy."
+        </blockquote>
+
+        <div class="cs-steps">
+          <div class="cs-step">
+            <p class="cs-step-title">Survey</p>
+            <p class="cs-step-desc">97 adults (ages 21+), 10 questions on gatherings, community, and social habits.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Interviews</p>
+            <p class="cs-step-desc">8 semi-structured interviews (ages 21–36) to drill down on specific feelings and viewpoints.</p>
+          </div>
+          <div class="cs-step">
+            <p class="cs-step-title">Competitor Analysis</p>
+            <p class="cs-step-desc">Reviewed Partiful, Evite, Pinterest, Big Night, and Make Me a Cocktail to identify key gaps.</p>
+          </div>
+        </div>
+
+        <p class="cs-img-label">Affinity Map</p>
+        <img src="happenings-affinity.jpg" alt="Affinity map" class="cs-img-wide">
+        <p class="cs-img-label">Sketches</p>
+        <img src="happenings-sketch.jpg" alt="Sketches" class="cs-img-wide">
+      </div>
+
+      <!-- 02 Define -->
+      <div class="cs-section" id="hap-define">
+        <div class="cs-section-label">02 — Define</div>
+        <h2 class="cs-h2">What people actually needed.</h2>
+        <p class="cs-body"><strong>Our user:</strong> The Hostess — a 27-year-old marketing manager in Austin who loves bringing friends together but struggles to make every gathering feel cohesive and fun for everyone.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Pain Points</p>
+            <p class="cs-callout-text">Planning is difficult. Hosts want all guests to have a great time. Poor communication around attendance affects planning. Guests feel anxious about not connecting.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Hypothesis</p>
+            <p class="cs-callout-text">If we make the planning aspect easy and enjoyable, people will feel more fulfilled and connected to those around them.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Necessities</p>
+            <p class="cs-callout-text">Good ambiance (music, energy, atmosphere). Food and drinks for all guests. Themes that bring people together. Easy, frictionless planning.</p>
+          </div>
+        </div>
+
+        <p class="cs-img-label">User Persona — The Hostess</p>
+        <img src="happenings-persona.jpg" alt="User persona" class="cs-img-wide">
+      </div>
+
+      <!-- 03 Ideate -->
+      <div class="cs-section" id="hap-ideate">
+        <div class="cs-section-label">03 — Ideate</div>
+        <h2 class="cs-h2">Two flows, one big insight.</h2>
+        <p class="cs-body">We explored two approaches to the core planning experience and tested them head-to-head:</p>
+
+        <div class="cs-callout-row" style="margin-top:20px;">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Wizard Flow</p>
+            <p class="cs-callout-text">Step-by-step guided planning — structured, predictable, easy to follow. Users set size, theme, date, location, and invites in sequence.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Random Flow</p>
+            <p class="cs-callout-text">AI-generated theme suggestions users swipe through — more playful and exploratory, but less control for the host.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Testing Results</p>
+            <p class="cs-callout-text">6 out of 9 users preferred the Wizard Flow for its clarity — but loved the visual energy of the Random Flow's theme cards.</p>
+          </div>
+        </div>
+
+        <p class="cs-img-label" style="margin-top:24px;">Wizard Flow — Choosing Parts</p>
+        <img src="happenings-wizard.jpg" alt="Wizard flow wireframes" class="cs-img-wide" style="margin-top:8px;">
+        <p class="cs-img-label" style="margin-top:32px;">Random Flow — Shifting Through</p>
+        <img src="happenings-random.jpg" alt="Random flow wireframes" class="cs-img-wide" style="margin-top:8px;">
+      </div>
+
+      <!-- 04 Design -->
+      <div class="cs-section" id="hap-design">
+        <div class="cs-section-label">04 — Design</div>
+        <h2 class="cs-h2">The final experience.</h2>
+        <p class="cs-body">The final design combines the structure of the Wizard Flow with the visual delight of the Random Flow's theme cards — giving hosts both clarity and creativity. The app walks users through size, theme selection, date, location, and invites in a seamless sequence.</p>
+
+        <!-- Image placeholders — swap when ready -->
+        <div class="placeholder cs-img-wide" style="margin-top:32px;padding:48px;font-size:0.9rem;letter-spacing:0.02em;text-transform:none;">I'm cooking... stay tuned for the updated design ✨</div>
+      </div>
+
+      <!-- Impact -->
+      <div class="cs-section">
+        <div class="cs-section-label">Impact</div>
+        <h2 class="cs-h2">Making it happen.</h2>
+        <p class="cs-body">Happenings removes the barriers to social interaction — encouraging people to engage more actively in their social lives, cultivating belonging and community in the post-pandemic era.</p>
+      </div>
+
+      <!-- Reflect -->
+      <div class="cs-section">
+        <div class="cs-section-label">Reflect</div>
+        <h2 class="cs-h2">What's next.</h2>
+        <p class="cs-body">Our research pointed to one clear next step — building the guest experience. The current app is host-focused, but guests need their own flow too.</p>
+        <ul class="cs-list">
+          <li>Build a "Hybrid" workflow combining the structure of Wizard with the visuals of Random</li>
+          <li>Develop a full collaborative guest experience feature</li>
+          <li>Explore AI-assisted theme and activity suggestions based on group size and preferences</li>
+        </ul>
+      </div>
+
+      <!-- Nav -->
+      <div class="cs-nav-row">
+        <a class="cs-next" onclick="showPage('climbon')" style="border-bottom:2px solid var(--text-muted);color:var(--text-muted);">← ClimbOn</a>
+        <a class="cs-next" onclick="showPage('chucke')">Next: Chuck E. Cheese →</a>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: CHUCK E. CHEESE
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-chucke">
+  <div class="main">
+    <div class="content">
+
+      <!-- Back -->
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <!-- Hero -->
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Web Design</span>
+          <span class="tag">Campaign</span>
+          <span class="tag">Digital Experience</span>
+        </div>
+        <h1 class="cs-title">Chuck E. Cheese Web.</h1>
+        <p class="cs-subtitle">Seasonal campaign comps designed to support major marketing briefs, updating the site experience to drive coupon redemption and family engagement.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UI/UX Designer</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Company</p>
+            <p class="cs-meta-value">CEC Entertainment</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Type</p>
+            <p class="cs-meta-value">In-House Campaign Design</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover -->
+      <img src="chucke-cover.jpg" alt="Chuck E. Cheese" class="cs-cover" style="object-fit:cover;">
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">As part of a major campaign brief at CEC Entertainment, I designed seasonal web comps that updated the Chuck E. Cheese site experience to support coupon-driven campaigns. The work spanned multiple seasons — each requiring a fresh look while maintaining brand consistency and a family-first feel.</p>
+      </div>
+
+      <!-- The Brief -->
+      <div class="cs-section">
+        <div class="cs-section-label">The Brief</div>
+        <h2 class="cs-h2">Drive families to the site. Make them stay.</h2>
+        <p class="cs-body">Each seasonal campaign centered on a coupon offer that needed to be front and center — visually exciting for kids, clear and trustworthy for parents. The designs had to work across desktop and mobile, and align with the broader campaign creative.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Goal</p>
+            <p class="cs-callout-text">Update the web experience to support seasonal coupon campaigns and drive in-store visits.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Audience</p>
+            <p class="cs-callout-text">Families with young children, parents making decisions, kids driving excitement.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Approach</p>
+            <p class="cs-callout-text">Bold seasonal visuals, clear coupon hierarchy, responsive layouts for desktop and mobile.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- UI/UX Constraints -->
+      <div class="cs-section">
+        <div class="cs-section-label">Design Constraints</div>
+        <h2 class="cs-h2">Designing within the brief.</h2>
+        <p class="cs-body">While these pages followed a campaign brief, there were intentional UI/UX decisions behind each one.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Coupon First</p>
+            <p class="cs-callout-text">The coupon offer needed to be the first thing guests saw. It's the primary call-to-action, the reason they landed on the page, so hierarchy was built around making it impossible to miss.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Upgrades as a Secondary CTA</p>
+            <p class="cs-callout-text">Upgrade options were placed below the coupon in a color that stands out while staying within the campaign lockup palette, visible enough to drive consideration without competing with the primary offer.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spring Campaign -->
+      <div class="cs-section">
+        <div class="cs-section-label">Spring Campaign</div>
+        <h2 class="cs-h2">Spring Break Family Deal.</h2>
+        <p class="cs-body">The Spring Break comp centered on the $49.99 Ultimate Spring Break Family Deal, designed to feel energetic and kid-friendly while making the offer impossible to miss.</p>
+        <p class="cs-img-label">Desktop & Mobile Comp</p>
+        <img src="chucke-spring.jpg" alt="Spring campaign comp" class="cs-img-wide" style="margin-top:8px;">
+      </div>
+
+      <!-- Summer Campaign -->
+      <div class="cs-section">
+        <div class="cs-section-label">Summer Campaign</div>
+        <h2 class="cs-h2">Summer vibes, same energy.</h2>
+        <p class="cs-body">The Summer comp carried the same campaign structure into a new seasonal look, refreshed visuals, updated offer, and consistent layout patterns across breakpoints.</p>
+        <p class="cs-img-label">Desktop & Mobile Comp</p>
+        <img src="chucke-summer.jpg" alt="Summer campaign comp" class="cs-img-wide" style="margin-top:8px;">
+      </div>
+
+      <!-- Nav -->
+      <div class="cs-nav-row">
+        <a class="cs-next" onclick="showPage('happenings')" style="border-bottom:2px solid var(--text-muted);color:var(--text-muted);">← Happenings</a>
+        <a class="cs-next" onclick="showPage('kidcheck')">Next: Kid Check →</a>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: KID CHECK
+══════════════════════════════════════════════════════════ -->
+<div class="page" id="page-kidcheck">
+  <div class="main">
+    <div class="content">
+
+      <a class="cs-back" onclick="showPage('home')">← Back to Work</a>
+
+      <div class="cs-hero">
+        <div class="project-tags" style="margin-bottom:20px;">
+          <span class="tag">Web Design</span>
+          <span class="tag">Digital Experience</span>
+        </div>
+        <h1 class="cs-title">Kid Check Landing Page.</h1>
+        <p class="cs-subtitle">A landing page for Chuck E. Cheese's child safety program, designed to stand apart from the rest of the site and communicate safety, trust, and reliability to parents.</p>
+
+        <div class="cs-meta">
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Role</p>
+            <p class="cs-meta-value">UI/UX Designer</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Company</p>
+            <p class="cs-meta-value">CEC Entertainment</p>
+          </div>
+          <div class="cs-meta-item">
+            <p class="cs-meta-label">Type</p>
+            <p class="cs-meta-value">Web Initiative</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overview -->
+      <div class="cs-section">
+        <div class="cs-section-label">Overview</div>
+        <p class="cs-body">Kid Check is Chuck E. Cheese's patented child safety system, used at every location since 1994. The landing page needed to clearly explain the program, build confidence with parents, and feel distinctly different from the rest of the marketing site.</p>
+      </div>
+
+      <!-- The Challenge -->
+      <div class="cs-section">
+        <div class="cs-section-label">The Challenge</div>
+        <h2 class="cs-h2">Safety needs a different kind of design.</h2>
+        <p class="cs-body">Most of the Chuck E. Cheese site is high-energy and kid-focused. Kid Check needed to speak directly to parents in a way that felt calm, credible, and trustworthy, without feeling clinical or disconnected from the brand.</p>
+
+        <div class="cs-callout-row">
+          <div class="cs-callout">
+            <p class="cs-callout-label">Stand Apart</p>
+            <p class="cs-callout-text">The page needed to feel visually distinct from campaign pages, signaling a shift in tone from promotional to informational.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Communicate Safety</p>
+            <p class="cs-callout-text">Parents needed to immediately understand how the system works and why it makes Chuck E. Cheese a safer environment for their kids.</p>
+          </div>
+          <div class="cs-callout">
+            <p class="cs-callout-label">Build Trust</p>
+            <p class="cs-callout-text">The design had to convey reliability and credibility, giving parents confidence before they even walk through the door.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design -->
+      <div class="cs-section">
+        <div class="cs-section-label">Design</div>
+        <h2 class="cs-h2">Safety first, always.</h2>
+        <p class="cs-body">The final page leads with the Kid Check brand mark, clearly explains the five-step process, and uses a structured layout to walk parents through every safety measure in place. The design prioritizes clarity and reassurance at every scroll point.</p>
+        <p class="cs-img-label" style="margin-top:24px;">Landing Page</p>
+        <img src="chucke-kidcheck.jpg" alt="Kid Check landing page" class="cs-img-wide" style="margin-top:8px;">
+      </div>
+
+      <!-- Nav -->
+      <div class="cs-nav-row">
+        <a class="cs-next" onclick="showPage('chucke')" style="border-bottom:2px solid var(--text-muted);color:var(--text-muted);">← Chuck E. Cheese Web</a>
+        <div></div>
+      </div>
+
+      <footer style="margin-top:80px;">
+        <p class="footer-text">Designed & coded with care <span class="footer-heart"><svg width="14" height="13" viewBox="0 0 14 13" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M7 12.5S0.5 8 0.5 3.75A3.25 3.25 0 0 1 7 2.06 3.25 3.25 0 0 1 13.5 3.75C13.5 8 7 12.5 7 12.5Z"/></svg></span> Sandi Bancod © 2026</p>
+      </footer>
+
+    </div>
+  </div>
+</div>
+
+
+<style>
+  /* ── CASE STUDY STYLES ─────────────────────────────────── */
+  .cs-back {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    margin-bottom: 48px;
+    transition: color 0.2s;
+  }
+  .cs-back:hover { color: var(--text); }
+
+  .cs-hero { margin-bottom: 48px; }
+  .cs-title {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 1.0;
+    margin-bottom: 16px;
+  }
+  .cs-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+  }
+  .cs-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .cs-meta-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .cs-meta-value {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .cs-cover {
+    width: 100%;
+    aspect-ratio: 16/8;
+    border-radius: var(--card-radius);
+    margin-bottom: 72px;
+    border: 1px solid var(--border);
+  }
+  .cs-img-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .cs-img-label + img,
+  .cs-img-label + .placeholder {
+    margin-top: 0 !important;
+  }
+  /* Images not preceded by a label get their own top spacing */
+  .cs-section > img.cs-img-wide,
+  .cs-section > img.cs-img-half {
+    margin-top: 32px;
+  }
+  .cs-img-wide {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--card-radius);
+    margin-top: 0;
+  }
+  .cs-img-half {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--card-radius);
+    margin-top: 0;
+  }
+
+  .cs-section {
+    margin-bottom: 72px;
+  }
+  .cs-section-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+  .cs-h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .cs-body {
+    font-size: 0.93rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    max-width: 620px;
+    margin-bottom: 16px;
+  }
+  .cs-body strong { color: var(--text); font-weight: 700; }
+
+  .cs-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 16px 0 72px;
+  }
+
+  /* Stats */
+  .cs-stats {
+    display: flex;
+    gap: 0;
+    margin-top: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+  }
+  .cs-stat {
+    flex: 1;
+    padding: 28px 24px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .cs-stat:last-child { border-right: none; }
+  .cs-stat-num {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--text);
+    line-height: 1;
+  }
+  .cs-stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* Quote */
+  .cs-quote {
+    border-left: 2px solid var(--text);
+    padding-left: 20px;
+    margin: 28px 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--text-muted);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+  .cs-quotes { display: flex; flex-direction: column; gap: 0; margin-top: 28px; }
+
+  /* Steps */
+  .cs-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .cs-step {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 20px;
+  }
+  .cs-step-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-step-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Callouts */
+  .cs-callout-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cs-callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 22px;
+  }
+  .cs-callout-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .cs-callout-text {
+    font-size: 0.85rem;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* List */
+  .cs-list {
+    list-style: none;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 600px;
+  }
+  .cs-list li {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    padding-left: 16px;
+    position: relative;
+  }
+  .cs-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  /* Iteration */
+  .cs-iteration {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+  .cs-iteration-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  /* Flows */
+  .cs-flows {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cs-flow {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--card-radius);
+    padding: 20px;
+  }
+  .cs-flow-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .cs-flow-name {
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .cs-flow-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* Case study nav */
+  .cs-nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    margin-top: 48px;
+  }
+  .cs-next {
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    border-bottom: 2px solid var(--text);
+    padding-bottom: 1px;
+    transition: opacity 0.2s;
+  }
+  .cs-next:hover { opacity: 0.5; }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .cs-steps { grid-template-columns: 1fr; }
+    .cs-callout-row { grid-template-columns: 1fr; }
+    .cs-flows { grid-template-columns: repeat(2, 1fr); }
+    .cs-stats { flex-direction: column; }
+    .cs-stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .cs-stat:last-child { border-bottom: none; }
+    .cs-meta { gap: 24px; }
+  }
+</style>
+
+<!-- ─── JS ──────────────────────────────────────────────────── -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo({ top: 0 });
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.toggle('active', l.dataset.page === name);
+    });
+  }
+
+  function scrollToProjects() {
+    setTimeout(() => {
+      const el = document.getElementById('featured-projects');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 60);
+  }
+
+  function navTo(name) {
+    showPage(name);
+    toggleMenu(false);
+  }
+
+  function toggleMenu(force) {
+    const menu = document.getElementById('mobile-menu');
+    const burger = document.getElementById('hamburger');
+    const open = force !== undefined ? force : !menu.classList.contains('open');
+    menu.classList.toggle('open', open);
+    burger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const progressBar = document.getElementById('scroll-progress');
+    const backToTop   = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total    = document.documentElement.scrollHeight - window.innerHeight;
+      const pct      = total > 0 ? (scrolled / total) * 100 : 0;
+      if (progressBar) progressBar.style.width = pct + '%';
+      if (backToTop)   backToTop.classList.toggle('visible', scrolled > 400);
+    }, { passive: true });
+
+  // ── Sync hero elements to name row ─────────────────────
+  function syncHeroLayout() {
+    const nameRow  = document.querySelector('.hero-name-row');
+    const blurbRow = document.querySelector('.hero-blurb-row');
+    const pillTag  = document.querySelector('.hero-pill-tag');
+    if (!nameRow || !blurbRow || !pillTag) return;
+    const nameRect  = nameRow.getBoundingClientRect();
+    const heroRect  = nameRow.closest('.hero-inner').getBoundingClientRect();
+    const leftOffset = nameRect.left - heroRect.left;
+    const w          = nameRect.width;
+    blurbRow.style.width      = w + 'px';
+    blurbRow.style.marginLeft = leftOffset + 'px';
+    pillTag.style.marginLeft  = leftOffset + 'px';
+  }
+  // Run after fonts/layout settle
+  requestAnimationFrame(() => requestAnimationFrame(syncHeroLayout));
+  window.addEventListener('resize', syncHeroLayout);
+
+  // ── Mobile touch fixes ─────────────────────────────────
+    // Vinyl records — spin on touch
+    document.querySelectorAll('.vinyl-record').forEach(record => {
+      record.addEventListener('touchstart', () => {
+        record.style.animationPlayState = 'running';
+      }, { passive: true });
+      record.addEventListener('touchend', () => {
+        setTimeout(() => record.style.animationPlayState = 'paused', 1500);
+      }, { passive: true });
+    });
+
+    // Interest tags — highlight on touch
+    document.querySelectorAll('.anim-tag').forEach(tag => {
+      tag.addEventListener('touchstart', () => {
+        tag.style.borderColor = '#BAD6FD';
+        tag.style.color = '#570301';
+      }, { passive: true });
+      tag.addEventListener('touchend', () => {
+        setTimeout(() => {
+          tag.style.borderColor = '';
+          tag.style.color = '';
+        }, 600);
+      }, { passive: true });
+    });
+    const tagSection = document.querySelector('.animated-tags');
+    if (tagSection) {
+      const tags = tagSection.querySelectorAll('.anim-tag');
+      const tagObs = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          tags.forEach((tag, i) => {
+            setTimeout(() => tag.classList.add('tag-visible'), i * 100);
+          });
+          tagObs.unobserve(entry.target);
+        }
+      }, { threshold: 0.2 });
+      tagObs.observe(tagSection);
+    }
+
+    const revealEls = document.querySelectorAll(
+      '.project-card, .cs-section, .sq-card, .cs-hero, .cs-stats, .cs-callout-row, .cs-flows, .cs-steps, .about-photo, .interests-section, .about-section, .contact-section, .page-intro'
+    );
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => {
+      el.classList.add('will-reveal');
+      revealObserver.observe(el);
+    });
+
+    // ── Hero parallax ──────────────────────────────────────
+    const heroHeadline = document.querySelector('.hero-headline');
+    const statusBlock  = document.querySelector('.status-block');
+
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroHeadline) heroHeadline.style.transform = `translateY(${y * 0.18}px)`;
+      if (statusBlock)  statusBlock.style.transform  = `translateY(${y * 0.08}px)`;
+    }, { passive: true });
+  });
+</script>
+</body>
+</html>
