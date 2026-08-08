@@ -79,7 +79,7 @@
   }
   nav .logo { font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: -0.02em; font-size: 1.1rem; }
   nav .links { display: flex; gap: 36px; font-size: 0.85rem; font-weight: 500; }
-  nav .links a { position: relative; padding-bottom: 3px; }
+  nav .links a { position: relative; padding-bottom: 3px; display: inline-block; transition: transform 0.4s cubic-bezier(.175,.885,.32,1.4); }
   nav .links a::after {
     content: '';
     position: absolute;
@@ -122,11 +122,43 @@
   .hero h1 .line span {
     display: block;
     transform: translateY(110%);
-    animation: rise 0.9s cubic-bezier(.25,.8,.25,1) forwards;
+    filter: blur(10px);
+    animation: riseBlur 1s cubic-bezier(.19,1,.22,1) forwards;
   }
   .hero h1 .line:nth-child(1) span { animation-delay: 0.25s; }
-  .hero h1 .line:nth-child(2) span { animation-delay: 0.4s; color: var(--pink-deep); }
-  .hero h1 .line:nth-child(3) span { animation-delay: 0.55s; }
+  .hero h1 .line:nth-child(2) span { animation-delay: 0.42s; color: var(--pink-deep); }
+  .hero h1 .line:nth-child(3) span { animation-delay: 0.59s; }
+
+  @keyframes riseBlur {
+    to { transform: translateY(0); filter: blur(0); }
+  }
+
+  /* Hero accent sparks */
+  .hero-spark {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.35) rotate(-30deg);
+    animation: sparkIn 0.85s cubic-bezier(.34,1.56,.64,1) forwards;
+  }
+  .spark-1 { top: 14%; left: 2.5vw; animation-delay: 1.05s; }
+  .spark-2 { bottom: 20%; right: 3vw; width: 30px; height: 30px; animation-delay: 1.25s; }
+  .spark-float { animation: sparkFloat 6.5s ease-in-out infinite; }
+  .spark-2 .spark-float { animation-duration: 5s; animation-direction: reverse; }
+
+  @keyframes sparkIn {
+    to { opacity: 0.9; transform: scale(1) rotate(0deg); }
+  }
+  @keyframes sparkFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(10deg); }
+  }
+
+  @media (max-width: 860px) {
+    .hero-spark { display: none; }
+  }
 
   .hero .sub {
     margin-top: 30px;
@@ -201,9 +233,8 @@
     background: linear-gradient(135deg, var(--off-black-soft), var(--off-black));
     overflow: hidden;
     position: relative;
-    transition: transform 0.6s cubic-bezier(.25,.8,.25,1);
+    transition: transform 0.45s cubic-bezier(.175,.885,.32,1.3);
   }
-  .project:hover .thumb { transform: scale(1.02); }
   .project .thumb::after {
     content: attr(data-tag);
     position: absolute;
@@ -276,20 +307,47 @@
   }
 
   footer {
-    padding: 100px 6vw 60px;
+    position: relative;
+    overflow: hidden;
+    padding: 100px 6vw 40px;
     border-top: 1px solid var(--line);
   }
   footer h2 {
+    position: relative;
+    z-index: 1;
     font-size: clamp(2.2rem, 5vw, 3.6rem);
     margin-bottom: 40px;
   }
   footer .row {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
   }
+  .ghost-wordmark {
+    --gx: 0px;
+    --gy: 90px;
+    position: relative;
+    z-index: 0;
+    margin-top: 60px;
+    width: 100%;
+    line-height: 0.78;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    font-size: clamp(4.5rem, 19vw, 13.5rem);
+    color: rgba(23, 20, 15, 0.055);
+    white-space: nowrap;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate3d(var(--gx), var(--gy), 0);
+    transition: opacity 1.2s cubic-bezier(.19,1,.22,1), transform 1.2s cubic-bezier(.19,1,.22,1);
+  }
+  .ghost-wordmark.in { opacity: 1; --gy: 0px; }
   footer .email {
     font-size: 1.1rem;
     font-weight: 600;
@@ -328,6 +386,21 @@
   </h1>
   <p class="sub">A UI/UX designer with a background in creative operations, digital marketing, and brand experience. I think about how things work, how they feel, and how they fit into something bigger.</p>
   <div class="scroll-hint"><span class="dot"></span> Scroll to explore</div>
+
+  <div class="hero-spark spark-1" aria-hidden="true">
+    <div class="spark-float">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--pink)"/>
+      </svg>
+    </div>
+  </div>
+  <div class="hero-spark spark-2" aria-hidden="true">
+    <div class="spark-float">
+      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--pink-deep)"/>
+      </svg>
+    </div>
+  </div>
 </section>
 
 <section id="work">
@@ -407,6 +480,7 @@
     <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
     <div class="meta">© 2026 Sandi Bancod, Dallas / Boston</div>
   </div>
+  <div class="ghost-wordmark reveal" aria-hidden="true">SANDI.</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -443,6 +517,33 @@
     });
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Subtle horizontal parallax drift on the footer ghost wordmark
+  const ghost = document.querySelector('.ghost-wordmark');
+  if (ghost) {
+    lenis.on('scroll', ({ scroll }) => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? scroll / max : 0;
+      const drift = (progress - 0.5) * 70; // -35px to 35px
+      ghost.style.setProperty('--gx', drift.toFixed(1) + 'px');
+    });
+  }
+  // Magnetic pull — element tugs toward the cursor within its own bounds, springs back on leave
+  function addMagnetic(el, { maxMove = 14, pull = 0.35, scale = 1 } = {}) {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const relX = e.clientX - rect.left - rect.width / 2;
+      const relY = e.clientY - rect.top - rect.height / 2;
+      const moveX = Math.max(-maxMove, Math.min(maxMove, relX * pull));
+      const moveY = Math.max(-maxMove, Math.min(maxMove, relY * pull));
+      el.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
+    });
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'translate(0px, 0px) scale(1)';
+    });
+  }
+  document.querySelectorAll('nav .links a').forEach(el => addMagnetic(el, { maxMove: 8, pull: 0.4 }));
+  document.querySelectorAll('.project .thumb').forEach(el => addMagnetic(el, { maxMove: 16, pull: 0.25, scale: 1.03 }));
 </script>
 
 </body>
