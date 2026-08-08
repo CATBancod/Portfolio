@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sandi Bancod — Portfolio Motion Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --off-white: #F7F5F1;
+    --off-black: #17140F;
+    --off-black-soft: #262117;
+    --pink: #D569B4;
+    --pink-deep: #B84A96;
+    --stone: #A79E90;
+    --line: rgba(23, 20, 15, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { background: var(--off-white); }
+
+  body {
+    background: var(--off-white);
+    color: var(--off-black);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  ::selection { background: var(--pink); color: var(--off-white); }
+
+  h1, h2, h3, .serif {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* Custom cursor */
+  #cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--pink);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+    mix-blend-mode: normal;
+  }
+  #cursor.hovering {
+    width: 54px;
+    height: 54px;
+    background: rgba(213, 105, 180, 0.18);
+    border: 1px solid var(--pink);
+  }
+
+  @media (max-width: 860px) {
+    #cursor { display: none; }
+    body { cursor: auto; }
+  }
+
+  /* Nav */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 6vw;
+    z-index: 100;
+    mix-blend-mode: normal;
+  }
+  nav .logo { font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: -0.02em; font-size: 1.1rem; }
+  nav .links { display: flex; gap: 36px; font-size: 0.85rem; font-weight: 500; }
+  nav .links a { position: relative; padding-bottom: 3px; }
+  nav .links a::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0%; height: 1px;
+    background: var(--pink);
+    transition: width 0.35s cubic-bezier(.25,.8,.25,1);
+  }
+  nav .links a:hover::after { width: 100%; }
+
+  /* Hero */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+    position: relative;
+  }
+  .hero .eyebrow {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink-deep);
+    font-weight: 600;
+    margin-bottom: 22px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.8s 0.15s cubic-bezier(.25,.8,.25,1) forwards;
+  }
+  .hero h1 {
+    font-size: clamp(2.6rem, 7vw, 6.2rem);
+    line-height: 1.02;
+    max-width: 16ch;
+  }
+  .hero h1 .line {
+    display: block;
+    overflow: hidden;
+  }
+  .hero h1 .line span {
+    display: block;
+    transform: translateY(110%);
+    animation: rise 0.9s cubic-bezier(.25,.8,.25,1) forwards;
+  }
+  .hero h1 .line:nth-child(1) span { animation-delay: 0.25s; }
+  .hero h1 .line:nth-child(2) span { animation-delay: 0.4s; color: var(--pink-deep); }
+  .hero h1 .line:nth-child(3) span { animation-delay: 0.55s; }
+
+  .hero .sub {
+    margin-top: 30px;
+    max-width: 42ch;
+    font-size: 1.05rem;
+    color: var(--off-black-soft);
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.8s 0.75s cubic-bezier(.25,.8,.25,1) forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px; left: 6vw;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stone);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--pink);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.6); opacity: 0.4; }
+  }
+
+  /* Reveal sections */
+  section { padding: 140px 6vw; }
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.9s cubic-bezier(.25,.8,.25,1), transform 0.9s cubic-bezier(.25,.8,.25,1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+    margin-bottom: 60px;
+  }
+  .section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+  .section-head .count { font-size: 0.85rem; color: var(--stone); }
+
+  /* Project rows */
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    padding: 50px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .project:last-child { border-bottom: none; }
+  .project .thumb {
+    aspect-ratio: 4/3;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--off-black-soft), var(--off-black));
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.6s cubic-bezier(.25,.8,.25,1);
+  }
+  .project:hover .thumb { transform: scale(1.02); }
+  .project .thumb::after {
+    content: attr(data-tag);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--off-white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    font-size: 1.4rem;
+    opacity: 0.85;
+  }
+  .project .info .num {
+    font-size: 0.8rem;
+    color: var(--pink-deep);
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+  }
+  .project .info h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 14px; }
+  .project .info p { color: var(--off-black-soft); max-width: 42ch; line-height: 1.6; margin-bottom: 20px; }
+  .project .info .tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .project .info .tags span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--off-black-soft);
+  }
+
+  @media (max-width: 860px) {
+    .project { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* About section */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .about-intro p {
+    color: var(--off-black-soft);
+    line-height: 1.75;
+    font-size: 1.02rem;
+    margin-bottom: 22px;
+  }
+  .about-intro p:last-child { margin-bottom: 0; }
+
+  .about-bring { display: flex; flex-direction: column; gap: 34px; }
+  .bring-item h4 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--pink-deep);
+    font-size: 1.05rem;
+    margin-bottom: 10px;
+  }
+  .bring-item p {
+    color: var(--off-black-soft);
+    line-height: 1.7;
+    font-size: 0.96rem;
+  }
+
+  @media (max-width: 860px) {
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  footer {
+    padding: 100px 6vw 60px;
+    border-top: 1px solid var(--line);
+  }
+  footer h2 {
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    margin-bottom: 40px;
+  }
+  footer .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  footer .email {
+    font-size: 1.1rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 4px;
+  }
+  footer .email::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%; height: 1px;
+    background: var(--pink);
+  }
+  footer .meta { font-size: 0.8rem; color: var(--stone); }
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<nav>
+  <div class="logo">Sandi Bancod</div>
+  <div class="links">
+    <a href="#work" data-hover>Work</a>
+    <a href="#about" data-hover>About</a>
+    <a href="#contact" data-hover>Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="eyebrow">Currently a UI/UX Designer at CEC Entertainment</div>
+  <h1>
+    <span class="line"><span>I design with</span></span>
+    <span class="line"><span>function first,</span></span>
+    <span class="line"><span>and craft, always.</span></span>
+  </h1>
+  <p class="sub">A UI/UX designer with a background in creative operations, digital marketing, and brand experience. I think about how things work, how they feel, and how they fit into something bigger.</p>
+  <div class="scroll-hint"><span class="dot"></span> Scroll to explore</div>
+</section>
+
+<section id="work">
+  <div class="section-head reveal">
+    <h2>Selected work</h2>
+    <div class="count">03 projects</div>
+  </div>
+
+  <div class="project reveal">
+    <div class="thumb" data-tag="ClimbOn"></div>
+    <div class="info">
+      <div class="num">01 / Mobile App, Case Study, AR</div>
+      <h3>ClimbOn</h3>
+      <p>An augmented reality app designed to help climbers of all levels identify routes, track progress, and connect with the climbing community.</p>
+      <div class="tags"><span>Mobile App</span><span>Case Study</span><span>AR</span></div>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="thumb" data-tag="Adventure World"></div>
+    <div class="info">
+      <div class="num">02 / Web Design, Design Systems</div>
+      <h3>Adventure World</h3>
+      <p>Web experience design and design system for Adventure World, a new indoor playground and active play concept from the makers of Chuck E. Cheese.</p>
+      <div class="tags"><span>Web Design</span><span>Design Systems</span><span>Digital Experience</span></div>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="thumb" data-tag="CEC"></div>
+    <div class="info">
+      <div class="num">03 / Web Design, Full-Service Kiosks</div>
+      <h3>Chuck E. Cheese</h3>
+      <p>A closer look at select work from my time at Chuck E. Cheese, spanning campaign web design, the Kid Check landing page, the brand's design system, and full-service kiosk design.</p>
+      <div class="tags"><span>Web Design</span><span>Full-Service Kiosks</span><span>Digital Experience</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-head reveal">
+    <h2>About</h2>
+    <div class="count">The full story</div>
+  </div>
+
+  <div class="about-grid reveal">
+    <div class="about-intro">
+      <p>I'm a UI/UX designer with a background in creative operations, digital marketing, and brand experience. My career has taken an unconventional path, and that's become one of my greatest strengths.</p>
+      <p>Before I was designing user experiences, I was helping bring them to life behind the scenes: coordinating creative teams, supporting national marketing campaigns, managing digital production, and learning how business strategy, collaboration, and design all intersect. Those experiences taught me that great products aren't built by great designers alone. They're built by teams who understand both people and process.</p>
+      <p>Today, I bring that perspective into every project I work on. UI/UX is my bread and butter, but I still keep a hand in campaigns and brand work, because I've never fully separated the two. I don't just think about how an interface looks. I think about how it works, how it feels, and how it fits into something bigger.</p>
+    </div>
+
+    <div class="about-bring">
+      <div class="bring-item">
+        <h4>Systems thinking</h4>
+        <p>I rarely see one screen in isolation. I see the workflow, the handoffs, the structure underneath. Whether I'm designing an interface or fixing a broken creative pipeline, I default to organizing the whole system, not just the visible piece.</p>
+      </div>
+      <div class="bring-item">
+        <h4>Cross-functional fluency</h4>
+        <p>Some of my best work has happened in the space between disciplines, translating between marketers, developers, creative directors, and vendors so a shared goal actually stays shared. I've learned how to ask the question that unblocks a room.</p>
+      </div>
+      <div class="bring-item">
+        <h4>Visual craft, in service of clarity</h4>
+        <p>My background and skills show up in how I handle typography, hierarchy, and spacing, but I treat visual design as a tool for usability, not a substitute for it.</p>
+      </div>
+      <div class="bring-item">
+        <h4>Curiosity that doesn't sit still</h4>
+        <p>New AI tools, sharper design systems, a beautifully made app I can't stop thinking about. I'm always circling back to how did they do that, and what would I do differently.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <h2 class="reveal">Let's build something<br>worth using.</h2>
+  <div class="row reveal">
+    <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
+    <div class="meta">© 2026 Sandi Bancod, Dallas / Boston</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+  // Smooth inertial scrolling
+  const lenis = new Lenis({
+    duration: 1.15,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  });
+  function raf(time) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+  document.querySelectorAll('[data-hover], .project, a').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+  });
+
+  // Scroll-triggered reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
