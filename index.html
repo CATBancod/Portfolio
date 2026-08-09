@@ -176,17 +176,14 @@
   .hamburger {
     display: none;
     flex-shrink: 0;
-    width: var(--nav-h);
-    height: var(--nav-h);
-    border-radius: 50%;
-    border: 1px solid var(--line);
-    background: transparent;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 4px;
     cursor: pointer;
-    padding: 0;
+    padding: 8px;
+    background: transparent;
+    border: none;
   }
   .hamburger span {
     width: 14px;
@@ -217,19 +214,21 @@
 
   @media (max-width: 640px) {
     nav { padding: 18px 4vw; --nav-h: 42px; }
-    .nav-pill { padding-left: 14px; }
-    .nav-pill .logo { font-size: 0.85rem; }
+    .nav-pill { padding: 0 8px 0 16px; }
+    .nav-pill .logo { font-size: 0.8rem; flex-shrink: 0; }
     .nav-hint { display: none; }
     .links-track { display: none; }
-    .hamburger { display: flex; }
+    .hamburger { display: flex; margin-left: 10px; }
   }
   @media (min-width: 641px) {
     .mobile-menu, .hamburger { display: none; }
   }
   @media (max-width: 360px) {
     nav { --nav-h: 36px; gap: 8px; padding: 16px 3vw; }
-    .nav-pill { padding-left: 12px; }
-    .nav-pill .logo { font-size: 0.68rem; }
+    .nav-pill { padding: 0 6px 0 12px; }
+    .nav-pill .logo { font-size: 0.66rem; }
+    .hamburger { margin-left: 6px; padding: 6px; }
+    .hamburger span { width: 12px; }
     .theme-toggle svg { width: 14px; height: 14px; }
   }
 
@@ -674,6 +673,9 @@
         <a href="SandiBancod-Resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
       </div>
     </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </div>
   <button class="theme-toggle" id="themeToggle" data-hover aria-label="Toggle dark mode">
     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -683,9 +685,6 @@
     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
     </svg>
-  </button>
-  <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">
-    <span></span><span></span><span></span>
   </button>
 </nav>
 
