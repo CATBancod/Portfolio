@@ -103,7 +103,7 @@
     font-size: 0.78rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--pink-deep);
+    color: var(--pink);
     font-weight: 600;
     margin-bottom: 22px;
     opacity: 0;
@@ -128,7 +128,7 @@
     animation: riseBlur 1s cubic-bezier(.19,1,.22,1) forwards;
   }
   .hero h1 .line:nth-child(1) span { animation-delay: 0.25s; }
-  .hero h1 .line:nth-child(2) span { animation-delay: 0.42s; color: var(--pink-deep); }
+  .hero h1 .line:nth-child(2) span { animation-delay: 0.42s; color: var(--pink); }
   .hero h1 .line:nth-child(3) span { animation-delay: 0.59s; }
 
   @keyframes riseBlur {
@@ -252,14 +252,16 @@
     font-size: 1.4rem;
     opacity: 0.85;
   }
+  .project .info { display: flex; flex-direction: column; gap: 10px; }
   .project .info h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); }
-  .project .info .tags { display: flex; gap: 10px; flex-wrap: wrap; }
+  .project .info .tags { display: flex; gap: 8px; flex-wrap: wrap; }
   .project .info .tags span {
-    font-size: 0.72rem;
+    font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    padding: 6px 12px;
-    border: 1px solid var(--pink);
+    padding: 4px 10px;
+    border: 1px solid var(--off-black-soft);
+    background: transparent;
     border-radius: 100px;
     color: var(--off-black-soft);
   }
@@ -287,7 +289,7 @@
     font-family: 'Inter', sans-serif;
     font-weight: 800;
     letter-spacing: -0.01em;
-    color: var(--pink-deep);
+    color: var(--pink);
     font-size: 1.05rem;
     margin-bottom: 10px;
   }
@@ -367,7 +369,7 @@
   <div class="logo">Sandi Bancod</div>
   <div class="links">
     <a href="#work" data-hover>Work</a>
-    <a href="#about" data-hover>About</a>
+    <a href="about.html" data-hover>About</a>
     <a href="#contact" data-hover>Contact</a>
   </div>
 </nav>
@@ -392,7 +394,7 @@
   <div class="hero-spark spark-2" aria-hidden="true">
     <div class="spark-float">
       <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--pink-deep)"/>
+        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--pink)"/>
       </svg>
     </div>
   </div>
@@ -400,7 +402,7 @@
 
 <section id="work">
   <div class="section-head reveal">
-    <h2>Selected work</h2>
+    <h2>Featured Projects</h2>
     <div class="count">04 projects</div>
   </div>
 
@@ -408,67 +410,34 @@
   <div class="project reveal">
     <div class="thumb" data-tag="ClimbOn"></div>
     <div class="info">
-      <h3>ClimbOn</h3>
       <div class="tags"><span>Mobile App</span><span>Case Study</span><span>AR</span></div>
+      <h3>ClimbOn</h3>
     </div>
   </div>
 
   <div class="project reveal">
     <div class="thumb" data-tag="Happenings"></div>
     <div class="info">
-      <h3>Happenings</h3>
       <div class="tags"><span>Mobile App</span><span>Social</span><span>Case Study</span></div>
+      <h3>Happenings</h3>
     </div>
   </div>
 
   <div class="project reveal">
     <div class="thumb" data-tag="Adventure World"></div>
     <div class="info">
-      <h3>Adventure World</h3>
       <div class="tags"><span>Web Design</span><span>Design Systems</span><span>Digital Experience</span></div>
+      <h3>Adventure World</h3>
     </div>
   </div>
 
   <div class="project reveal">
     <div class="thumb" data-tag="CEC"></div>
     <div class="info">
-      <h3>Chuck E. Cheese</h3>
       <div class="tags"><span>Web Design</span><span>Full-Service Kiosks</span><span>Digital Experience</span></div>
+      <h3>Chuck E. Cheese</h3>
     </div>
   </div>
-  </div>
-</section>
-
-<section id="about">
-  <div class="section-head reveal">
-    <h2>About</h2>
-    <div class="count">The full story</div>
-  </div>
-
-  <div class="about-grid reveal">
-    <div class="about-intro">
-      <p>I'm a UI/UX designer with a background in creative operations, digital marketing, and brand experience. My path here was unconventional, and that's become one of my greatest strengths.</p>
-      <p>Before I designed user experiences, I helped bring them to life behind the scenes: coordinating creative teams, running national campaigns, managing production. It taught me that great products aren't built by designers alone. They're built by teams who understand people and process.</p>
-    </div>
-
-    <div class="about-bring">
-      <div class="bring-item">
-        <h4>Systems thinking</h4>
-        <p>I default to organizing the whole workflow, not just the visible screen.</p>
-      </div>
-      <div class="bring-item">
-        <h4>Cross-functional fluency</h4>
-        <p>I translate between marketers, developers, and creative directors so goals stay shared.</p>
-      </div>
-      <div class="bring-item">
-        <h4>Visual craft, in service of clarity</h4>
-        <p>Typography and spacing are tools for usability, not a substitute for it.</p>
-      </div>
-      <div class="bring-item">
-        <h4>Curiosity that doesn't sit still</h4>
-        <p>New tools, sharper systems, apps I can't stop thinking about - I'm always asking how'd they do that.</p>
-      </div>
-    </div>
   </div>
 </section>
 
