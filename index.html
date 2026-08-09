@@ -87,15 +87,80 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 28px 6vw;
+    gap: 14px;
+    padding: 22px 6vw;
     z-index: 100;
     mix-blend-mode: normal;
+    --nav-h: 48px;
   }
-  nav .logo { font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: -0.02em; font-size: 1.1rem; }
-  nav .links { display: flex; align-items: center; gap: 36px; font-size: 0.85rem; font-weight: 500; }
-  nav .links a { position: relative; padding-bottom: 3px; display: inline-block; transition: transform 0.4s cubic-bezier(.175,.885,.32,1.4); }
+
+  .nav-pill {
+    display: flex;
+    align-items: center;
+    height: var(--nav-h);
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0 0 0 22px;
+    cursor: pointer;
+    transition: border-color 0.35s ease, padding-right 0.45s cubic-bezier(.25,.8,.25,1), background 0.4s ease;
+  }
+  .nav-pill:hover {
+    border-color: var(--pink);
+    padding-right: 22px;
+  }
+  .nav-pill .logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-size: 1.1rem;
+    color: var(--pink);
+    white-space: nowrap;
+  }
+  .nav-hint {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+    width: 15px;
+    margin-left: 8px;
+    opacity: 1;
+    transition: opacity 0.3s ease, width 0.35s ease, margin-left 0.35s ease;
+  }
+  .nav-hint span {
+    width: 15px;
+    height: 1.5px;
+    background: var(--text-soft);
+    flex-shrink: 0;
+    transition: background 0.3s ease;
+  }
+  .nav-pill:hover .nav-hint {
+    opacity: 0;
+    width: 0;
+    margin-left: 0;
+  }
+  .links-track {
+    display: grid;
+    grid-template-columns: 0fr;
+    transition: grid-template-columns 0.45s cubic-bezier(.25,.8,.25,1);
+  }
+  .nav-pill:hover .links-track {
+    grid-template-columns: 1fr;
+  }
+  .links-track .links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    padding-left: 26px;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  nav .links a { position: relative; padding-bottom: 3px; display: inline-block; color: var(--text); transition: transform 0.4s cubic-bezier(.175,.885,.32,1.4); }
   nav .links a::after {
     content: '';
     position: absolute;
@@ -106,9 +171,71 @@
   }
   nav .links a:hover::after { width: 100%; }
 
+  /* Hamburger (mobile only) */
+  .hamburger {
+    display: none;
+    flex-shrink: 0;
+    width: var(--nav-h);
+    height: var(--nav-h);
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 0;
+  }
+  .hamburger span {
+    width: 14px;
+    height: 1.5px;
+    background: var(--text);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    padding: 110px 24px 44px;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(.25,.8,.25,1);
+    z-index: 90;
+  }
+  .mobile-menu.open { transform: translateY(0); }
+  .mobile-menu a { font-size: 1.15rem; color: var(--text); }
+
+  @media (max-width: 640px) {
+    nav { padding: 18px 4vw; --nav-h: 42px; }
+    .nav-pill { padding-left: 14px; }
+    .nav-pill .logo { font-size: 0.85rem; }
+    .nav-hint { display: none; }
+    .links-track { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (min-width: 641px) {
+    .mobile-menu, .hamburger { display: none; }
+  }
+  @media (max-width: 360px) {
+    nav { --nav-h: 36px; }
+    .nav-pill { padding-left: 12px; }
+    .nav-pill .logo { font-size: 0.72rem; }
+    .theme-toggle svg { width: 14px; height: 14px; }
+  }
+
   .theme-toggle {
-    width: 34px;
-    height: 34px;
+    flex-shrink: 0;
+    width: var(--nav-h);
+    height: var(--nav-h);
     border-radius: 50%;
     border: 1px solid var(--line);
     background: transparent;
@@ -118,13 +245,29 @@
     justify-content: center;
     cursor: pointer;
     padding: 0;
-    transition: transform 0.4s cubic-bezier(.175,.885,.32,1.4), border-color 0.3s ease, background 0.3s ease;
+    transition: transform 0.4s cubic-bezier(.175,.885,.32,1.4), border-color 0.3s ease, background 0.4s ease, color 0.4s ease;
   }
   .theme-toggle svg { width: 17px; height: 17px; }
   .theme-toggle .icon-moon { display: none; }
   html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
   html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
   .theme-toggle:hover { border-color: var(--pink); color: var(--pink); }
+
+  /* Scrolled state: pill and toggle turn pink with white content */
+  nav.scrolled .nav-pill {
+    background: var(--pink);
+    border-color: var(--pink);
+  }
+  nav.scrolled .nav-pill .logo { color: var(--off-white); }
+  nav.scrolled .nav-hint span { background: var(--off-white); }
+  nav.scrolled .links-track .links a { color: var(--off-white); }
+  nav.scrolled .links-track .links a::after { background: var(--off-white); }
+  nav.scrolled .theme-toggle {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: var(--off-white);
+  }
+  nav.scrolled .theme-toggle:hover { border-color: var(--off-white); }
 
   /* Hero */
   .hero {
@@ -146,6 +289,11 @@
     transform: translateY(14px);
     animation: rise 0.8s 0.4s cubic-bezier(.25,.8,.25,1) forwards;
   }
+  @property --glow-a {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+  }
   .hero h1 {
     position: relative;
     font-size: clamp(2.8rem, 11vw, 12rem);
@@ -161,20 +309,23 @@
     content: '';
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     width: 95%;
     height: 220%;
-    background: radial-gradient(ellipse at center, rgba(213, 105, 180, 0.65), rgba(213, 105, 180, 0) 68%);
+    --glow-a: 0.65;
+    background: radial-gradient(ellipse at center, rgba(213, 105, 180, var(--glow-a)), rgba(213, 105, 180, 0) 68%);
     filter: blur(45px);
     pointer-events: none;
     opacity: 0;
-    animation: glowIn 1.4s 0.4s ease forwards;
+    transition: opacity 1s cubic-bezier(.19,1,.22,1), transform 0.6s cubic-bezier(.25,.8,.25,1), --glow-a 0.6s ease;
+  }
+  .hero h1.glow-in::before { opacity: 1; }
+  .hero h1:hover::before {
+    transform: translate(-50%, -50%) scale(1.18);
+    --glow-a: 0.95;
   }
   html[data-theme="dark"] .hero h1::before {
     display: none;
-  }
-  @keyframes glowIn {
-    to { opacity: 1; }
   }
   .hero h1 .line {
     display: block;
@@ -223,7 +374,12 @@
   }
 
   @media (max-width: 860px) {
-    .hero-spark { display: none; }
+    .spark-1 { top: 78px; left: 5vw; width: 42px; height: 42px; }
+    .spark-2 { bottom: 40px; right: 5vw; width: 34px; height: 34px; }
+  }
+  @media (max-width: 480px) {
+    .spark-1 { top: 66px; width: 34px; height: 34px; }
+    .spark-2 { bottom: 30px; width: 28px; height: 28px; }
   }
 
   .hero .sub {
@@ -409,7 +565,7 @@
   footer {
     position: relative;
     overflow: hidden;
-    padding: 100px 6vw 40px;
+    padding: 100px 6vw 56px;
     border-top: 1px solid var(--line);
     text-align: center;
   }
@@ -428,27 +584,11 @@
     align-items: center;
     gap: 14px;
   }
-  .ghost-wordmark {
-    --gx: 0px;
-    --gy: 90px;
-    position: relative;
-    z-index: 0;
-    margin-top: 60px;
-    width: 100%;
-    line-height: 0.78;
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.04em;
-    font-size: clamp(4.5rem, 19vw, 13.5rem);
-    color: var(--ghost-tint);
-    white-space: nowrap;
-    user-select: none;
-    pointer-events: none;
-    opacity: 0;
-    transform: translate3d(var(--gx), var(--gy), 0);
-    transition: opacity 1.2s cubic-bezier(.19,1,.22,1), transform 1.2s cubic-bezier(.19,1,.22,1);
+  .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
   }
-  .ghost-wordmark.in { opacity: 1; --gy: 0px; }
   footer .email {
     font-size: 1.1rem;
     font-weight: 600;
@@ -462,7 +602,53 @@
     width: 100%; height: 1px;
     background: var(--pink);
   }
+  .linkedin-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    color: var(--text);
+    transition: border-color 0.3s ease, color 0.3s ease, transform 0.4s cubic-bezier(.175,.885,.32,1.4);
+  }
+  .linkedin-link svg { width: 17px; height: 17px; }
+  .linkedin-link:hover { border-color: var(--pink); color: var(--pink); }
   footer .meta { font-size: 0.8rem; color: var(--stone); }
+
+  .back-to-top {
+    position: fixed;
+    right: 28px;
+    bottom: 28px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: none;
+    background: var(--pink);
+    color: var(--off-white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 80;
+    opacity: 0;
+    transform: translateY(16px) scale(0.85);
+    pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(.34,1.56,.64,1), background 0.3s ease;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .back-to-top:hover { background: var(--pink-deep); }
+  .back-to-top svg { width: 20px; height: 20px; }
+
+  @media (max-width: 640px) {
+    .back-to-top { right: 18px; bottom: 18px; width: 42px; height: 42px; }
+    .back-to-top svg { width: 17px; height: 17px; }
+  }
 </style>
 </head>
 <body>
@@ -470,22 +656,36 @@
 <div id="cursor"></div>
 
 <nav>
-  <div class="logo">Sandi Bancod</div>
-  <div class="links">
-    <a href="#work" data-hover>Work</a>
-    <a href="about.html" data-hover>About</a>
-    <a href="#contact" data-hover>Contact</a>
-    <button class="theme-toggle" id="themeToggle" data-hover aria-label="Toggle dark mode">
-      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
-        <path d="M12 2.5V5M12 19V21.5M4.2 4.2L6 6M18 18L19.8 19.8M2.5 12H5M19 12H21.5M4.2 19.8L6 18M18 6L19.8 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-      </svg>
-    </button>
+  <div class="nav-pill" id="navPill" data-hover>
+    <div class="logo">sandi-bancod/design</div>
+    <div class="nav-hint" aria-hidden="true"><span></span><span></span><span></span></div>
+    <div class="links-track">
+      <div class="links">
+        <a href="#work" data-hover>Work</a>
+        <a href="about.html" data-hover>About</a>
+        <a href="SandiBancod-Resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
+      </div>
+    </div>
   </div>
+  <button class="theme-toggle" id="themeToggle" data-hover aria-label="Toggle dark mode">
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M12 2.5V5M12 19V21.5M4.2 4.2L6 6M18 18L19.8 19.8M2.5 12H5M19 12H21.5M4.2 19.8L6 18M18 6L19.8 4.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20.5 14.2A8.5 8.5 0 1 1 9.8 3.5a7 7 0 0 0 10.7 10.7Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+    </svg>
+  </button>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#work" data-hover>Work</a>
+  <a href="about.html" data-hover>About</a>
+  <a href="SandiBancod-Resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
+</div>
 
 <section class="hero">
   <h1>
@@ -559,13 +759,26 @@
 </section>
 
 <footer id="contact">
-  <h2 class="reveal">Let's build something<br>worth using.</h2>
+  <h2 class="reveal">Let's Connect!</h2>
   <div class="row reveal">
-    <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
-    <div class="meta">© 2026 Sandi Bancod, Dallas / Boston</div>
+    <div class="footer-links">
+      <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
+      <a class="linkedin-link" data-hover href="https://www.linkedin.com/in/sandibancod" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M7.5 10V17M7.5 7.2V7.21M11.5 17V10M11.5 12.8C11.5 11.2536 12.7536 10 14.3 10C15.8464 10 17 11.2536 17 12.8V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="meta">© 2026 Sandi Bancod</div>
   </div>
-  <div class="ghost-wordmark reveal" aria-hidden="true">SANDI.</div>
 </footer>
+
+<button class="back-to-top" id="backToTop" data-hover aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 19V5M12 5L6 11M12 5L18 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
 
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
@@ -593,12 +806,33 @@
     });
   })();
 
+  // Mobile hamburger menu
+  window.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (!hamburger || !mobileMenu) return;
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+  });
+
   // Staggered spark entrance (matches the original animation-delay timing)
   window.addEventListener('DOMContentLoaded', () => {
     const spark1 = document.querySelector('.spark-1');
     const spark2 = document.querySelector('.spark-2');
     if (spark1) setTimeout(() => spark1.classList.add('in'), 1050);
     if (spark2) setTimeout(() => spark2.classList.add('in'), 1250);
+
+    const heroH1 = document.querySelector('.hero h1');
+    if (heroH1) setTimeout(() => heroH1.classList.add('glow-in'), 400);
   });
 
   // Smooth inertial scrolling
@@ -631,19 +865,29 @@
         entry.target.classList.add('in');
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Subtle horizontal parallax drift on the footer ghost wordmark
-  const ghost = document.querySelector('.ghost-wordmark');
-  if (ghost) {
+  // Back-to-top button: appears after scrolling, smooth-scrolls to top on click
+  const backToTop = document.getElementById('backToTop');
+  if (backToTop) {
     lenis.on('scroll', ({ scroll }) => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = max > 0 ? scroll / max : 0;
-      const drift = (progress - 0.5) * 70; // -35px to 35px
-      ghost.style.setProperty('--gx', drift.toFixed(1) + 'px');
+      backToTop.classList.toggle('visible', scroll > window.innerHeight);
+    });
+    backToTop.addEventListener('click', () => {
+      lenis.scrollTo(0, { duration: 1.4 });
     });
   }
+
+  // Nav turns pink with white content once the page is scrolled
+  const navEl = document.querySelector('nav');
+  if (navEl) {
+    lenis.on('scroll', ({ scroll }) => {
+      navEl.classList.toggle('scrolled', scroll > 40);
+    });
+  }
+
+  // Subtle horizontal parallax drift on the footer ghost wordmark
   // Magnetic pull — element tugs toward the cursor within its own bounds, springs back on leave
   function addMagnetic(el, { maxMove = 14, pull = 0.35, scale = 1 } = {}) {
     el.addEventListener('mousemove', (e) => {
