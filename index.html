@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
-    --off-white: #F7F5F1;
+    --off-white: #FFFFFF;
     --off-black: #17140F;
     --off-black-soft: #262117;
     --pink: #D569B4;
@@ -112,12 +112,14 @@
   }
   .hero h1 {
     font-size: clamp(2.6rem, 7vw, 6.2rem);
-    line-height: 1.02;
+    line-height: 1.15;
     max-width: 16ch;
   }
   .hero h1 .line {
     display: block;
     overflow: hidden;
+    padding-bottom: 0.1em;
+    margin-bottom: -0.1em;
   }
   .hero h1 .line span {
     display: block;
@@ -216,17 +218,18 @@
   .section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
   .section-head .count { font-size: 0.85rem; color: var(--stone); }
 
-  /* Project rows */
-  .project {
+  /* Project card grid */
+  .work-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    align-items: center;
-    padding: 50px 0;
-    border-bottom: 1px solid var(--line);
+    grid-template-columns: repeat(2, 1fr);
+    gap: 56px 40px;
+  }
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
     position: relative;
   }
-  .project:last-child { border-bottom: none; }
   .project .thumb {
     aspect-ratio: 4/3;
     border-radius: 14px;
@@ -249,28 +252,20 @@
     font-size: 1.4rem;
     opacity: 0.85;
   }
-  .project .info .num {
-    font-size: 0.8rem;
-    color: var(--pink-deep);
-    font-weight: 600;
-    margin-bottom: 14px;
-    letter-spacing: 0.08em;
-  }
-  .project .info h3 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 14px; }
-  .project .info p { color: var(--off-black-soft); max-width: 42ch; line-height: 1.6; margin-bottom: 20px; }
+  .project .info h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); }
   .project .info .tags { display: flex; gap: 10px; flex-wrap: wrap; }
   .project .info .tags span {
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 6px 12px;
-    border: 1px solid var(--line);
+    border: 1px solid var(--pink);
     border-radius: 100px;
     color: var(--off-black-soft);
   }
 
   @media (max-width: 860px) {
-    .project { grid-template-columns: 1fr; gap: 24px; }
+    .work-grid { grid-template-columns: 1fr; gap: 44px; }
   }
 
   /* About section */
@@ -384,7 +379,7 @@
     <span class="line"><span>function first,</span></span>
     <span class="line"><span>and craft, always.</span></span>
   </h1>
-  <p class="sub">A UI/UX designer with a background in creative operations, digital marketing, and brand experience. I think about how things work, how they feel, and how they fit into something bigger.</p>
+  <p class="sub">UI/UX designer with a background in creative ops and marketing. I care how things work as much as how they look.</p>
   <div class="scroll-hint"><span class="dot"></span> Scroll to explore</div>
 
   <div class="hero-spark spark-1" aria-hidden="true">
@@ -406,25 +401,30 @@
 <section id="work">
   <div class="section-head reveal">
     <h2>Selected work</h2>
-    <div class="count">03 projects</div>
+    <div class="count">04 projects</div>
   </div>
 
+  <div class="work-grid">
   <div class="project reveal">
     <div class="thumb" data-tag="ClimbOn"></div>
     <div class="info">
-      <div class="num">01 / Mobile App, Case Study, AR</div>
       <h3>ClimbOn</h3>
-      <p>An augmented reality app designed to help climbers of all levels identify routes, track progress, and connect with the climbing community.</p>
       <div class="tags"><span>Mobile App</span><span>Case Study</span><span>AR</span></div>
+    </div>
+  </div>
+
+  <div class="project reveal">
+    <div class="thumb" data-tag="Happenings"></div>
+    <div class="info">
+      <h3>Happenings</h3>
+      <div class="tags"><span>Mobile App</span><span>Social</span><span>Case Study</span></div>
     </div>
   </div>
 
   <div class="project reveal">
     <div class="thumb" data-tag="Adventure World"></div>
     <div class="info">
-      <div class="num">02 / Web Design, Design Systems</div>
       <h3>Adventure World</h3>
-      <p>Web experience design and design system for Adventure World, a new indoor playground and active play concept from the makers of Chuck E. Cheese.</p>
       <div class="tags"><span>Web Design</span><span>Design Systems</span><span>Digital Experience</span></div>
     </div>
   </div>
@@ -432,11 +432,10 @@
   <div class="project reveal">
     <div class="thumb" data-tag="CEC"></div>
     <div class="info">
-      <div class="num">03 / Web Design, Full-Service Kiosks</div>
       <h3>Chuck E. Cheese</h3>
-      <p>A closer look at select work from my time at Chuck E. Cheese, spanning campaign web design, the Kid Check landing page, the brand's design system, and full-service kiosk design.</p>
       <div class="tags"><span>Web Design</span><span>Full-Service Kiosks</span><span>Digital Experience</span></div>
     </div>
+  </div>
   </div>
 </section>
 
@@ -448,27 +447,26 @@
 
   <div class="about-grid reveal">
     <div class="about-intro">
-      <p>I'm a UI/UX designer with a background in creative operations, digital marketing, and brand experience. My career has taken an unconventional path, and that's become one of my greatest strengths.</p>
-      <p>Before I was designing user experiences, I was helping bring them to life behind the scenes: coordinating creative teams, supporting national marketing campaigns, managing digital production, and learning how business strategy, collaboration, and design all intersect. Those experiences taught me that great products aren't built by great designers alone. They're built by teams who understand both people and process.</p>
-      <p>Today, I bring that perspective into every project I work on. UI/UX is my bread and butter, but I still keep a hand in campaigns and brand work, because I've never fully separated the two. I don't just think about how an interface looks. I think about how it works, how it feels, and how it fits into something bigger.</p>
+      <p>I'm a UI/UX designer with a background in creative operations, digital marketing, and brand experience. My path here was unconventional, and that's become one of my greatest strengths.</p>
+      <p>Before I designed user experiences, I helped bring them to life behind the scenes: coordinating creative teams, running national campaigns, managing production. It taught me that great products aren't built by designers alone. They're built by teams who understand people and process.</p>
     </div>
 
     <div class="about-bring">
       <div class="bring-item">
         <h4>Systems thinking</h4>
-        <p>I rarely see one screen in isolation. I see the workflow, the handoffs, the structure underneath. Whether I'm designing an interface or fixing a broken creative pipeline, I default to organizing the whole system, not just the visible piece.</p>
+        <p>I default to organizing the whole workflow, not just the visible screen.</p>
       </div>
       <div class="bring-item">
         <h4>Cross-functional fluency</h4>
-        <p>Some of my best work has happened in the space between disciplines, translating between marketers, developers, creative directors, and vendors so a shared goal actually stays shared. I've learned how to ask the question that unblocks a room.</p>
+        <p>I translate between marketers, developers, and creative directors so goals stay shared.</p>
       </div>
       <div class="bring-item">
         <h4>Visual craft, in service of clarity</h4>
-        <p>My background and skills show up in how I handle typography, hierarchy, and spacing, but I treat visual design as a tool for usability, not a substitute for it.</p>
+        <p>Typography and spacing are tools for usability, not a substitute for it.</p>
       </div>
       <div class="bring-item">
         <h4>Curiosity that doesn't sit still</h4>
-        <p>New AI tools, sharper design systems, a beautifully made app I can't stop thinking about. I'm always circling back to how did they do that, and what would I do differently.</p>
+        <p>New tools, sharper systems, apps I can't stop thinking about - I'm always asking how'd they do that.</p>
       </div>
     </div>
   </div>
