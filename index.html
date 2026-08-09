@@ -137,11 +137,11 @@
     position: relative;
   }
   .eyebrow {
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--pink);
-    font-weight: 600;
+    max-width: 46ch;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--text-soft);
+    font-weight: 400;
     opacity: 0;
     transform: translateY(14px);
     animation: rise 0.8s 0.4s cubic-bezier(.25,.8,.25,1) forwards;
@@ -152,6 +152,10 @@
     line-height: 1;
     white-space: nowrap;
     text-transform: uppercase;
+    transition: color 0.4s ease;
+  }
+  html[data-theme="dark"] .hero h1 {
+    color: var(--pink);
   }
   .hero h1::before {
     content: '';
@@ -165,6 +169,9 @@
     pointer-events: none;
     opacity: 0;
     animation: glowIn 1.4s 0.4s ease forwards;
+  }
+  html[data-theme="dark"] .hero h1::before {
+    display: none;
   }
   @keyframes glowIn {
     to { opacity: 1; }
@@ -194,18 +201,22 @@
     width: 64px;
     height: 64px;
     opacity: 0;
-    pointer-events: none;
+    cursor: default;
     transform: scale(0.35) rotate(-30deg);
-    animation: sparkIn 0.85s cubic-bezier(.34,1.56,.64,1) forwards;
+    transition: opacity 0.85s cubic-bezier(.34,1.56,.64,1), transform 0.35s cubic-bezier(.34,1.56,.64,1);
   }
-  .spark-1 { top: 110px; left: 4vw; animation-delay: 1.05s; }
-  .spark-2 { bottom: 24px; right: 4vw; width: 48px; height: 48px; animation-delay: 1.25s; }
+  .hero-spark.in {
+    opacity: 0.9;
+    transform: scale(1) rotate(0deg);
+  }
+  .hero-spark:hover {
+    transform: scale(1.4) rotate(0deg);
+  }
+  .spark-1 { top: 110px; left: 4vw; }
+  .spark-2 { bottom: 24px; right: 4vw; width: 48px; height: 48px; }
   .spark-float { animation: sparkFloat 6.5s ease-in-out infinite; }
   .spark-2 .spark-float { animation-duration: 5s; animation-direction: reverse; }
 
-  @keyframes sparkIn {
-    to { opacity: 0.9; transform: scale(1) rotate(0deg); }
-  }
   @keyframes sparkFloat {
     0%, 100% { transform: translateY(0) rotate(0deg); }
     50% { transform: translateY(-12px) rotate(10deg); }
@@ -338,14 +349,24 @@
   .project .info h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); }
   .project .info .tags { display: flex; gap: 8px; flex-wrap: wrap; }
   .project .info .tags span {
+    display: inline-block;
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     padding: 4px 10px;
     border: 1px solid var(--text-soft);
-    background: transparent;
     border-radius: 100px;
     color: var(--text-soft);
+    cursor: default;
+    background-image: linear-gradient(115deg, transparent 0%, transparent 42%, rgba(213, 105, 180, 0.65) 50%, transparent 58%, transparent 100%);
+    background-size: 260% 100%;
+    background-position: 130% 0;
+    transition: background-position 0.7s cubic-bezier(.25,.8,.25,1), border-color 0.35s ease, color 0.35s ease;
+  }
+  .project .info .tags span:hover {
+    border-color: var(--pink);
+    color: var(--pink);
+    background-position: -30% 0;
   }
 
   @media (max-width: 860px) {
@@ -571,6 +592,14 @@
       });
     });
   })();
+
+  // Staggered spark entrance (matches the original animation-delay timing)
+  window.addEventListener('DOMContentLoaded', () => {
+    const spark1 = document.querySelector('.spark-1');
+    const spark2 = document.querySelector('.spark-2');
+    if (spark1) setTimeout(() => spark1.classList.add('in'), 1050);
+    if (spark2) setTimeout(() => spark2.classList.add('in'), 1250);
+  });
 
   // Smooth inertial scrolling
   const lenis = new Lenis({
