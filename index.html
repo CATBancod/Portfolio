@@ -108,9 +108,11 @@
     cursor: pointer;
     transition: border-color 0.35s ease, padding-right 0.45s cubic-bezier(.25,.8,.25,1), background 0.4s ease;
   }
-  .nav-pill:hover {
-    border-color: var(--pink);
-    padding-right: 22px;
+  @media (hover: hover) and (pointer: fine) {
+    .nav-pill:hover {
+      border-color: var(--pink);
+      padding-right: 22px;
+    }
   }
   .nav-pill .logo {
     font-family: 'Inter', sans-serif;
@@ -251,7 +253,9 @@
   .theme-toggle .icon-moon { display: none; }
   html[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
   html[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
-  .theme-toggle:hover { border-color: var(--pink); color: var(--pink); }
+  @media (hover: hover) and (pointer: fine) {
+    .theme-toggle:hover { border-color: var(--pink); color: var(--pink); }
+  }
 
   /* Scrolled state: pill and toggle turn pink with white content */
   nav.scrolled .nav-pill {
@@ -262,12 +266,15 @@
   nav.scrolled .nav-hint span { background: var(--off-white); }
   nav.scrolled .links-track .links a { color: var(--off-white); }
   nav.scrolled .links-track .links a::after { background: var(--off-white); }
+  nav.scrolled .hamburger span { background: var(--off-white); }
   nav.scrolled .theme-toggle {
     background: var(--pink);
     border-color: var(--pink);
     color: var(--off-white);
   }
-  nav.scrolled .theme-toggle:hover { border-color: var(--off-white); }
+  @media (hover: hover) and (pointer: fine) {
+    nav.scrolled .theme-toggle:hover { border-color: var(--off-white); }
+  }
 
   /* Hero */
   .hero {
@@ -961,7 +968,7 @@
 
     function updateMorph(scrollY) {
       const viewportH = window.innerHeight;
-      const buffer = 160;
+      const buffer = 60;
       const triggerStart = Math.max(0, heroDoc.y - viewportH * 0.5 - buffer);
       const triggerEnd = introDoc.y - viewportH * 0.5 + buffer;
       const progress = clamp01((scrollY - triggerStart) / (triggerEnd - triggerStart));
