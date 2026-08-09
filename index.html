@@ -155,15 +155,15 @@
   /* Hero accent sparks */
   .hero-spark {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: 64px;
+    height: 64px;
     opacity: 0;
     pointer-events: none;
     transform: scale(0.35) rotate(-30deg);
     animation: sparkIn 0.85s cubic-bezier(.34,1.56,.64,1) forwards;
   }
   .spark-1 { top: 110px; left: 4vw; animation-delay: 1.05s; }
-  .spark-2 { bottom: 24px; right: 4vw; width: 30px; height: 30px; animation-delay: 1.25s; }
+  .spark-2 { bottom: 24px; right: 4vw; width: 48px; height: 48px; animation-delay: 1.25s; }
   .spark-float { animation: sparkFloat 6.5s ease-in-out infinite; }
   .spark-2 .spark-float { animation-duration: 5s; animation-direction: reverse; }
 
@@ -234,17 +234,8 @@
     width: 168px;
     height: 168px;
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--off-black-soft), var(--off-black));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--off-white);
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    font-size: 2.2rem;
-    letter-spacing: -0.02em;
-    opacity: 0.9;
-    /* Swap this for a real photo: background: url('your-photo.jpg') center/cover; */
+    object-fit: cover;
+    display: block;
   }
   .intro-text {
     max-width: 46ch;
@@ -463,7 +454,7 @@
 
 <section class="intro reveal">
   <h2 class="intro-greeting">Hi, I'm Sandi!</h2>
-  <div class="intro-photo" aria-hidden="true">SB</div>
+  <img class="intro-photo" src="sandi-photo.jpeg" alt="Sandi Bancod">
   <p class="intro-text">I'm a UI/UX designer with a background in creative ops and marketing. I care about how things work as much as how they look.</p>
   <div class="eyebrow">Currently a UI/UX Designer at CEC Entertainment</div>
 </section>
