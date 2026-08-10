@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sandi Bancod — Portfolio Motion Demo</title>
+<title>Adventure World — Sandi Bancod</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
     --bg: var(--off-white);
     --text: var(--off-black);
     --text-soft: var(--off-black-soft);
-    --ghost-tint: rgba(23, 20, 15, 0.055);
     --theme-transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
 
@@ -30,7 +29,6 @@
     --text-soft: #C9C2B6;
     --stone: #8C8577;
     --line: rgba(243, 239, 232, 0.14);
-    --ghost-tint: rgba(243, 239, 232, 0.05);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -276,192 +274,6 @@
     nav.scrolled .theme-toggle:hover { border-color: var(--off-white); }
   }
 
-  /* Hero */
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 215px 6vw 90px;
-    position: relative;
-  }
-  .eyebrow {
-    max-width: 46ch;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: var(--text-soft);
-    font-weight: 400;
-    opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.8s 0.4s cubic-bezier(.25,.8,.25,1) forwards;
-  }
-  @property --glow-a {
-    syntax: '<number>';
-    inherits: false;
-    initial-value: 0;
-  }
-  .hero h1 {
-    position: relative;
-    font-size: clamp(2.8rem, 11vw, 12rem);
-    line-height: 1;
-    white-space: nowrap;
-    text-transform: uppercase;
-    transition: color 0.4s ease;
-  }
-  html[data-theme="dark"] .hero h1 {
-    color: var(--pink);
-  }
-  @media (max-width: 340px) {
-    .hero h1 { font-size: clamp(2.2rem, 10vw, 12rem); }
-  }
-  .hero h1::before {
-    content: '';
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate3d(-50%, -50%, 0) scale(1);
-    width: 95%;
-    height: 220%;
-    --glow-a: 0.92;
-    background: radial-gradient(ellipse at center, rgba(213, 105, 180, var(--glow-a)), rgba(213, 105, 180, 0) 68%);
-    filter: blur(45px);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 1s cubic-bezier(.19,1,.22,1), transform 0.6s cubic-bezier(.25,.8,.25,1), --glow-a 0.6s ease;
-  }
-  .hero h1.glow-in::before { opacity: 1; }
-  .hero h1:hover::before {
-    transform: translate3d(-50%, -50%, 0) scale(1.18);
-    --glow-a: 1;
-  }
-  html[data-theme="dark"] .hero h1::before {
-    display: none;
-  }
-  @media (max-width: 640px) {
-    .hero h1::before {
-      width: 155%;
-      height: 290%;
-      --glow-a: 1;
-      filter: blur(40px);
-      will-change: opacity;
-    }
-  }
-  .hero h1 .line {
-    display: block;
-    overflow: hidden;
-    padding-bottom: 0.1em;
-    margin-bottom: -0.1em;
-  }
-  .hero h1 .line span {
-    display: block;
-    white-space: nowrap;
-    transform: translateY(110%);
-    filter: blur(10px);
-    animation: riseBlur 1s cubic-bezier(.19,1,.22,1) forwards;
-    animation-delay: 0.25s;
-  }
-
-  @keyframes riseBlur {
-    to { transform: translateY(0); filter: blur(0); }
-  }
-
-  /* Hero accent sparks */
-  .hero-spark {
-    position: absolute;
-    width: 64px;
-    height: 64px;
-    opacity: 0;
-    cursor: default;
-    transform: scale(0.35) rotate(-30deg);
-    transition: opacity 0.85s cubic-bezier(.34,1.56,.64,1), transform 0.35s cubic-bezier(.34,1.56,.64,1);
-  }
-  .hero-spark.in {
-    opacity: 0.9;
-    transform: scale(1) rotate(0deg);
-  }
-  .hero-spark:hover {
-    transform: scale(1.4) rotate(0deg);
-  }
-  .spark-1 { top: 110px; left: 4vw; }
-  .spark-2 { bottom: 24px; right: 4vw; width: 48px; height: 48px; }
-  .spark-3 { top: 176px; left: 8.5vw; width: 22px; height: 22px; }
-  .spark-float { animation: sparkFloat 6.5s ease-in-out infinite; }
-  .spark-2 .spark-float { animation-duration: 5s; animation-direction: reverse; }
-  .spark-3 .spark-float { animation-duration: 5.6s; animation-delay: -1.5s; }
-
-  @keyframes sparkFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(10deg); }
-  }
-
-  @media (max-width: 860px) {
-    .spark-1 { top: 78px; left: 5vw; width: 42px; height: 42px; }
-    .spark-2 { bottom: 40px; right: 5vw; width: 34px; height: 34px; }
-    .spark-3 { top: 118px; left: 15vw; width: 18px; height: 18px; }
-  }
-  @media (max-width: 480px) {
-    .spark-1 { top: 66px; width: 34px; height: 34px; }
-    .spark-2 { bottom: 30px; width: 28px; height: 28px; }
-    .spark-3 { top: 100px; left: 20vw; width: 15px; height: 15px; }
-  }
-
-  .hero .sub {
-    margin-top: 30px;
-    max-width: 42ch;
-    font-size: 1.05rem;
-    color: var(--text-soft);
-    opacity: 0;
-    transform: translateY(14px);
-    animation: rise 0.8s 0.75s cubic-bezier(.25,.8,.25,1) forwards;
-  }
-
-  @keyframes rise {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-photo-slot {
-    width: 150px;
-    height: 200px;
-    margin-top: 44px;
-  }
-
-  /* Intro: photo + greeting, right under the hero */
-  .intro {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 28px;
-    padding: 0 6vw 140px;
-  }
-  .intro-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-  }
-  .intro-greeting {
-    font-size: clamp(1.6rem, 3vw, 2.2rem);
-    color: var(--pink);
-  }
-  .intro-photo-slot {
-    width: 240px;
-    height: 320px;
-  }
-  .morph-photo {
-    object-fit: cover;
-    z-index: 50;
-    pointer-events: none;
-  }
-  .intro-text {
-    max-width: 46ch;
-    font-size: 1.15rem;
-    line-height: 1.6;
-    color: var(--text-soft);
-  }
-
-  /* Reveal sections */
-  section { padding: 140px 6vw; }
   .reveal {
     opacity: 0;
     transform: translateY(50px);
@@ -469,72 +281,26 @@
   }
   .reveal.in { opacity: 1; transform: translateY(0); }
 
-  .section-head {
-    display: flex;
-    flex-direction: column;
+  /* ===== Case study page ===== */
+  .cs-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 150px 6vw 0;
+  }
+  .cs-back {
+    display: inline-flex;
     align-items: center;
-    text-align: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--line);
-    padding-bottom: 28px;
-    margin-bottom: 60px;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    margin-bottom: 48px;
+    transition: color 0.3s ease, transform 0.3s ease;
   }
-  .section-head h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
-  .section-head .count {
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--pink);
-    font-weight: 600;
-    order: -1;
-  }
+  .cs-back:hover { color: var(--pink); transform: translateX(-3px); }
 
-  /* Project card grid */
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 56px 40px;
-  }
-  .project {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    position: relative;
-  }
-  .project .thumb {
-    aspect-ratio: 4/3;
-    border-radius: 14px;
-    background: linear-gradient(135deg, var(--off-black-soft), var(--off-black));
-    border: 1px solid var(--line);
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.45s cubic-bezier(.175,.885,.32,1.3);
-  }
-  .project .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .project .thumb::after {
-    content: attr(data-tag);
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--off-white);
-    font-family: 'Inter', sans-serif;
-    font-weight: 900;
-    letter-spacing: -0.02em;
-    font-size: 1.4rem;
-    opacity: 0.85;
-  }
-  .project .info { display: flex; flex-direction: column; gap: 10px; }
-  .project .info h3 { font-size: clamp(1.4rem, 2vw, 1.8rem); }
-  .project .info .tags { display: flex; gap: 8px; flex-wrap: wrap; }
-  .project .info .tags span {
-    display: inline-block;
+  .cs-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+  .cs-tags span {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -542,53 +308,242 @@
     border: 1px solid var(--text-soft);
     border-radius: 100px;
     color: var(--text-soft);
-    cursor: default;
-    background-image: linear-gradient(115deg, transparent 0%, transparent 42%, rgba(213, 105, 180, 0.65) 50%, transparent 58%, transparent 100%);
-    background-size: 260% 100%;
-    background-position: 130% 0;
-    transition: background-position 0.7s cubic-bezier(.25,.8,.25,1), border-color 0.35s ease, color 0.35s ease;
-  }
-  .project .info .tags span:hover {
-    border-color: var(--pink);
-    color: var(--pink);
-    background-position: -30% 0;
   }
 
-  @media (max-width: 860px) {
-    .work-grid { grid-template-columns: 1fr; gap: 44px; }
+  .cs-title {
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 20px;
   }
-
-  /* About section */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-  }
-  .about-intro p {
+  .cs-subtitle {
+    font-size: clamp(1.05rem, 2vw, 1.3rem);
     color: var(--text-soft);
-    line-height: 1.75;
-    font-size: 1.02rem;
-    margin-bottom: 22px;
+    max-width: 56ch;
+    line-height: 1.55;
+    margin-bottom: 44px;
   }
-  .about-intro p:last-child { margin-bottom: 0; }
 
-  .about-bring { display: flex; flex-direction: column; gap: 34px; }
-  .bring-item h4 {
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    letter-spacing: -0.01em;
+  .cs-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+  }
+  .cs-meta-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--pink);
-    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .cs-meta-value { font-size: 0.92rem; color: var(--text-soft); line-height: 1.5; }
+
+  .cs-cover {
+    width: 100%;
+    aspect-ratio: 16/10;
+    border-radius: 18px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 90px;
+    border: 1px solid var(--line);
+  }
+
+  .cs-section { margin-bottom: 90px; }
+  .cs-section-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .cs-h2 {
+    font-size: clamp(1.5rem, 3vw, 2.1rem);
+    line-height: 1.25;
+    text-transform: none;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .cs-body {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    max-width: 68ch;
+    margin-bottom: 18px;
+  }
+  .cs-body:last-child { margin-bottom: 0; }
+  .cs-body strong { color: var(--text); font-weight: 700; }
+
+  .cs-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+  }
+  .cs-stat-num {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: var(--pink);
+    letter-spacing: -0.02em;
+    line-height: 1;
     margin-bottom: 10px;
   }
-  .bring-item p {
-    color: var(--text-soft);
-    line-height: 1.7;
-    font-size: 0.96rem;
+  .cs-stat-desc { font-size: 0.88rem; color: var(--text-soft); line-height: 1.4; }
+
+  .cs-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 70px 0;
   }
 
-  @media (max-width: 860px) {
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .cs-phases {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-soft);
+  }
+  .cs-phase {
+    padding: 7px 16px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+  }
+  .cs-phase.active-phase {
+    border-color: var(--pink);
+    color: var(--pink);
+    font-weight: 600;
+  }
+  .cs-phase-sep { color: var(--line); }
+
+  .cs-quote {
+    border-left: 3px solid var(--pink);
+    padding: 4px 0 4px 24px;
+    margin: 28px 0;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.6;
+    max-width: 60ch;
+  }
+  .cs-quotes { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
+  .cs-quotes .cs-quote { margin: 0; }
+
+  .cs-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 32px 0;
+  }
+  .cs-step-title { font-weight: 700; font-size: 0.98rem; margin-bottom: 8px; }
+  .cs-step-desc { font-size: 0.88rem; color: var(--text-soft); line-height: 1.55; }
+
+  .cs-callout-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .cs-callout {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .cs-callout-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--pink);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .cs-callout-text { font-size: 0.9rem; color: var(--text-soft); line-height: 1.55; }
+
+  .cs-list { padding-left: 20px; margin: 12px 0; }
+  .cs-list li { font-size: 1rem; color: var(--text-soft); line-height: 1.75; max-width: 64ch; }
+
+  .cs-flows {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 32px 0;
+  }
+  .cs-flow-num { font-size: 0.78rem; color: var(--pink); font-weight: 700; margin-bottom: 8px; }
+  .cs-flow-name { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .cs-flow-desc { font-size: 0.85rem; color: var(--text-soft); line-height: 1.5; }
+
+  .cs-img-label { font-size: 0.85rem; color: var(--text-soft); margin-bottom: 10px; font-weight: 500; }
+
+  .cs-placeholder {
+    aspect-ratio: 16/10;
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    background: color-mix(in srgb, var(--line) 35%, transparent);
+    margin-bottom: 16px;
+  }
+  .cs-placeholder.cs-img-half { aspect-ratio: 4/3; }
+
+  .cs-img-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .cs-iteration { margin-top: 8px; margin-bottom: 12px; }
+  .cs-iteration-label { font-weight: 700; font-size: 0.98rem; margin-bottom: 8px; color: var(--text); }
+
+  .cs-nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0 100px;
+    border-top: 1px solid var(--line);
+    margin-top: 20px;
+  }
+  .cs-next {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s ease;
+  }
+  .cs-next::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 100%; height: 1px;
+    background: var(--pink);
+  }
+  .cs-next:hover { color: var(--pink); }
+
+  @media (max-width: 760px) {
+    .cs-wrap { padding-top: 120px; }
+    .cs-meta { grid-template-columns: 1fr; gap: 20px; }
+    .cs-stats { grid-template-columns: 1fr; gap: 20px; }
+    .cs-steps { grid-template-columns: 1fr; gap: 20px; }
+    .cs-callout-row { grid-template-columns: 1fr; }
+    .cs-flows { grid-template-columns: repeat(2, 1fr); }
+    .cs-img-grid { grid-template-columns: 1fr; }
+    .cs-section { margin-bottom: 64px; }
+    .cs-divider { margin: 50px 0; }
   }
 
   footer {
@@ -690,7 +645,7 @@
     <div class="nav-hint" aria-hidden="true"><span></span><span></span><span></span></div>
     <div class="links-track">
       <div class="links">
-        <a href="#work" data-hover>Work</a>
+        <a href="index.html#work" data-hover>Work</a>
         <a href="about.html" data-hover>About</a>
         <a href="SandiBancod-Resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
       </div>
@@ -711,88 +666,91 @@
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#work" data-hover>Work</a>
+  <a href="index.html#work" data-hover>Work</a>
   <a href="about.html" data-hover>About</a>
   <a href="SandiBancod-Resume.pdf" target="_blank" rel="noopener" data-hover>Resume</a>
 </div>
 
-<section class="hero">
-  <h1>
-    <span class="line"><span>UI/UX Designer</span></span>
-  </h1>
-  <div class="hero-photo-slot" aria-hidden="true"></div>
+<div class="cs-wrap">
 
-  <div class="hero-spark spark-1" aria-hidden="true">
-    <div class="spark-float">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--text)"/>
-      </svg>
+  <a class="cs-back" data-hover href="index.html#work">← Back to Work</a>
+
+  <div class="cs-tags reveal">
+    <span>Web Design</span>
+    <span>Design Systems</span>
+    <span>Digital Experience</span>
+  </div>
+  <h1 class="cs-title reveal">Adventure World.</h1>
+  <p class="cs-subtitle reveal">Web experience design and design system for Adventure World, a new indoor playground and active play concept from the makers of Chuck E. Cheese.</p>
+
+  <div class="cs-meta reveal">
+    <div>
+      <p class="cs-meta-label">Role</p>
+      <p class="cs-meta-value">Design System Lead · UI/UX Designer</p>
+    </div>
+    <div>
+      <p class="cs-meta-label">Team</p>
+      <p class="cs-meta-value">UI/UX Designer · Creative Designer · Digital Marketing Specialist · Web Developer</p>
+    </div>
+    <div>
+      <p class="cs-meta-label">Status</p>
+      <p class="cs-meta-value">Design system live and evolving — homepage built, secondary pages in progress</p>
     </div>
   </div>
-  <div class="hero-spark spark-3" aria-hidden="true">
-    <div class="spark-float">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--text)"/>
-      </svg>
-    </div>
-  </div>
-  <div class="hero-spark spark-2" aria-hidden="true">
-    <div class="spark-float">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 0C21 14 26 19 40 20C26 21 21 26 20 40C19 26 14 21 0 20C14 19 19 14 20 0Z" fill="var(--text)"/>
-      </svg>
-    </div>
-  </div>
-</section>
 
-<section class="intro">
-  <div class="intro-photo-slot" aria-hidden="true"></div>
-  <div class="intro-copy reveal">
-    <h2 class="intro-greeting">Hi, I'm Sandi!</h2>
-    <p class="intro-text">I'm a UI/UX designer with a background in creative ops and marketing. I care about how things work as much as how they look. Function first, craft always😊.</p>
-    <div class="eyebrow">Currently, I'm designing Web &amp; Digital experiences at&nbsp;CEC&nbsp;Entertainment.</div>
-  </div>
-</section>
+  <div class="cs-placeholder reveal" style="margin-bottom:90px;">Adventure World design system — color, type &amp; component previews — image coming soon</div>
 
-<section id="work">
-  <div class="section-head reveal">
-    <h2>Featured Projects</h2>
+  <div class="cs-section reveal">
+    <div class="cs-section-label">Overview</div>
+    <p class="cs-body">Adventure World is a new indoor active play brand from the same company behind Chuck E. Cheese, built for a different kind of visit. Where Chuck E. Cheese leans arcade-first with some indoor play, Adventure World flips that ratio: about 80% active play, centered on indoor playgrounds, and built to bring in older kids who've aged out of the Chuck E. Cheese experience.</p>
   </div>
 
-  <div class="work-grid">
-  <a class="project reveal" href="climbon.html" data-hover>
-    <div class="thumb"><img src="climbon-thumb.jpg" alt="ClimbOn app screens" loading="lazy"></div>
-    <div class="info">
-      <div class="tags"><span>Mobile App</span><span>Case Study</span><span>AR</span></div>
-      <h3>ClimbOn</h3>
-    </div>
-  </a>
-
-  <a class="project reveal" href="happenings.html" data-hover>
-    <div class="thumb"><img src="happenings-thumb.jpg" alt="Happenings app screens" loading="lazy"></div>
-    <div class="info">
-      <div class="tags"><span>Mobile App</span><span>Social</span><span>Case Study</span></div>
-      <h3>Happenings</h3>
-    </div>
-  </a>
-
-  <a class="project reveal" href="adventure-world.html" data-hover>
-    <div class="thumb" data-tag="Adventure World"></div>
-    <div class="info">
-      <div class="tags"><span>Web Design</span><span>Design Systems</span><span>Digital Experience</span></div>
-      <h3>Adventure World</h3>
-    </div>
-  </a>
-
-  <a class="project reveal" href="chuck-e-cheese.html" data-hover>
-    <div class="thumb"><img src="cec-thumb.jpg" alt="Chuck E. Cheese Kid Check landing page" loading="lazy"></div>
-    <div class="info">
-      <div class="tags"><span>Web Design</span><span>Full-Service Kiosks</span><span>Digital Experience</span></div>
-      <h3>Chuck E. Cheese</h3>
-    </div>
-  </a>
+  <div class="cs-section reveal">
+    <div class="cs-section-label">What I Built</div>
+    <p class="cs-body">Because it's a new brand, it needed a visual system from scratch. Our creative team designed the brand. I translated that into the design system, including:</p>
+    <ul class="cs-list">
+      <li>Color and type</li>
+      <li>A component library</li>
+      <li>Spacing and grid rules</li>
+      <li>Icon set</li>
+      <li>Illustration guidelines</li>
+    </ul>
   </div>
-</section>
+
+  <div class="cs-section reveal">
+    <div class="cs-section-label">The Challenge</div>
+    <h2 class="cs-h2">One brand, four worlds.</h2>
+    <p class="cs-body">Adventure World isn't one room; it's a set of themed zones (Cosmic Bounce, Jungle, Bubble Reef, and more), each with its own personality. The system had to let each world feel distinct while staying anchored to the same components, type, and spacing underneath. Consistency lives in the structure, not in forcing every world to look the same.</p>
+  </div>
+
+  <div class="cs-section reveal">
+    <div class="cs-section-label">The Tension</div>
+    <h2 class="cs-h2">A bold, gradient-forward brand versus WCAG accessibility standards.</h2>
+    <p class="cs-body">Our brand and creative team leaned heavily into background gradients as a signature look. Leadership wanted that gradient-forward energy, and I needed the site to still meet accessibility standards. Rather than fight the direction, I worked within it: text containers, adjusted font weights, and reworked creative assets to boost contrast wherever the gradients got busy, so the pages kept their energy without losing readability.</p>
+  </div>
+
+  <div class="cs-section reveal">
+    <div class="cs-section-label">The Process</div>
+    <h2 class="cs-h2">A lot of voices, one cohesive site.</h2>
+    <p class="cs-body">This build has a creative director, a creative designer I partnered with directly, brand marketing, and digital marketing all in the room. Our creative team designed the homepage direction, which I brought into Figma, and I'm designing the rest of the site myself, folding in feedback from brand marketing and leadership along the way. With that many stakeholders, there's a lot of back and forth by nature. I leaned on tools like Claude to move faster through things like GEO considerations, so more of my time could go toward the design decisions that needed a human in the room.</p>
+  </div>
+
+  <div class="cs-section reveal">
+    <div class="cs-section-label">Where it Stands</div>
+    <h2 class="cs-h2">Status: In Progress</h2>
+    <p class="cs-body">The homepage is built. The design system is in place and still evolving as new pages surface new needs. I'm finishing the secondary pages now.</p>
+    <p class="cs-body">Want to know more? I'm happy to share more about this project:</p>
+    <p class="cs-body"><a class="cs-next" data-hover href="mailto:sandibanc@gmail.com">Get in Touch →</a></p>
+  </div>
+
+  <div class="cs-placeholder reveal" style="aspect-ratio:16/9;">Wireframe → final design version comparison — image coming soon</div>
+
+  <div class="cs-nav-row reveal" style="margin-top:20px;">
+    <a class="cs-next" data-hover href="happenings.html">← Happenings</a>
+    <a class="cs-next" data-hover href="chuck-e-cheese.html">Next: Chuck E. Cheese →</a>
+  </div>
+
+</div>
 
 <footer id="contact">
   <h2 class="reveal">Let's Connect!</h2>
@@ -860,19 +818,6 @@
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
   });
 
-  // Staggered spark entrance (matches the original animation-delay timing)
-  window.addEventListener('DOMContentLoaded', () => {
-    const spark1 = document.querySelector('.spark-1');
-    const spark2 = document.querySelector('.spark-2');
-    const spark3 = document.querySelector('.spark-3');
-    if (spark1) setTimeout(() => spark1.classList.add('in'), 1050);
-    if (spark2) setTimeout(() => spark2.classList.add('in'), 1250);
-    if (spark3) setTimeout(() => spark3.classList.add('in'), 1150);
-
-    const heroH1 = document.querySelector('.hero h1');
-    if (heroH1) setTimeout(() => heroH1.classList.add('glow-in'), 400);
-  });
-
   // Smooth inertial scrolling
   const lenis = new Lenis({
     duration: 1.15,
@@ -891,7 +836,7 @@
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
   });
-  document.querySelectorAll('[data-hover], .project, a').forEach(el => {
+  document.querySelectorAll('[data-hover], a').forEach(el => {
     el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
     el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
   });
@@ -925,7 +870,6 @@
     });
   }
 
-  // Subtle horizontal parallax drift on the footer ghost wordmark
   // Magnetic pull — element tugs toward the cursor within its own bounds, springs back on leave
   function addMagnetic(el, { maxMove = 14, pull = 0.35, scale = 1 } = {}) {
     el.addEventListener('mousemove', (e) => {
@@ -941,76 +885,6 @@
     });
   }
   document.querySelectorAll('nav .links a').forEach(el => addMagnetic(el, { maxMove: 8, pull: 0.4 }));
-  document.querySelectorAll('.project .thumb').forEach(el => addMagnetic(el, { maxMove: 16, pull: 0.25, scale: 1.03 }));
-
-  // Photo morph: a single photo lives in the hero small and grows/spins into
-  // the larger portrait as the intro section scrolls into view.
-  const heroSlot = document.querySelector('.hero-photo-slot');
-  const introSlot = document.querySelector('.intro-photo-slot');
-  if (heroSlot && introSlot) {
-    const morphPhoto = document.createElement('img');
-    morphPhoto.src = 'sandi-photo.jpeg';
-    morphPhoto.alt = 'Sandi Bancod';
-    morphPhoto.className = 'morph-photo';
-    morphPhoto.style.position = 'fixed';
-    morphPhoto.style.top = '0';
-    morphPhoto.style.left = '0';
-    morphPhoto.style.transformOrigin = '50% 50%';
-    morphPhoto.style.willChange = 'transform';
-    document.body.appendChild(morphPhoto);
-
-    let heroDoc, introDoc;
-    function measureSlots() {
-      const hr = heroSlot.getBoundingClientRect();
-      const ir = introSlot.getBoundingClientRect();
-      heroDoc = { x: hr.left + window.scrollX, y: hr.top + window.scrollY, w: hr.width, h: hr.height };
-      introDoc = { x: ir.left + window.scrollX, y: ir.top + window.scrollY, w: ir.width, h: ir.height };
-      // Intrinsic box size stays fixed at the larger (intro) size; all animation
-      // afterward happens purely via `transform`, so it's GPU-composited and
-      // never triggers layout — this is what keeps the scroll morph smooth on mobile.
-      morphPhoto.style.width = introDoc.w + 'px';
-      morphPhoto.style.height = introDoc.h + 'px';
-    }
-    measureSlots();
-    window.addEventListener('resize', () => { measureSlots(); updateMorph(window.scrollY); });
-    window.addEventListener('load', () => { measureSlots(); updateMorph(window.scrollY); });
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(() => { measureSlots(); updateMorph(window.scrollY); });
-    }
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    function clamp01(v) { return Math.max(0, Math.min(1, v)); }
-
-    function updateMorph(scrollY) {
-      const viewportH = window.innerHeight;
-      const buffer = 60;
-      const triggerStart = Math.max(0, heroDoc.y - viewportH * 0.5 - buffer);
-      const triggerEnd = introDoc.y - viewportH * 0.5 + buffer;
-      const progress = clamp01((scrollY - triggerStart) / (triggerEnd - triggerStart));
-
-      const w = lerp(heroDoc.w, introDoc.w, progress);
-      const h = lerp(heroDoc.h, introDoc.h, progress);
-      const cx = lerp(heroDoc.x + heroDoc.w / 2, introDoc.x + introDoc.w / 2, progress);
-      const cy = lerp(heroDoc.y + heroDoc.h / 2, introDoc.y + introDoc.h / 2, progress);
-      const radius = lerp(20, 24, progress);
-      const startTilt = 10;
-      const rotation = lerp(startTilt, 360, progress);
-
-      const docX = cx - window.scrollX;
-      const docY = cy - scrollY;
-      const tx = docX - introDoc.w / 2;
-      const ty = docY - introDoc.h / 2;
-      const scaleX = w / introDoc.w;
-      const scaleY = h / introDoc.h;
-
-      morphPhoto.style.borderRadius = radius + 'px';
-      morphPhoto.style.transform =
-        `translate3d(${tx.toFixed(2)}px, ${ty.toFixed(2)}px, 0) scale(${scaleX.toFixed(4)}, ${scaleY.toFixed(4)}) rotate(${rotation.toFixed(2)}deg)`;
-    }
-
-    updateMorph(window.scrollY);
-    lenis.on('scroll', ({ scroll }) => updateMorph(scroll));
-  }
 </script>
 
 </body>
