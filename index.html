@@ -337,6 +337,13 @@
   html[data-theme="dark"] .hero h1::before {
     display: none;
   }
+  @media (max-width: 640px) {
+    .hero h1::before {
+      width: 160%;
+      height: 340%;
+      filter: blur(38px);
+    }
+  }
   .hero h1 .line {
     display: block;
     overflow: hidden;
