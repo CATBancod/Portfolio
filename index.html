@@ -501,6 +501,12 @@
     position: relative;
     transition: transform 0.45s cubic-bezier(.175,.885,.32,1.3);
   }
+  .project .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
   .project .thumb::after {
     content: attr(data-tag);
     position: absolute;
@@ -746,7 +752,7 @@
 
   <div class="work-grid">
   <div class="project reveal">
-    <div class="thumb" data-tag="ClimbOn"></div>
+    <div class="thumb"><img src="climbon-thumb.jpg" alt="ClimbOn app screens" loading="lazy"></div>
     <div class="info">
       <div class="tags"><span>Mobile App</span><span>Case Study</span><span>AR</span></div>
       <h3>ClimbOn</h3>
@@ -754,7 +760,7 @@
   </div>
 
   <div class="project reveal">
-    <div class="thumb" data-tag="Happenings"></div>
+    <div class="thumb"><img src="happenings-thumb.jpg" alt="Happenings app screens" loading="lazy"></div>
     <div class="info">
       <div class="tags"><span>Mobile App</span><span>Social</span><span>Case Study</span></div>
       <h3>Happenings</h3>
@@ -770,7 +776,7 @@
   </div>
 
   <div class="project reveal">
-    <div class="thumb" data-tag="CEC"></div>
+    <div class="thumb"><img src="cec-thumb.jpg" alt="Chuck E. Cheese Kid Check landing page" loading="lazy"></div>
     <div class="info">
       <div class="tags"><span>Web Design</span><span>Full-Service Kiosks</span><span>Digital Experience</span></div>
       <h3>Chuck E. Cheese</h3>
