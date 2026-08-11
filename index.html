@@ -285,6 +285,7 @@
     text-align: center;
     padding: 215px 6vw 90px;
     position: relative;
+    overflow-x: clip;
   }
   .eyebrow {
     max-width: 46ch;
@@ -681,8 +682,7 @@
 
 /* ===== Case study page ===== */
   .cs-wrap {
-    max-width: 860px;
-    margin: 0 auto;
+    max-width: 1200px;
     padding: 150px 6vw 0;
   }
   .cs-back {
@@ -710,7 +710,6 @@
 
   .cs-title {
     font-size: clamp(2.6rem, 7vw, 5rem);
-    text-transform: uppercase;
     line-height: 1;
     margin-bottom: 20px;
   }
@@ -726,6 +725,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    max-width: 780px;
     padding: 28px 0;
     border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
@@ -781,6 +781,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    max-width: 700px;
     margin-top: 36px;
   }
   .cs-stat-num {
@@ -838,6 +839,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+    max-width: 780px;
     margin: 32px 0;
   }
   .cs-step-title { font-weight: 700; font-size: 0.98rem; margin-bottom: 8px; }
@@ -847,6 +849,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    max-width: 860px;
     margin: 28px 0;
   }
   .cs-callout {
@@ -871,6 +874,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
+    max-width: 900px;
     margin: 32px 0;
   }
   .cs-flow-num { font-size: 0.78rem; color: var(--stone); font-weight: 700; margin-bottom: 8px; }
