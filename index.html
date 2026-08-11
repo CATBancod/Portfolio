@@ -287,6 +287,9 @@
     position: relative;
     overflow-x: clip;
   }
+  @media (min-width: 1024px) {
+    .hero { min-height: 90vh; padding-bottom: 130px; }
+  }
   .eyebrow {
     max-width: 46ch;
     font-size: 1.15rem;
@@ -304,7 +307,7 @@
   }
   .hero h1 {
     position: relative;
-    font-size: clamp(2.8rem, 11vw, 12rem);
+    font-size: clamp(2.8rem, 8.5vw, 8.5rem);
     line-height: 1;
     white-space: nowrap;
     text-transform: uppercase;
@@ -421,8 +424,8 @@
   }
 
   .hero-photo-slot {
-    width: 150px;
-    height: 200px;
+    width: clamp(150px, 11vw, 210px);
+    height: clamp(200px, 14.667vw, 280px);
     margin-top: 44px;
   }
 
