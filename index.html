@@ -10,22 +10,22 @@
 <style>
   :root {
     --off-white: #FFFFFF;
-    --off-black: #17140F;
-    --off-black-soft: #262117;
+    --off-black: #120F0B;
+    --off-black-soft: #211C13;
     --pink: #D569B4;
     --pink-deep: #B84A96;
     --stone: #A79E90;
-    --line: rgba(23, 20, 15, 0.12);
+    --line: rgba(18, 15, 11, 0.12);
 
     --bg: var(--off-white);
     --text: var(--off-black);
     --text-soft: var(--off-black-soft);
-    --ghost-tint: rgba(23, 20, 15, 0.055);
+    --ghost-tint: rgba(18, 15, 11, 0.055);
     --theme-transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
   }
 
   html[data-theme="dark"] {
-    --bg: #14120F;
+    --bg: #120F0B;
     --text: #F3EFE8;
     --text-soft: #C9C2B6;
     --stone: #8C8577;
@@ -598,57 +598,51 @@
   footer {
     position: relative;
     overflow: hidden;
-    padding: 100px 8vw 56px;
-    border-top: 1px solid var(--line);
-    text-align: center;
+    padding: 130px 8vw 60px;
+    background: var(--off-black);
+    text-align: left;
   }
   footer h2 {
     position: relative;
     z-index: 1;
-    font-size: clamp(2.2rem, 5vw, 3.6rem);
-    margin-bottom: 40px;
+    color: #FFFFFF;
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6vw, 4.6rem);
+    margin-bottom: 56px;
   }
   footer .row {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 14px;
-  }
-  .footer-links {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 18px;
   }
   footer .email {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+  .footer-linkedin-line {
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: #FFFFFF;
+  }
+  .footer-linkedin-text {
+    color: #FFFFFF;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.3s ease;
+  }
+  .footer-linkedin-text:hover { color: var(--pink); }
+  footer .meta {
     position: relative;
-    padding-bottom: 4px;
+    z-index: 1;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 70px;
   }
-  footer .email::after {
-    content: '';
-    position: absolute;
-    left: 0; bottom: 0;
-    width: 100%; height: 1px;
-    background: var(--pink);
-  }
-  .linkedin-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 1px solid var(--line);
-    color: var(--text);
-    transition: border-color 0.3s ease, color 0.3s ease, transform 0.4s cubic-bezier(.175,.885,.32,1.4);
-  }
-  .linkedin-link svg { width: 17px; height: 17px; }
-  .linkedin-link:hover { border-color: var(--pink); color: var(--pink); }
-  footer .meta { font-size: 0.8rem; color: var(--stone); }
 
   .back-to-top {
     position: fixed;
@@ -685,7 +679,8 @@
 
 /* ===== Case study page ===== */
   .cs-wrap {
-    max-width: 1000px;
+    max-width: 1060px;
+    margin: 0 auto;
     padding: 150px 8vw 0;
   }
   .cs-back {
@@ -1671,17 +1666,10 @@
 <footer id="contact">
   <h2 class="reveal">Let's Connect!</h2>
   <div class="row reveal">
-    <div class="footer-links">
-      <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
-      <a class="linkedin-link" data-hover href="https://www.linkedin.com/in/sandibancod" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="2" width="20" height="20" rx="4" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M7.5 10V17M7.5 7.2V7.21M11.5 17V10M11.5 12.8C11.5 11.2536 12.7536 10 14.3 10C15.8464 10 17 11.2536 17 12.8V17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-    <div class="meta">© 2026 Sandi Bancod</div>
+    <a class="email" data-hover href="mailto:sandibanc@gmail.com">sandibanc@gmail.com</a>
+    <p class="footer-linkedin-line">Connect with me on <a class="footer-linkedin-text" data-hover href="https://www.linkedin.com/in/catherine-alessandra-bancod" target="_blank" rel="noopener">LinkedIn</a></p>
   </div>
+  <div class="meta">© 2026 Sandi Bancod</div>
 </footer>
 
 <button class="back-to-top" id="backToTop" data-hover aria-label="Back to top">
