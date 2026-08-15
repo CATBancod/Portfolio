@@ -950,21 +950,205 @@
   /* Single-file page routing */
   .page { display: none; }
   .page.active { display: block; }
-  .page-about-inner {
-    max-width: 640px;
+
+  /* ===== About page ===== */
+  .about-wrap {
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 220px 8vw 160px;
-    text-align: center;
+    padding: 150px 8vw 0;
   }
-  .page-about-inner h1 {
-    font-size: clamp(2rem, 5vw, 3rem);
-    text-transform: uppercase;
-    margin-bottom: 20px;
+  .about-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 90px;
   }
-  .page-about-inner p {
+  .about-hero h1 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin-bottom: 22px;
+  }
+  .about-hero p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    max-width: 56ch;
+    margin-bottom: 18px;
+  }
+  .about-hero p:last-child { margin-bottom: 0; }
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+  }
+
+  /* Skills marquee */
+  .about-marquee {
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 26px 0;
+    margin-bottom: 90px;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .about-marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    width: max-content;
+    animation: marqueeScroll 26s linear infinite;
+  }
+  .about-marquee-track span {
     font-size: 1.05rem;
     color: var(--text-soft);
+    white-space: nowrap;
+  }
+  .about-marquee-track .about-marquee-star {
+    color: var(--pink);
+    font-size: 0.9rem;
+  }
+  @keyframes marqueeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Accordions */
+  .about-accordions-row {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 60px;
+    margin-bottom: 100px;
+  }
+  .about-accordions-label {
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    font-weight: 700;
+  }
+  .about-accordion {
+    border-bottom: 1px solid var(--line);
+  }
+  .about-accordion:first-child {
+    border-top: 1px solid var(--line);
+  }
+  .about-accordion-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .about-accordion-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: var(--text-soft);
+    transition: border-color 0.3s ease, color 0.3s ease;
+  }
+  .about-accordion.open .about-accordion-icon {
+    border-color: var(--pink);
+    color: var(--pink);
+  }
+  .about-accordion-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+  .about-accordion-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.5s cubic-bezier(.25,.8,.25,1);
+  }
+  .about-accordion.open .about-accordion-body {
+    grid-template-rows: 1fr;
+  }
+  .about-accordion-body-inner {
+    overflow: hidden;
+  }
+  .about-accordion-body p {
+    font-size: 1rem;
     line-height: 1.7;
+    color: var(--text-soft);
+    max-width: 62ch;
+    margin-bottom: 16px;
+  }
+  .about-accordion-body p:last-child { margin-bottom: 0; }
+  .about-accordion-body strong { color: var(--text); font-weight: 700; }
+  .about-accordion-body h4 {
+    font-size: 1rem;
+    color: var(--pink);
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+  .about-accordion-body h4:first-child { margin-top: 0; }
+  .about-accordion-body ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+  .about-accordion-body ul li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-soft);
+    max-width: 60ch;
+  }
+  .about-accordion-body-pad { padding-bottom: 28px; }
+
+  /* Collage + Outside of Work */
+  .about-outside-row {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+    align-items: start;
+    padding-bottom: 130px;
+  }
+  .about-collage-placeholder {
+    aspect-ratio: 3/4;
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--text-soft);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    background: color-mix(in srgb, var(--line) 35%, transparent);
+  }
+  .about-outside-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .about-outside-row p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    max-width: 58ch;
+    margin-bottom: 16px;
+  }
+  .about-outside-row p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 860px) {
+    .about-wrap { padding-top: 120px; }
+    .about-hero { grid-template-columns: 1fr; gap: 30px; }
+    .about-hero .about-photo { order: -1; max-width: 320px; margin: 0 auto; }
+    .about-accordions-row { grid-template-columns: 1fr; gap: 20px; }
+    .about-outside-row { grid-template-columns: 1fr; gap: 30px; }
+    .about-marquee { margin-bottom: 60px; }
+    .about-accordions-row { margin-bottom: 70px; }
   }
 </style></head>
 <body>
@@ -1065,7 +1249,7 @@
   </a>
 
   <a class="project reveal" href="#adventure-world" data-hover>
-    <div class="thumb" data-tag="Adventure World"></div>
+    <div class="thumb"><img src="adventure-world-thumb.jpg" alt="Adventure World design system" loading="lazy"></div>
     <div class="info">
       <div class="tags"><span>Web Design</span><span>Design Systems</span><span>Digital Experience</span></div>
       <h3>Adventure World</h3>
@@ -1527,7 +1711,7 @@
     </div>
   </div>
 
-  <div class="cs-placeholder reveal" style="margin-bottom:90px;">Adventure World design system — color, type &amp; component previews — image coming soon</div>
+  <img src="adventure-world-thumb.jpg" alt="Adventure World design system — color, type &amp; component previews" class="cs-cover reveal" style="margin-bottom:90px;">
 
   <div class="cs-section reveal">
     <div class="cs-section-label">Overview</div>
@@ -1656,9 +1840,113 @@
 </div>
 
 <div class="page" id="page-about">
-<div class="page-about-inner">
-  <h1>About</h1>
-  <p>This page is on its way. In the meantime, feel free to reach out at <a href="mailto:sandibanc@gmail.com" data-hover style="color:var(--text); text-decoration:underline;">sandibanc@gmail.com</a>.</p>
+
+<div class="about-wrap">
+
+  <div class="about-hero">
+    <div class="reveal">
+      <h1>Hi, I'm Sandi!</h1>
+      <p>I'm a UI/UX designer with a background in creative operations, digital marketing, and brand experience. My career has taken an unconventional path, and that's become one of my greatest strengths.</p>
+      <p>Before I was designing user experiences, I was helping bring them to life behind the scenes: coordinating creative teams, supporting national marketing campaigns, managing digital production, and learning how business strategy, collaboration, and design all intersect. Those experiences taught me that great products aren't built by great designers alone. They're built by teams who understand both people and process.</p>
+      <p>Today, I bring that perspective into every project I work on. UI/UX is my bread and butter, but I still keep a hand in campaigns and brand work, because I've never fully separated the two. I don't just think about how an interface looks. I think about how it works, how it feels, and how it fits into something bigger.</p>
+    </div>
+    <img src="sandi-photo.jpeg" alt="Sandi Bancod" class="about-photo reveal">
+  </div>
+
+  <div class="about-marquee reveal">
+    <div class="about-marquee-track">
+      <span>design systems</span><span class="about-marquee-star">✳</span>
+      <span>user research</span><span class="about-marquee-star">✳</span>
+      <span>prototyping</span><span class="about-marquee-star">✳</span>
+      <span>design strategy</span><span class="about-marquee-star">✳</span>
+      <span>designing with ai</span><span class="about-marquee-star">✳</span>
+      <span>visual design</span><span class="about-marquee-star">✳</span>
+      <span>UI/UX design</span><span class="about-marquee-star">✳</span>
+      <span>design systems</span><span class="about-marquee-star">✳</span>
+      <span>user research</span><span class="about-marquee-star">✳</span>
+      <span>prototyping</span><span class="about-marquee-star">✳</span>
+      <span>design strategy</span><span class="about-marquee-star">✳</span>
+      <span>designing with ai</span><span class="about-marquee-star">✳</span>
+      <span>visual design</span><span class="about-marquee-star">✳</span>
+      <span>UI/UX design</span><span class="about-marquee-star">✳</span>
+    </div>
+  </div>
+
+  <div class="about-accordions-row reveal">
+    <div class="about-accordions-label">Maybe you'd like to know&hellip;</div>
+    <div>
+
+      <div class="about-accordion open" data-accordion>
+        <button class="about-accordion-head" data-hover>
+          <span class="about-accordion-icon">&minus;</span>
+          <span class="about-accordion-title">My Journey</span>
+        </button>
+        <div class="about-accordion-body">
+          <div class="about-accordion-body-inner">
+            <div class="about-accordion-body-pad">
+              <p>My introduction to design started with visual storytelling: branding, digital marketing, content when I was a social media strategist at WAY Social Media Marketing Agency. Over time, I became less interested in the visuals themselves and more curious about what sat behind them: the decisions users make, the moments that trip them up, the systems that quietly shape how people move through a product.</p>
+              <p>That curiosity led me to a <strong>UX/UI Design Certificate from the University of Texas at Austin</strong>, and it's kept me learning ever since.</p>
+              <p>Today, I work as a Marketing Operations Specialist at Chuck E. Cheese, where I sit across marketing, creative, and digital teams supporting national campaigns and customer-facing experiences, everything from designing digital assets and web pages to coordinating cross-functional launches and untangling creative workflows.</p>
+              <p>UI/UX is where I do my deepest thinking and where I want to keep growing, but I've never wanted to fully let go of campaigns and brand work. They keep me sharp on the bigger picture a product lives inside of.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-accordion" data-accordion>
+        <button class="about-accordion-head" data-hover>
+          <span class="about-accordion-icon">+</span>
+          <span class="about-accordion-title">How I Think</span>
+        </button>
+        <div class="about-accordion-body">
+          <div class="about-accordion-body-inner">
+            <div class="about-accordion-body-pad">
+              <p>I believe good design should feel effortless. The best digital experiences don't call attention to themselves, but they clear a path and let people get on with what they came to do.</p>
+              <p>In addition to asking "how can I make this look better?" I'm asking:</p>
+              <ul>
+                <li>What problem are we actually solving?</li>
+                <li>What does someone need in this exact moment?</li>
+                <li>Where might they hesitate, or lose confidence?</li>
+                <li>How do their goals and the business's goals actually line up?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-accordion" data-accordion>
+        <button class="about-accordion-head" data-hover>
+          <span class="about-accordion-icon">+</span>
+          <span class="about-accordion-title">What I Bring</span>
+        </button>
+        <div class="about-accordion-body">
+          <div class="about-accordion-body-inner">
+            <div class="about-accordion-body-pad">
+              <h4>Systems thinking.</h4>
+              <p>I rarely see one screen in isolation. I see the workflow, the handoffs, the structure underneath. Whether I'm designing an interface or fixing a broken creative pipeline, I default to organizing the whole system, not just the visible piece.</p>
+              <h4>Cross-functional fluency.</h4>
+              <p>Some of my best work has happened in the space between disciplines, translating between marketers, developers, creative directors, and vendors so a shared goal actually stays shared. I've learned how to ask the question that unblocks a room.</p>
+              <h4>Visual craft, in service of clarity.</h4>
+              <p>My background and skills show up in how I handle typography, hierarchy, and spacing, but I treat visual design as a tool for usability, not a substitute for it.</p>
+              <h4>Curiosity that doesn't sit still.</h4>
+              <p>New AI tools, sharper design systems, a beautifully made app I can't stop thinking about. I'm always circling back to "how did they do that, and what would I do differently."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="about-outside-row reveal">
+    <div class="about-collage-placeholder">Personal photo collage — images coming soon</div>
+    <div>
+      <div class="about-outside-title">Outside of Work</div>
+      <p>If you can't find me at my computer, I'm usually chasing one side quest or another! I enjoy exploring new hobbies, and always having a personal project going in the background, something to build, learn, and most of all have fun!!</p>
+      <p>On any given week you'll find me trying out a new coffee shop, in a Barre class, writing, or spending quality time with the people I love most!</p>
+    </div>
+  </div>
+
 </div>
 
 </div>
@@ -1705,6 +1993,26 @@
       });
     });
   })();
+
+  // About page accordions — single-open-at-a-time within each group
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.about-accordion').forEach(acc => {
+      const head = acc.querySelector('.about-accordion-head');
+      const icon = acc.querySelector('.about-accordion-icon');
+      head.addEventListener('click', () => {
+        const isOpen = acc.classList.contains('open');
+        const group = acc.parentElement.querySelectorAll('.about-accordion');
+        group.forEach(other => {
+          other.classList.remove('open');
+          other.querySelector('.about-accordion-icon').textContent = '+';
+        });
+        if (!isOpen) {
+          acc.classList.add('open');
+          icon.textContent = '\u2212';
+        }
+      });
+    });
+  });
 
   // Mobile hamburger menu
   window.addEventListener('DOMContentLoaded', () => {
